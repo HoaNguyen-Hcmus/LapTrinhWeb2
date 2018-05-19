@@ -1,59 +1,75 @@
-﻿- Sản phẩm:
-	+ Mã
-	+ Tên
-	+ Giá bán
-	+ Giờ đăng
-	+ Hạn bán
-	+ Trạng thái (boolean)
-	+ Người đăng
+﻿1. Sản phẩm:
+	+ Mã: int, primarykey
+	+ Tên: varchar(255)
+	+ Giá bán: decimal
+	+ Giờ đăng: datetime, timestamp
+	+ Hạn bán: datetime
+	+ Trạng thái: (boolean)
+	+ Người đăng: int
+	+ Giá mua luôn: decimal
+	+ Số lượt ra giá: INT
+	+ Giá sàn: DECIMAL
+	+ Bước giá đề nghị: DECIMAL
+	+ Tự động gia hạn: BOOLEAN
 
-- Danh mục:
-	+ Mã danh mục
-	+ Tên danh mục
+2.Danh mục:
+	+ Mã danh mục: INT, pk
+	+ Tên danh mụC: VARCHAR(255)
 
-- Đấu giá:
-	+ Mã đấu giá:
-	+ Sản phẩm đấu giá:
-	+ Người ra giá:
-	+ Giá đưa ra:
-	+ Trạng thái kick:
-	+ Có thắng cuộc:
+3.Đấu giá:
+	+ Mã đấu giá: INT, PK
+	+ Sản phẩm đấu giá: INT, FK
+	+ Người ra giá: INT, FK
+	+ Giá đưa ra: DECMAL
+	+ Giá đấu giá tự động: DECIMAL
+	+ Trạng thái kick: BLOOLEAN
+	+ Có thắng cuộc: BOOLEAN
 	
 
-- Mô tả:
-	+ Mã mô tả:
-	+ Sản phẩm (ID Pro)
-	+ Mô tả:
-	+ Thời gian đăng:
+4.Mô tả:
+	+ Mã mô tả: INT, PK
+	+ Sản phẩm (ID Pro): INT, FK
+	+ Mô tả: TEXT
+	+ Thời gian đăng: DATE TIME, TIME STAMP
 
-<<<<<<< HEAD
+5.Danh sách yêu thích:
+	+ Mã: INT, PK
+	+ Người dùng: INT,FK
+	+ Sản phẩm: INT, FK
 
-/// Nguyễn Hòa cập nhật
-- 
+6.Danh sách xin được bán:
+	+ Mã: INT,PK
+	+ Người dùng: INT, FK
+	+ Trạng thái:BOOLEAN
+	+ Thời gian xin bán: DATE TIME, TIME STAMP
 
-///
-=======
-+ Danh sách yêu thích:
-	+ Mã:
-	+ Người dùng:
-	+ Sản phẩm:
+7.Cấp lại mật khẩu:
+	+ Mã:INT ,PK
+	+ Người dùng: INT,FK
+	+ Trạng thái:BOOLEAN
 
-+ Danh sách xin được bán:
-	+ Mã:
-	+ Người dùng:
-	+ Trạng thái:
+8.Nhận xét:
+	+ ID  nhận xét: INT,PK
+	+ Người nhận xét: INT,FK
+	+ Nhận xét: TEXT
+	+ Người được nhận xét: INT, FK
+	+ Thời gian: DATE TIME, TIME STAMP
+	+ Trạng thái đánh giá: INT (+-1)
 
-+ Cấp lại mật khẩu:
-	+ Mã:
-	+ Người dùng:
-	+ Trạng thái:
+9.Người dùng:
+	+ ID: 
+	+ Họ tên
+	+ Sđt
+	+ địa chỉ
+	+ Email	
+	+ Điểm đánh giá: INT 
+	+ Kiểu người (mua/bán): BOOLEAN (TRUE: BAN | FALSE: MUA)
 
-+ Nhận xét:
-	+ Mã:
-	+ Người nhận xét:
-	+ Nhận xét:
-	+ Người được nhận xét:
+10. Admin		
+	+ User name	
+	+ Pass Word	
 
-+ Người dùng:
-	+ Điểm đánh giá
->>>>>>> f0517b41b1d37ca2369cbde61e29fbeca5c83896
+11. Login
+	+ ID		
+	+ User name
+	+ PassWord

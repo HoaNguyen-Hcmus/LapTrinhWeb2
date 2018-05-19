@@ -2,6 +2,7 @@ var morgan = require('morgan'),
 	mysql = require('mysql'),
 	express = require('express'),
 	cors = require('cors'),
+<<<<<<< HEAD
 	bodyparser = require('body-parser'),
 	jwt = require('jsonwebtoken'),
 //<<<<<<< HEAD
@@ -26,17 +27,35 @@ var userCtrl=require('./1560202-Hoa/userController');
 ///
 
 //>>>>>>> NguyenHoa
+=======
+	bodyparser = require('body-parser');
+
+var adminCtr = require('./controller/adminController'),
+	constants = require('./fn/const'),
+	fnCheckToken = require('./fn/checkToken');
+
+var app = express();
+
+>>>>>>> Huy
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyparser.json());
 
+<<<<<<< HEAD
 
 //<<<<<<< HEAD
+=======
+app.use(express.static('public'));
+
+app.use('/admin', adminCtr);
+
+>>>>>>> Huy
 app.get('/', (req, res) => {
 	res.json({mess: "Welcome to my page"});
 });
 
 
+<<<<<<< HEAD
 app.use('/login', loginCtrl);
 //=======
 
@@ -54,6 +73,8 @@ app.use('/Signup',userCtrl);
 //-------
 //>>>>>>> NguyenHoa
 
+=======
+>>>>>>> Huy
 app.listen(3000, () => {
 	console.log('API is runnung on port 3000');
 });

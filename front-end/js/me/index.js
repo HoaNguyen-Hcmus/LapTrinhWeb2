@@ -12,9 +12,13 @@ $.ajax({
 	console.log(error);
 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 $("#btn-loguot").on('click', function() {
 	localStorage.access_token = undefined;
 });
 =======
 
 >>>>>>> NguyenHoa
+=======
+
+>>>>>>> Huy

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 $(document).ready(function() {
 	$("#btn-sign-up").on('click', function() {
 		swal('Người dùng đăng kí');
@@ -92,6 +93,11 @@ $(document).ready(function() {
 	$("#btn-sign-up").on('click', function() {
 		//swal('Người dùng đăng kí');
 >>>>>>> NguyenHoa
+=======
+$(document).ready(function() {
+	$("#btn-sign-up").on('click', function() {
+		swal('Người dùng đăng kí');
+>>>>>>> Huy
 		var data = {
 			name: $("#name-sign-up").val(),
 			birth: $("#birth-sign-up").val(),
@@ -103,11 +109,15 @@ $(document).ready(function() {
 			pass: $("#pass-sign-up").val()
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Huy
 		console.log(data);
 		//ajax event
 	});
 
 	$("#btn-log-in").on('click', function() {
+<<<<<<< HEAD
 		//swal('Người dùng đăng nhập');
 		//ajax event
 		var dataToPost = {
@@ -172,4 +182,9 @@ $(document).ready(function() {
 	});
 
 >>>>>>> NguyenHoa
+=======
+		swal('Người dùng đăng nhập');
+		//ajax event
+	});
+>>>>>>> Huy
 });

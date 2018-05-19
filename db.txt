@@ -1,0 +1,24 @@
+﻿- Sản phẩm:
+	+ Mã
+	+ Tên
+	+ Giá bán
+	+ Giờ đăng
+	+ Hạn bán
+	+ Trạng thái (boolean)
+	+ Người đăng
+
+- Danh mục:
+	+ Mã danh mục
+	+ Tên danh mục
+
+- Đấu giá:
+	+ Mã đấu giá:
+	+ Sản phẩm đấu giá:
+	+ Người ra giá:
+	
+
+- Mô tả:
+	+ Mã mô tả:
+	+ Sản phẩm (ID Pro)
+	+ Mô tả:
+	+ Thời gian đăng:

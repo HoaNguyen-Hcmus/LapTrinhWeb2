@@ -11,6 +11,10 @@ $.ajax({
 .fail(function(error) {
 	console.log(error);
 });
+<<<<<<< HEAD
 $("#btn-loguot").on('click', function() {
 	localStorage.access_token = undefined;
 });
+=======
+
+>>>>>>> NguyenHoa

@@ -15,6 +15,9 @@
 	+ Mã đấu giá:
 	+ Sản phẩm đấu giá:
 	+ Người ra giá:
+	+ Giá đưa ra:
+	+ Trạng thái kick:
+	+ Có thắng cuộc:
 	
 
 - Mô tả:
@@ -23,8 +26,34 @@
 	+ Mô tả:
 	+ Thời gian đăng:
 
+<<<<<<< HEAD
 
 /// Nguyễn Hòa cập nhật
 - 
 
 ///
+=======
++ Danh sách yêu thích:
+	+ Mã:
+	+ Người dùng:
+	+ Sản phẩm:
+
++ Danh sách xin được bán:
+	+ Mã:
+	+ Người dùng:
+	+ Trạng thái:
+
++ Cấp lại mật khẩu:
+	+ Mã:
+	+ Người dùng:
+	+ Trạng thái:
+
++ Nhận xét:
+	+ Mã:
+	+ Người nhận xét:
+	+ Nhận xét:
+	+ Người được nhận xét:
+
++ Người dùng:
+	+ Điểm đánh giá
+>>>>>>> f0517b41b1d37ca2369cbde61e29fbeca5c83896

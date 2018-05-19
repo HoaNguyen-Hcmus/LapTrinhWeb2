@@ -11,14 +11,7 @@ $.ajax({
 .fail(function(error) {
 	console.log(error);
 });
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 $("#btn-loguot").on('click', function() {
-	localStorage.access_token = undefined;
+	sessionStorage.removeItem('access_token');
 });
-=======
-
->>>>>>> NguyenHoa
-=======
-
->>>>>>> Huy

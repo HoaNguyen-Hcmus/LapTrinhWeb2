@@ -1,0 +1,13 @@
+﻿Tuần 1: Tạo giao diện, viết chức năng đăng nhập, đăng kí thành viên và quản trị viên
+
+Phân công: 
+- Hiếu: Đăng nhập thành viên
+- Hòa: Đăng kí thành viên
+- Huy: Đăng nhập quản trị viên.
+
+
+- Deadline: 20/5 hoặc trễ hơn 1 ngày
+
+- Yêu cầu: 
+	+ Dùng source mẫu ở thư mục gốc để làm, khi nộp chỉ nộp file code, ko nộp thư mục node_modules. 
+	+ Khi nộp bài nộp vào thư mục nộp bài của mỗi tuần, ko up lung tung sẽ khó quản lí code

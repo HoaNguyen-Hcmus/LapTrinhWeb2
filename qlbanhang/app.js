@@ -4,7 +4,7 @@ var morgan = require('morgan'),
 	cors = require('cors'),
 	bodyparser = require('body-parser'),
 	jwt = require('jsonwebtoken'),
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	md5 = require('md5');
 
 
@@ -12,7 +12,7 @@ var loginCtrl = require('./apiControllers/loginController');
 
 var app = express();
 
-=======
+//=======
 	//vadication=require('jquery-validation'),
 	recapchar=require('express-recaptcha'),
 	md5 = require('md5');
@@ -25,20 +25,20 @@ var userCtrl=require('./1560202-Hoa/userController');
 
 ///
 
->>>>>>> NguyenHoa
+//>>>>>>> NguyenHoa
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyparser.json());
 
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 app.get('/', (req, res) => {
 	res.json({mess: "Welcome to my page"});
 });
 
 
 app.use('/login', loginCtrl);
-=======
+//=======
 
 // app.get('/', (req, res) => {
 // 	res.json({mess: "Welcome to my page"});
@@ -52,7 +52,7 @@ app.use('/Signup',userCtrl);
 // app.use(bodyparser.json());
 // app.use(bodyparser.urlencoded({ extended: true }));
 //-------
->>>>>>> NguyenHoa
+//>>>>>>> NguyenHoa
 
 app.listen(3000, () => {
 	console.log('API is runnung on port 3000');

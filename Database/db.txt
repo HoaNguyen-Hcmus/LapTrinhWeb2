@@ -11,6 +11,7 @@
 	+ Giá sàn: DECIMAL
 	+ Bước giá đề nghị: DECIMAL
 	+ Tự động gia hạn: BOOLEAN
+	+ Danh mục: int fk
 
 2.Danh mục:
 	+ Mã danh mục: INT, pk

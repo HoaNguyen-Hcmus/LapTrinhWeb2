@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 20, 2018 lúc 06:30 PM
+-- Thời gian đã tạo: Th5 21, 2018 lúc 03:16 PM
 -- Phiên bản máy phục vụ: 10.1.31-MariaDB
 -- Phiên bản PHP: 7.2.4
 
@@ -186,6 +186,13 @@ CREATE TABLE `user` (
   `TYPE` tinyint(1) NOT NULL COMMENT 'Người mua và người bán'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Đang đổ dữ liệu cho bảng `user`
+--
+
+INSERT INTO `user` (`ID`, `NAME`, `ADDRESS`, `EMAIL`, `PHONE`, `DiemDanhGia`, `TYPE`) VALUES
+(1, 'Nguyễn Quang Huy', '145 HB', 'huyqn@gmail.com', '0123456789', 100, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -195,9 +202,17 @@ CREATE TABLE `user` (
 CREATE TABLE `xinduocban` (
   `ID` int(11) NOT NULL,
   `NguoiDung` int(11) NOT NULL,
-  `ThoiGian` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ThoiGianXin` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ThoiGianChapNhan` datetime DEFAULT NULL,
   `TrangThai` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `xinduocban`
+--
+
+INSERT INTO `xinduocban` (`ID`, `NguoiDung`, `ThoiGianXin`, `ThoiGianChapNhan`, `TrangThai`) VALUES
+(1, 1, '2018-05-21 12:54:00', '2018-05-22 05:18:08', 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -343,13 +358,13 @@ ALTER TABLE `sanpham`
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `xinduocban`
 --
 ALTER TABLE `xinduocban`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

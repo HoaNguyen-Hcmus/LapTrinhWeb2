@@ -1,9 +1,9 @@
 var express = require('express'),
 	jwt = require('jsonwebtoken'),
-	md5 = require('md5'),
-	loginRepo = require('../repos/loginRepo'),
-	checkToken = require('../fn/checkToken'),
-	c = require('../fn/const');
+	md5 = require('md5');
+var loginRepo = require('../repos/loginRepo');
+var checkToken = require('../fn/checkToken');
+var c = require('../fn/const');
 
 var router = express.Router();
 
@@ -20,9 +20,11 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
 	var user = req.body.user;
 	var pass = md5(req.body.pass);
-	loginRepo.load(user).then(rows => {
-		if(rows.lenght != 0) {
+	if (user != "" && pass != "") {
+		loginRepo.load(user).then(rows => {
 			if (user === rows[0].USERNAME && pass === rows[0].PASSWORD) {
+				// var token = 'access_token';
+
 				var payload = {
 					user: user,
 					info: 'for you'
@@ -40,12 +42,16 @@ router.post('/', (req, res) => {
 					msg: 'login failed => no token'
 				});
 			}
-		}
-	}).catch(err => {
-		console.log(err);
-		res.statusCode = 500;
+		}).catch(err => {
+			console.log(err);
+			res.statusCode = 500;
+			res.json('error');
+		});
+	}
+	else {
+		res.statusCode = 400;
 		res.json('error');
-	});
+	}
 });
 
 module.exports = router;

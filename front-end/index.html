@@ -5,18 +5,165 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Trang chủ</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	
+	<style type="text/css">
+		.loader {
+		    border: 8px solid #f3f3f3; /* Light grey */
+		    border-top: 8px solid #3498db; /* Blue */
+		    border-radius: 50%;
+		    width: 80px;
+		    height: 80px;
+		    animation: spin 2s linear infinite;
+		    margin: 0 auto;
+		    display: none;
+		}
+
+		@keyframes spin {
+		    0% { transform: rotate(0deg); }
+		    100% { transform: rotate(360deg); }
+		}
+	</style>
 </head>
 <body>
-	<div class="container-fluid">
+	<!--<div class="container-fluid">
 		<h3>Test</h3>
 		<p id="test"></p>
 		<button type="button" id="btn-loguot" class="btn btn-success">dang xuat</button>
-		
+	</div>-->
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">cờ hó Huy</a>
+			</div>
+	
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Top 5</a></li>
+					<li ><a href="#">Danh mục sản phẩm</a></li>
+				</ul>
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Tìm kiếm</button>
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tài khoản<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Sản phẩm đang đấu giá</a></li>
+							<li><a href="#">dản phẩm đã đấu giá thành công</a></li>
+							<li><a href="#">Thông tin tài khoản</a></li>
+							<li><a id="btn-loguot" href="#"><span class="glyphicon glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div>
+	</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12 col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 align=center class="panel-title">Top 5 sản phẩm có nhiều lượt ra giá nhất</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row" id="Top5RaGia-list">
+							
+						</div>
+						<div class="loader"></div>
+						<div class="row">
+							<br>
+							<div class="col-sm-12 col-md-12">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12 col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 align=center class="panel-title">Top 5 sản phẩm có giá cao nhất</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row" id="Top5Gia-list">
+							
+						</div>
+						<div class="loader"></div>
+						<div class="row">
+							<br>
+							<div class="col-sm-12 col-md-12">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12 col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 align=center class="panel-title">Top 5 sản phẩm gần kết thúc</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row" id="Top5GanKetThuc-list">
+							
+						</div>
+						<div class="loader"></div>
+						<div class="row">
+							<br>
+							<div class="col-sm-12 col-md-12">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script id="product-template" type="text/x-handlebars-template">
+		{{#each this}}
+		<div class="col-sm-4 col-md-4" style="display: none" >
+			<div class="thumbnail">
+				<img src="imgs/sp/{{ID}}/main_thumbs.jpg" alt="{{USERNAME}}" title="{{USERNAME}}">
+				<div class="caption">
+					<h4>{{USERNAME}}</h4>
+					<p>
+						<a href="javascript:;" class="btn btn-primary">
+							<span class="glyphicon glyphicon-eye-open"></span>
+							Details
+						</a>
+						<a href="javascript:;" class="btn btn-danger">
+							<span class="glyphicon glyphicon-shopping-cart"></span>
+							Add
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		{{/each}}
+	</script>
+	
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/swal.js"></script>
+	<script src="js/handlebars.min-v4.0.11.js"></script>
+	<script src="js/handlebars-intl-1.1.2/handlebars-intl.min.js"></script>
 	<script src="js/me/index.js"></script>
+	<script src="js/swal.js"></script>
 </body>
 </html>

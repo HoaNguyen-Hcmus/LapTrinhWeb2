@@ -82,7 +82,6 @@ $(document).ready(function() {
 	    	errorClass:'help-block'
 	    });
 	});
-
 	$("#btn-sign-up").on('click', function() {
 		//swal('Người dùng đăng kí');
 		var data = {
@@ -98,9 +97,10 @@ $(document).ready(function() {
 
 		var isValid=$('#registerForm').valid();
 		if(isValid){
-			// var body={
-			// 	captcha_response: grecaptcha.getResponse()
-			// };
+			var body = {
+            captcha_response: grecaptcha.getResponse()
+        };
+
 			$.ajax({
 
 				url: 'http://localhost:3000/Signup',
@@ -109,14 +109,14 @@ $(document).ready(function() {
 				type: 'POST',
 				contentType: 'application/json',
 				data: JSON.stringify(data)
-			}).done(function(d){
-				// if(data.success){
-				// 	swal("Đăng kí thành công");
-				// }else{
-				// 	//grecaptcha.reset();
-				// 	swal("Đăng kí thất bại");
-				// }
-				//alert('Added');
+			}).done(function(data){
+				if(data.success){
+					swal("Đăng kí thành công");
+				}else{
+					grecaptcha.reset();
+					swal("Đăng kí thành công");
+				}
+				//alert('Added');	
 			}).fail(function(xhr,textStatus,error){
 				console.log(textStatus);
 				console.log(error);

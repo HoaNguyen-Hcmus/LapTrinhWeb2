@@ -1,6 +1,7 @@
 var express=require('express');
 var userRepo=require('../repos/userRepo');
 var router=express.Router();
+var axios=require('axios');
 
 //Capchar
 // var Recaptcha=require('express-recaptcha');
@@ -34,28 +35,64 @@ router.get('/',(req,res)=>{
 });
 
 router.post('/Signup',(req,res)=>{
-// 	var secret='6LeuJloUAAAAABAjRIjkbYBwULYGjQul7v6gIkPT';
-// 	var captcha_response=req.body.captcha_response;
-// var url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${captcha_response}`;
-// 	axios.post(url,{
+	var secret = '6LdIoVoUAAAAAF7rtLgBGq_KTuARALa6wh83pr7r';
+    var captcha_response = req.body.captcha_response;
 
-// 	},{
-// 		headers:{
-//         		"Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
-// 		}
-// 	}).then(function(response){
-		userRepo.add(req.body).then(insertID=>{
+    var url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${captcha_response}`;
 
-		res.statusCode=201;
-		res.json(req.body);
-	//})
+	var userID=1;
+	axios.post(url, {
+	}, {
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+		}
+	})
+	.then(function(response) {
+		
+		res.json(response.data);
+		if(response.data)
+		{
+
+			userRepo.selectUser_ID().then(rows=>{
+			if(rows.length>0)
+			{
+				userID=rows[0].maxID;
+			}
+			}).catch(err => {
+					console.log(err);
+					res.statusCode = 500;
+					res.json('error');
+				});
+			var userName=req.body.user;
+			userRepo.checkUser(userName).then(rows=>{
+				if(rows.length>0)
+				{
+					res.statusCode=500;
+					res.json('error');
+				}else{
+				userRepo.add(req.body).then(insertID=>{
+				res.statusCode=201;
+				
+				res.json(req.body);	
+				
+				res.json({mess:"Them thanh cong"});
+				
+				})
+				.catch(err=>{
+					console.log(err);
+					res.statusCode=500;
+					res.end();
+				});
+				userRepo.addLogin(req.body,userID+1);
+			}
+			});
+
+		 }
 		
 	})
-	.catch(err=>{
-		console.log(err);
-		res.statusCode=500;
-		res.end();
-	});
+	.catch(function(error) {
+		res.end('fail');
+	});			
 });
 
 module.exports=router;

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Yêu cầu được bán của người dùng</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<a class="btn btn-primary" href="./" role="button">
+			<i class="glyphicon glyphicon-home"></i> Về trang trước
+		</a>
+		<a class="btn btn-success active" href="./YeuCauBan.html" role="button">
+			<i class="glyphicon glyphicon-shopping-cart"></i> Yêu cầu bán
+		</a>
+		<a class="btn btn-danger" href="./NguoiDung.html" role="button">
+			<i class="glyphicon glyphicon-user"></i> Quản lí người dùng
+		</a>
+		<a class="btn btn-warning" href="./DanhMuc.html" role="button">
+			<i class="glyphicon glyphicon-edit"></i> Quản lí danh mục
+		</a>
+		<h1>Yêu cầu được bán của người dùng</h1>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Số thứ tự</th>
+						<th>Người dùng</th>
+						<th>Thời gian xin</th>
+						<th>Trạng thái</th>
+						<th>Thời gian chấp nhận</th>
+						<th>Còn lại</th>
+						<th>Cho phép</th>
+					</tr>
+				</thead>
+				<tbody id="yeucauban"></tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/swal.js"></script>
+	<script src="../js/me/admin/index.js"></script>
+	<script src="../js/me/admin/yeucauban.js"></script>
+</body>
+</html>

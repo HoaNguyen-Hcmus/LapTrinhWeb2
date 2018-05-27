@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Quản lí người dùng</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<a class="btn btn-primary" href="./" role="button">
+			<i class="glyphicon glyphicon-home"></i> Về trang trước
+		</a>
+		<a class="btn btn-success" href="./YeuCauBan.html" role="button">
+			<i class="glyphicon glyphicon-shopping-cart"></i> Yêu cầu bán
+		</a>
+		<a class="btn btn-danger active" href="./NguoiDung.html" role="button">
+			<i class="glyphicon glyphicon-user"></i> Quản lí người dùng
+		</a>
+		<a class="btn btn-warning" href="./DanhMuc.html" role="button">
+			<i class="glyphicon glyphicon-edit"></i> Quản lí danh mục
+		</a>
+		<h1>Quản lí người dùng</h1>
+		
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Người dùng</a></li>
+			<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Quên mật khẩu</a></li>
+		</ul>
+
+
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="home">
+				<h3>Danh sách người dùng</h3>
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Mã người dùng</th>
+								<th>Họ tên</th>
+								<th>Tên đăng nhập</th>
+								<th>Trạng thái</th>
+								<th>Địa chỉ</th>
+								<th>Điện thoại</th>
+								<th>Email</th>
+								<th>Điểm đánh giá</th>
+								<th>Xóa</th>
+							</tr>
+						</thead>
+						<tbody id="tb-nguoidung"><tbody>
+					</table>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="profile">
+				<h3>Quên mật khẩu</h3>
+			</div>
+		</div>
+	</div>
+
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/swal.js"></script>
+	<script src="../js/me/admin/index.js"></script>
+	<script src="../js/me/admin/nguoidung.js"></script>
+</body>
+</html>

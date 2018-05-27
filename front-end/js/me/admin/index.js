@@ -1,3 +1,15 @@
+var getFullDate = function(data) {
+	if(data == null) {
+		return "----";
+	} else {
+		var date = new Date(data);
+		return (
+			date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + " "
+			+ (date.getHours()) + ":" + (date.getMinutes()) + ":" + (date.getSeconds())
+			);
+	}
+};
+
 $(document).ready(function() {
 	if(sessionStorage.user != undefined) {
 		$("#show-admin-login").append(sessionStorage.user);
@@ -15,7 +27,7 @@ $(document).ready(function() {
 		}
 	})
 	.done(function(data) {
-		console.log(data);
+		//console.log(data);
 	})
 	.fail(function(xhr, status, err) {
 		//$("#show-admin-login").append("(Đăng nhập lại)");

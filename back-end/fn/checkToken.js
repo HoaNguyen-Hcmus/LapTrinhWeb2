@@ -1,5 +1,7 @@
 ﻿var jwt = require('jsonwebtoken'),
 	constants = require('./const');
+
+
 exports.checkTokenAdmin = (req, res, next) => {
 	//console.log(req);
 	var token = req.headers['x-access-token'];

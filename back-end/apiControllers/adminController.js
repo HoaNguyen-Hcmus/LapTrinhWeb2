@@ -34,8 +34,7 @@ router.post('/login', (req, res) => {
 		} else {
 			res.statusCode = 401;
 			res.json({
-				msg: 'login failed => no token',
-				err: err
+				msg: 'login failed => no token'
 			});
 		}
 	})

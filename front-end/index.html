@@ -33,33 +33,32 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Web đấu giá</a>
+				<a class="navbar-brand" href="index.html">Web đấu giá</a>
 			</div>
 	
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Top 5</a></li>
-					<li ><a href="#">Danh mục sản phẩm</a></li>
-				</ul>
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
+						<input type="text" class="form-control" placeholder="Tên sản phẩm/ danh mục">
 					</div>
 					<button type="submit" class="btn btn-default">Tìm kiếm</button>
 				</form>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tài khoản<b class="caret"></b></a>
+					<li class="dropdown" id="logined">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user"></span><b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Sản phẩm đang đấu giá</a></li>
 							<li><a href="#">dản phẩm đã đấu giá thành công</a></li>
 							<li><a href="#">Thông tin tài khoản</a></li>
-							<li><a id="btn-loguot" href="#"><span class="glyphicon glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
+							<li><a id="btn-loguot"><span class="glyphicon glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
 						</ul>
 					</li>
+					<li id="logouted">
+						<a href="login.html">Đăng nhập / Đăng kí</a>
+					</li>
 				</ul>
-			</div><!-- /.navbar-collapse -->
+			</div>
 		</div>
 	</nav>
 
@@ -118,8 +117,6 @@
 	
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/handlebars.min-v4.0.11.js"></script>
-	<script src="js/handlebars-intl-1.1.2/handlebars-intl.min.js"></script>
 	<script src="js/me/index.js"></script>
 	<script src="js/swal.js"></script>
 </body>

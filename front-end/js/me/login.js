@@ -143,9 +143,14 @@ $(document).ready(function() {
 			timeout: 10000,
 			contentType: 'application/json',
 			data: jsonToPost
+
 		}).done(function(data) {
 			localStorage.access_token = data.access_token;
+			localStorage.user_token = data.user;
+			localStorage.id_token = data.id;
+			localStorage.banhang_token = data.banhang;
 			window.location.href= 'index.html';
+			
 		}).fail(function(xhr, status, err) {
 			console.log(err);
 			swal('đăng nhập thất bại')

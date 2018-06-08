@@ -1,5 +1,4 @@
 var morgan = require('morgan'),
-	mysql = require('mysql'),
 	express = require('express'),
 	cors = require('cors'),
 	bodyparser = require('body-parser'),
@@ -10,6 +9,7 @@ var morgan = require('morgan'),
 var loginCtrl = require('./apiControllers/loginController'),
 	userCtrl = require('./apiControllers/userController'),
 	adminCtr = require('./apiControllers/adminController'),
+	nguoibanCtrl = require('./apiControllers/nguoibanController'),
 	constants = require('./fn/const'),
 	fnCheckToken = require('./fn/checkToken');
 
@@ -19,6 +19,9 @@ var app = express();
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({
+    extended: false
+}));
 
 app.use(express.static('public'));
 
@@ -29,7 +32,6 @@ app.get('/', (req, res) => {
 
 app.use('/login', loginCtrl);
 app.use('/admin', adminCtr);
-//app.use('/',userCtrl);
 app.use('/Signup',userCtrl);
 app.use('/',userCtrl);
 //app.use(vadication());
@@ -37,6 +39,9 @@ app.use('/',userCtrl);
 // app.use(bodyparser.json());
 // app.use(bodyparser.urlencoded({ extended: true }));
 
+
+//huyNguyen
+app.use('/nguoiban', nguoibanCtrl);
 
 app.listen(3000, () => {
 	console.log('API is runnung on port 3000');

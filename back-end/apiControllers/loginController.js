@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
 					res.statusCode = 200;
 
 					if(rows1.length != 0) {
-						if(rows1[0].ThoiGianConLai < 7) {
+						if(rows1[0].ThoiGianConLai <= 7 && rows1[0].ThoiGianConLai >= 0) {
 							res.json({
 								access_token: token,
 								user: rows[0].NAME,

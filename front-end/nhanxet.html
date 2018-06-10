@@ -1,0 +1,47 @@
+<!Doctype htlm>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> Nhận xét và đánh giá </title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="container-fluid">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<a class="btn btn-primary" href="info.html" role="button">
+					<i class="glyphicon glyphicon-home"></i> Về trang trước
+				</a>
+				<br>
+				<br>
+				<form action="http://localhost:3000/info" method="POST">
+				  <fieldset>
+
+				    <legend>Nhận xét và đánh giá:<input type="text" id="idSP" name="idSP" readonly="true"></legend>
+
+				    <div class="form-group">
+						<label for="type-sign-up">Điểm đánh giá</label>
+						<select id="type-evaluation" class="form-control" name="type">
+							<option value="-1">-1</option>
+							<option value="+1">+1</option>
+						</select>
+					</div>
+
+				    <label>Nhận xét</label>
+				    <textarea class="form-control" rows="3" id="text-comment" name="text-comment"></textarea>
+				    <br>
+				    <button type="button" class="btn btn-success" id="btn-comment"> Xác nhận</button>
+				  </fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/swal.js"></script>
+	<script src="js/me/info.js"></script>
+	<script src="js/jquery-validation-1.12.0/jquery.validate.min.js"></script>
+</body>
+
+	</html>

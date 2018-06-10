@@ -1,0 +1,183 @@
+<!Doctype htlm>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> Thông tin tài khoản </title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+
+
+	<div class="container">
+			<a class="btn btn-primary" href="./" role="button">
+				<i class="glyphicon glyphicon-home"></i> Về trang trước
+			</a>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tài khoản<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Thông tin tài khoản</a></li>
+						<li><a id="btn-loguot" href="#"><span class="glyphicon glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
+					</ul>
+				</li>
+			</ul>
+		<div>
+			<br>
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Thông tin tài khoản</a></li>
+
+				<li role="presentation"><a href="#changePass" aria-controls="changePass" role="tab" data-toggle="tab">Đổi mật khẩu</a></li>
+
+				<li role="presentation"><a href="#evaluation" aria-controls="evaluation" role="tab" data-toggle="tab"> Đánh giá</a></li>
+				<li role="presentation"><a href="#listFavorite" aria-controls="listFavorite" role="tab" data-toggle="tab">Danh sách sản phẩm yêu thích </a></li>
+				<li role="presentation"><a href="#auction" aria-controls="auction" role="tab" data-toggle="tab">Sản phẩm đang đấu giá </a></li>
+				<li role="presentation"><a href="#win" aria-controls="win" role="tab" data-toggle="tab">Sản phẩm đã thắng </a></li>
+			</ul>
+		</div>
+
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="info">
+				<h3>Thông tin cá nhân</h3>
+				<div class="container-fluid">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+						<form action="http://localhost:3000/info/changeInfo" method="POST" role="form" id="repairRegisterForm">
+							
+							<div class="form-group">
+								<label for="">Họ tên</label>
+								<input type="text" class="form-control" id="name" placeholder="Họ tên" name="name">
+							</div>
+							<div class="form-group">
+								<label for="">Ngày sinh</label>
+								<input type="date" class="form-control" id="birth" placeholder="Ngày sinh" name="birth">
+							</div>
+							<div class="form-group">
+								<label for="">Địa chỉ</label>
+								<input type="text" class="form-control" id="address" placeholder="Địa chỉ" name="address">
+							</div>
+							<div class="form-group">
+								<label for="">Điện thoại</label>
+								<input type="text" class="form-control" id="phone" placeholder="Điện thoại" name="phone">
+							</div>
+							<div class="form-group">
+								<label for="">Email</label>
+								<input type="email" class="form-control" id="mail" placeholder="Email" name="mail">
+							</div>
+							<button type="button" id="btn-update"  name="btn-update" class="btn btn-success">Cập nhật thông tin</button>
+						</form>
+
+					</div>
+					
+				</div>
+			</div>
+
+			<div role="tabpane2" class="tab-pane" id="changePass">
+				<h3>Đổi mật khẩu </h3>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+					<form action="http://localhost:3000/info/changePass" method="POST" role="form" id="passForm">
+						<div class="form-group">
+							<label>Mật khẩu cũ</label>
+							<input type="password" class="form-control" id="pass1" placeholder="Mật khẩu cũ" name="pass1">
+						</div>
+						<div class="form-group">
+							<label>Mật khẩu mới</label>
+							<input type="password" class="form-control" id="pass2" placeholder="Mật khẩu mới" name="pass2">
+						</div>
+						<div class="form-group">
+							<label>Nhập lại mật khẩu mới</label>
+							<input type="password" class="form-control" id="pass3" placeholder="Nhập lại mật khẩu mới" name="pass3">
+						</div>
+						<button type="button" name="btn-updatePass" id="btn-updatePass" class="btn btn-success">Cập nhật mật khẩu</button>
+					</form>
+
+				</div>
+			</div>
+
+			<div role="tabpane2" class="tab-pane" id="evaluation">
+				<h3>Danh sách đánh giá</h3>
+				<div>
+					<!-- <button type="button" class="btn btn-info" id="btn-refresh" >Refresh</button> -->
+					</br></br>
+					<label>Điểm đánh giá: <input type="number" id="sorce-evaluation" name="sorce-evaluation" readonly="true"> </label>
+			  		<table class="table table-hover" border="0" style="width:100%">
+			  			<thead>
+							<tr>
+								<th>STT</th>
+								<th>Người nhận xét</th>
+								<th>Thời gian</th>
+								<th>Nhận xét</th>
+							</tr>
+						</thead>
+						<tbody id="list-evaluation"></tbody>
+					</table>
+				</div>
+			</div>
+
+			<div role="tabpane2" class="tab-pane" id="listFavorite">
+				<h3>Danh sách sản phẩm yêu thích</h3>
+				<div>
+					<!-- <button type="button" class="btn btn-info" id="btn-refresh-favorite">Refresh</button> -->
+					</br></br>
+					
+			  		<table class="table table-hover" border="0" style="width:100%">
+			  			<thead>
+							<tr>
+								<th>STT</th>
+								<th>Sản phẩm</th>
+							</tr>
+						</thead>
+						<tbody id="list-favorite"></tbody>
+					</table>
+				</div>
+			</div>
+
+
+			<div role="tabpane2" class="tab-pane" id="auction">
+				<h3>Danh sách sản phẩm đang tham gia đấu giá</h3>
+				<div>
+					<!-- <button type="button" class="btn btn-info" id="btn-refresh-auction">Refresh</button> -->
+					</br></br>
+					
+			  		<table class="table table-hover" border="0" style="width:100%">
+			  			<thead>
+							<tr>
+								<th>STT</th>
+								<th>Sản phẩm</th>
+							</tr>
+						</thead>
+						<tbody id="list-auction"></tbody>
+					</table>
+				</div>
+			</div>
+
+			<div role="tabpane2" class="tab-pane" id="win">
+				<h3>Danh sách sản phẩm đã thắng</h3>
+				<div>
+					<!-- <button type="button" class="btn btn-info" id="btn-refresh-win">Refresh</button> -->
+					</br></br>
+			  		<table class="table table-hover" border="1" style="width:100%" align="center">
+			  			<thead>
+							<tr>
+								<th>STT</th>
+								<th>Sản phẩm</th>
+								<th>Giá sản phẩm</th>
+								<th>&nbsp</th>
+							</form>
+							</tr>
+						</thead>
+						<tbody id="list-win"></tbody>
+					</table>
+				</div>
+			</div>
+
+	</div>
+</div>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/swal.js"></script>
+	<script src="js/me/info.js"></script>
+	<script src="js/jquery-validation-1.12.0/jquery.validate.min.js"></script>
+</body>
+</html>

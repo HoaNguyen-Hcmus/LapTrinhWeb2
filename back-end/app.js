@@ -11,6 +11,7 @@ var loginCtrl = require('./apiControllers/loginController'),
 	adminCtr = require('./apiControllers/adminController'),
 	nguoibanCtrl = require('./apiControllers/nguoibanController'),
 	constants = require('./fn/const'),
+	infoCtrl=require('./apiControllers/infoController'),
 	fnCheckToken = require('./fn/checkToken');
 
 var app = express();
@@ -29,7 +30,9 @@ app.get('/', (req, res) => {
 	res.json({mess: "Welcome to my page"});
 });
 
-
+//Hòa thực hiện chức năng quản lý hồ sơ cá nhân
+app.use('/info',infoCtrl);
+//
 app.use('/login', loginCtrl);
 app.use('/admin', adminCtr);
 app.use('/Signup',userCtrl);

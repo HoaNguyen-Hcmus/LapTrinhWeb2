@@ -8,20 +8,23 @@ var express = require('express'),
 
 var router = express.Router();
 
+var i = 1;
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
     	nguoibanRepo.getNewId()
 		.then(rows => {
+			if(rows[0].NewID == null)
+				rows[0].NewID = 1;
 			var dir = `./public/${rows[0].NewID}`;
 			mkdirp(dir, (err) => { if(err) console.log(err); });
 			cb(null, dir);
 		})
     },
     filename: function(req, file, cb) {
-        cb(null, file.originalname)
+        cb(null, `image${i}.png`);
+        i++;
     }
 });
-
 var upload = multer({
     storage: storage
 });
@@ -83,7 +86,7 @@ router.post('/dangban', checkToken.checkTokenUser, (req, res) => {
 });
 
 router.post('/uploadImage', upload.array('photos', 3), (req, res) => {
-
+	i = 1;
 	res.end("Đăng hình thành công");
 })
 

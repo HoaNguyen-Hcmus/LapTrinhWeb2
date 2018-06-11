@@ -1,8 +1,16 @@
 $(document).ready(function() {
 	var date = new Date();
 
+	$("#btn-submit").on('click', function() {
+		var thoihanban = $("#ngaydaugia").val() + " " + $("#giodaugia").val(),
+			date = new Date(),
+			date1 = new Date(thoihanban);
 
-
+		if(date1 < date || thoihanban == " ") {
+			swal("Lỗi", "Thời hạn bán phải lớn hơn thời gian hiện tại", "error");
+			return false;
+		}
+	});
 	if(localStorage.banhang_token != 1) {
 		window.location = "index.html";
 	}

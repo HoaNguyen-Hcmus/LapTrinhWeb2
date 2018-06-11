@@ -1,52 +1,64 @@
 $(document).ready(function () {
-	//HandlebarsIntl.registerWith(Handlebars);
-	loadSanPham();
-});
+	if(localStorage.user_token != undefined) {
+		$("#user").html(localStorage.user_token);
+		$("#logouted").remove();
+	} else {
+		$("#logined").remove();
+	}
 
-var loadSanPham = function () {
-	$('.loader').show();
+	var url = new URLSearchParams(window.location.search);
+	var id = url.get("id");
+
+	if(id == null)
+		window.location.href = "index.html";
+
+	var image_html = '<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">';
+    
+    image_html += '<img src="http://localhost:3000/1/image1.png" class="img-responsive" alt="Image">';
+	image_html += '</div>';
+	image_html += '<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">';
+	image_html += '<img src="http://localhost:3000/1/image2.png" class="img-responsive" alt="Image">';
+	image_html += '</div>';
+	image_html += '<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">';
+	image_html += '<img src="http://localhost:3000/1/image3.png" class="img-responsive" alt="Image">';
+	image_html += '</div>';
+
+	$("#image-content").html(image_html);
 
 	$.ajax({
-		url: 'http://localhost:3000/sanPham/2',
-		dataType: 'json',
-		timeout: 10000
-	}).done(function (data) {
-		/*var source = $('#sanpham-template').html();
-		var template = Handlebars.compile(source);
-		var html = template(data);
-		console.log(html);
-		$('#body-sp').append(html);*/
-		var thumb = '<img src="imgs/sp/' + data.ID + '/main_thumbs.jpg" alt="asd" title="ads">' +
-			'<img src="imgs/sp/' + data.ID + '/main.jpg" alt="asd" title="ads">' +
-			'<img src="imgs/sp/' + data.ID + '/1.jpg" alt="asd" title="ads">' +
-			'<div class="caption" id ="mt">' +
-			'<h4> mô tả: </h4>' +
-			data.MoTa +
-			'<p>' +
-			'<a href="javascript:;" class="btn btn-danger">' +
-			'<span class="glyphicon glyphicon-eye-open"></span>' +
-			'Add' +
-			'</a>' +
-			'</p>' +
-			'</div>'
-		$('#TenSanPham').append('<h3 class="panel-title">' + data.Ten + '</h3>');
-		$('#thumbnail').append(thumb);
-		$('#btn-NguoiBan').append('<h3 class="panel-title">' + data.NguoiBan + '</h3>');
-		$('#GiaHienTai').append(data.GiaDuaRa + ' ' +
-			'<buttons class="btn btn-small btn-success" >' + data.NguoiRaGia + '</button>');
-		$('#GiaMuaNgay').append(data.GiaMuaNgay);
-		$('#GioDang').append(data.GioDang);
-		$('#ThoiHanBan').append(data.ThoiHanBan);
+		url: 'http://localhost:3000/sanpham/' + id,
+		type: 'GET',
+		dataType: 'json'
+	})
+	.done(function(data) {
+		//console.log(data.nguoigiugia);
+		var row = data.data[0],
+			mota = data.mota,
+			nguoigiugia = data.nguoigiugia[0];
+		var xhtml = "",
+			xhtml_mota = "";
+		xhtml += '<li class="list-group-item">Người bán: <a href="profile.html?id='+ row.ID +'">'+ row.Name +'</a><span class="badge">'+ row.DiemDanhGia +' điểm</span></li>';
+        xhtml += '<li class="list-group-item">Giá hiện tại: '+ formatCurrent(nguoigiugia.GiaDuaRa) +'</li>';
+        xhtml += '<li class="list-group-item">Người đang giữ giá cao nhất: <a href="'+ nguoigiugia.ID +'">'+ nguoigiugia.NAME +'</a><span class="badge">'+ nguoigiugia.DiemDanhGia +' điểm</span></li>';
+        xhtml += '<li class="list-group-item">Giá mua ngay: '+ formatCurrent(row.GiaMuaNgay) +'</li>';
+        xhtml += '<li class="list-group-item">Thời điểm đăng: '+ getFullDate(row.GioDang) +'</li>';
+        xhtml += '<li class="list-group-item">Thời điểm kết thúc: '+ getFullDate(row.ThoiHanBan) +'</li>';
+        xhtml += '<li class="list-group-item">';
+        xhtml += '<a class="btn btn-success" data-toggle="modal" href="#modal-ragia" role="button">Ra giá sản phẩm  <span class="glyphicon glyphicon-shopping-cart"></span></a>';
+        xhtml += '</li>';
+        xhtml += '<li class="list-group-item"><button type="button" class="btn btn-warning">Thêm vào danh sách yêu thích <span class="glyphicon glyphicon-heart"></span></button></li>';
 
-		$('#body-sp div[style]').fadeIn(1000, function () {
-			$(this).removeAttr('style');
-		});
 
-		//CUR_PAGE++;
-        /*if (data.hasMore === false) {
-            $('#btnMore').hide();
-        }*/
+        $(mota).each(function(index, value) {
+        	xhtml_mota += '<h4><u><strong>Mô tả 1:</strong> Update: <i>'+ getFullDate(value.ThoiGian) +'</i></u></h4>';
+        	xhtml_mota += value.MoTa;
+        });
 
-		$('.loader').hide();
+        $("#list-group").html(xhtml);
+        $("#mota").html(xhtml_mota);
+	})
+	.fail(function(err) {
+		console.log(err);
 	});
-};
+	
+});

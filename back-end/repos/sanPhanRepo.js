@@ -5,7 +5,25 @@ exports.loadAll = function() {
 	return db.load(sql);
 }
 
-exports.load = function(id) {
-	var sql = `SELECT p.ID,p.Ten,p.GiaMuaNgay,p.GiaDauGia,p.GioDang,p.ThoiHanBan,u.NAME AS NguoiBan,u2.NAME AS NguoiRaGia,m.MoTa,d.GiaDuaRa FROM sanpham p, user u,user u2, mota m, daugia d where p.ID=d.SanPham and p.ID=m.SanPham and u.ID=p.NguoiBan and u2.ID=d.NguoiRaGia and d.CoThangCuoc=1 and p.ID = '${id}'`;
+exports.loadOnce = function(id) {
+	var sql = `SELECT user.DiemDanhGia, user.ID, sp.Ten, user.Name, sp.GiaMuaNgay, sp.GioDang, sp.ThoiHanBan FROM sanpham sp, user WHERE user.ID = sp.NguoiBan AND sp.ID = ${id}`;
+	return db.load(sql);
+}
+
+exports.loadMoTa = function(id) {
+	var sql = `SELECT * FROM MoTa WHERE SanPham = ${id}`;
+
+	return db.load(sql);
+}
+
+exports.loadNguoiGiuGia = function(sp) {
+	var sql = `SELECT dg.GiaDuaRa, u.NAME, u.ID, u.DiemDanhGia
+			FROM daugia dg, user u
+			WHERE dg.NguoiRaGia = u.ID AND dg.SanPham = ${sp} AND dg.GiaDuaRa = (
+			SELECT Max(GiaDuaRa)
+			FROM daugia
+			WHERE SanPham = ${sp}
+	)`;
+
 	return db.load(sql);
 }

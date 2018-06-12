@@ -9,6 +9,7 @@ var morgan = require('morgan'),
 var loginCtrl = require('./apiControllers/loginController'),
 	userCtrl = require('./apiControllers/userController'),
 	adminCtr = require('./apiControllers/adminController'),
+	sanPhamCtrl = require('./apiControllers/sanPhamController'),
 	nguoibanCtrl = require('./apiControllers/nguoibanController'),
 	constants = require('./fn/const'),
 	infoCtrl=require('./apiControllers/infoController'),
@@ -36,6 +37,7 @@ app.use('/info',infoCtrl);
 app.use('/login', loginCtrl);
 app.use('/admin', adminCtr);
 app.use('/Signup',userCtrl);
+app.use('/sanpham', sanPhamCtrl);
 app.use('/',userCtrl);
 //app.use(vadication());
 //app.use(recapchar());

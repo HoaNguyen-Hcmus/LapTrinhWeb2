@@ -27,3 +27,21 @@ exports.loadNguoiGiuGia = function(sp) {
 
 	return db.load(sql);
 }
+
+exports.loadSanPhamNhieuLuotRaGia = function() {
+	var sql = `SELECT * FROM sanpham ORDER BY SoLuotRaGia DESC LIMIT 5`;
+
+	return db.load(sql);
+}
+
+exports.loadSanPhamGiaCao = function() {
+	var sql = `SELECT *,max(GiaDuaRa) as giahientai FROM daugia d, sanpham s where d.SanPham=s.ID GROUP BY s.ID ORDER BY giahientai DESC LIMIT 5`;
+
+	return db.load(sql);
+}
+
+exports.loadSanPhamGanKetThuc = function() {
+	var sql = `SELECT * FROM sanpham WHERE ThoiHanBan >= NOW() ORDER BY ThoiHanBan ASC LIMIT 5`;
+
+	return db.load(sql);
+}

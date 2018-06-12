@@ -39,4 +39,34 @@ router.get('/:id', (req, res) => {
 	})
 });
 
+router.get('/top/ragia', (req, res) => {
+	sanPhamRepo.loadSanPhamNhieuLuotRaGia().then(rows => {
+		res.json(rows);
+	}).catch(err => {
+		console.log(err);
+		res.statusCode = 500;
+		res.end('View error log on console.');
+	});
+});
+
+router.get('/top/gia', (req, res) => {
+	sanPhamRepo.loadSanPhamGiaCao().then(rows => {
+		res.json(rows);
+	}).catch(err => {
+		console.log(err);
+		res.statusCode = 500;
+		res.end('View error log on console.');
+	});
+});
+
+router.get('/top/ganketthuc', (req, res) => {
+	sanPhamRepo.loadSanPhamGanKetThuc().then(rows => {
+		res.json(rows);
+	}).catch(err => {
+		console.log(err);
+		res.statusCode = 500;
+		res.end('View error log on console.');
+	});
+});
+
 module.exports = router;

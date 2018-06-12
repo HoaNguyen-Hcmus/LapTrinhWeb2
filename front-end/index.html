@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,22 +8,27 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<style type="text/css">
 		.loader {
-		    border: 8px solid #f3f3f3; 
-		    border-top: 8px solid #3498db; 
-		    border-radius: 50%;
-		    width: 80px;
-		    height: 80px;
-		    animation: spin 2s linear infinite;
-		    margin: 0 auto;
-		    display: none;
+			border: 8px solid #f3f3f3;
+			border-top: 8px solid #3498db;
+			border-radius: 50%;
+			width: 80px;
+			height: 80px;
+			animation: spin 2s linear infinite;
+			margin: 0 auto;
+			display: none;
 		}
 
 		@keyframes spin {
-		    0% { transform: rotate(0deg); }
-		    100% { transform: rotate(360deg); }
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
 		}
 	</style>
 </head>
+
 <body>
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
@@ -35,7 +41,7 @@
 				</button>
 				<a class="navbar-brand" href="index.html">Web đấu giá</a>
 			</div>
-	
+
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<form class="navbar-form navbar-left" role="search">
@@ -46,12 +52,24 @@
 				</form>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown" id="logined">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user"></span><b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<span id="user"></span>
+							<b class="caret"></b>
+						</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Sản phẩm đang đấu giá</a></li>
-							<li><a href="#">Sản phẩm đã đấu giá thành công</a></li>
-							<li><a href="#">Thông tin tài khoản</a></li>
-							<li><a id="btn-loguot"><span class="glyphicon glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
+							<li>
+								<a href="#">Sản phẩm đang đấu giá</a>
+							</li>
+							<li>
+								<a href="#">Sản phẩm đã đấu giá thành công</a>
+							</li>
+							<li>
+								<a href="#">Thông tin tài khoản</a>
+							</li>
+							<li>
+								<a id="btn-loguot">
+									<span class="glyphicon glyphicon glyphicon-log-out"></span> Đăng xuất</a>
+							</li>
 						</ul>
 					</li>
 					<li id="logouted">
@@ -80,7 +98,7 @@
 					<div class="col-sm-12 col-md-12">
 					</div>
 				</div>
-			</div>	
+			</div>
 		</div>
 
 		<div class="panel panel-success">
@@ -89,7 +107,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="row" id="Top5Gia-list">
-					
+
 				</div>
 				<div class="loader"></div>
 				<div class="row">
@@ -106,7 +124,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="row" id="Top5GanKetThuc-list">
-					
+
 				</div>
 				<div class="loader"></div>
 				<div class="row">
@@ -117,10 +135,11 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/me/index.js"></script>
 	<script src="js/swal.js"></script>
 </body>
+
 </html>

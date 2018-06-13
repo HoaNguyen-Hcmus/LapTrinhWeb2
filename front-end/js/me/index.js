@@ -29,11 +29,11 @@ var loadTop5RaGia = function () {
 		$.each(data, function (idx, item) {
 			var html = '<div class="col-sm-4 col-md-4" style="display: none>' +
 				'<div class="thumbnail">' +
-				'<img src="imgs/sp/' + item.ID + '/main_thumbs.jpg" alt="' + item.Ten + '" title="' + item.Ten + '">' +
+				'<img src="http://localhost:3000/' + item.ID + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '">' +
 				'<div class="caption">' +
 				'<h4>' + item.Ten + '</h4>' +
 				'<p>' +
-				'<a href="javascript:;" class="btn btn-primary">' +
+				'<a href="ChiTietSanPham.html?id='+item.ID+'" class="btn btn-primary">' +
 				'<span class="glyphicon glyphicon-eye-open"></span>' +
 				'Details' +
 				'</a>' +
@@ -72,11 +72,11 @@ var loadTop5Gia = function () {
 		$.each(data, function (idx, item) {
 			var html = '<div class="col-sm-4 col-md-4" style="display: none>' +
 				'<div class="thumbnail">' +
-				'<img src="imgs/sp/' + item.ID + '/main_thumbs.jpg" alt="' + item.Ten + '" title="' + item.Ten + '">' +
+				'<img src="http://localhost:3000/' + item.ID + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '">' +
 				'<div class="caption">' +
 				'<h4>' + item.Ten + '</h4>' +
 				'<p>' +
-				'<a href="javascript:;" class="btn btn-primary">' +
+				'<a href="ChiTietSanPham.html?id='+item.ID+'" class="btn btn-primary" class="btn btn-primary">' +
 				'<span class="glyphicon glyphicon-eye-open"></span>' +
 				'Details' +
 				'</a>' +
@@ -115,11 +115,11 @@ var loadTop5GanKetThuc = function () {
 		$.each(data, function (idx, item) {
 			var html = '<div class="col-sm-4 col-md-4" style="display: none>' +
 				'<div class="thumbnail">' +
-				'<img src="imgs/sp/' + item.ID + '/main_thumbs.jpg" alt="' + item.Ten + '" title="' + item.Ten + '">' +
+				'<img src="http://localhost:3000/' + item.ID + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '" class="img-responsive" alt="Cinque Terre">' +
 				'<div class="caption">' +
 				'<h4>' + item.Ten + '</h4>' +
 				'<p>' +
-				'<a href="javascript:;" class="btn btn-primary">' +
+				'<a href="ChiTietSanPham.html?id='+item.ID+'" class="btn btn-primary" class="btn btn-primary">' +
 				'<span class="glyphicon glyphicon-eye-open"></span>' +
 				'Details' +
 				'</a>' +

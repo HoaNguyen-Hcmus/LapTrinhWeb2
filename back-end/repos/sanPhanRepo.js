@@ -29,7 +29,7 @@ exports.loadNguoiGiuGia = function(sp) {
 }
 
 exports.loadSanPhamNhieuLuotRaGia = function() {
-	var sql = `SELECT * FROM sanpham ORDER BY SoLuotRaGia DESC LIMIT 5`;
+	var sql = `SELECT * FROM sanpham WHERE ThoiHanBan >= NOW() ORDER BY SoLuotRaGia DESC LIMIT 5`;
 
 	return db.load(sql);
 }
@@ -41,7 +41,7 @@ exports.addLikeList = function(nguoidung, sanpham) {
 }
 
 exports.loadSanPhamGiaCao = function() {
-	var sql = `SELECT *,max(GiaDuaRa) as giahientai FROM daugia d, sanpham s where d.SanPham=s.ID GROUP BY s.ID ORDER BY giahientai DESC LIMIT 5`;
+	var sql = `SELECT *,max(GiaDuaRa) as giahientai FROM daugia d, sanpham s WHERE d.SanPham=s.ID AND ThoiHanBan >= NOW()  GROUP BY s.ID ORDER BY giahientai DESC LIMIT 5`;
 
 	return db.load(sql);
 }

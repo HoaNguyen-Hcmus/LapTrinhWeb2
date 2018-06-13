@@ -1,0 +1,14 @@
+﻿Hòa:
++ Tìm sản phẩm (full chức năng), set token in navbar
+
+Hiếu:
++ Xin được bán.
++ Tìm hiểu mailer.
+
+
+Huy:
++ Phân hệ người bán (tiếp tục)
+	+ kick người dùng
+	+ Thêm mô tả
+
+Deadline: 23h59' T6 15/6/2018

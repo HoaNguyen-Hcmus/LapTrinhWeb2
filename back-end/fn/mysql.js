@@ -58,15 +58,40 @@ exports.insert = (sql) => {
 	return d.promise;
 }
 
+exports.update = (sql) => {
+	var d = q.defer();
+	
+	var cn = mysql.createConnection({
+		host: HOST,
+		port: PORT,
+		user: USER,
+		password: PWD,
+		database: DB
+	});
+
+	cn.connect();
+	cn.query(sql, function (error, value) {
+		if (error) {
+			d.reject(error);
+		} else {
+			d.resolve(value.changedRows);
+		}
+
+		cn.end();
+	});
+
+	return d.promise;
+}
+
 exports.delete = function (sql) {
 	var d = q.defer();
 	
 	var cn = mysql.createConnection({
-		host: _HOST,
-		port: _PORT,
-		user: _USER,
-		password: _PWD,
-		database: _DB
+		host: HOST,
+		port: PORT,
+		user: USER,
+		password: PWD,
+		database: DB
 	});
 
 	cn.connect();

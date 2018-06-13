@@ -29,7 +29,7 @@ exports.loadNguoiGiuGia = function(sp) {
 }
 
 exports.loadSanPhamNhieuLuotRaGia = function() {
-	var sql = `SELECT * FROM sanpham WHERE ThoiHanBan >= NOW() ORDER BY SoLuotRaGia DESC LIMIT 5`;
+	var sql = `SELECT *, COUNT(*) as luotragia FROM sanpham p, daugia g where p.ID = g.SanPham AND ThoiHanBan >= NOW() GROUP BY p.ID ORDER BY luotragia DESC LIMIT 5`;
 
 	return db.load(sql);
 }

@@ -34,6 +34,12 @@ exports.loadSanPhamNhieuLuotRaGia = function() {
 	return db.load(sql);
 }
 
+exports.addLikeList = function(nguoidung, sanpham) {
+	var sql = `INSERT DanhSachYeuThich (NguoiDung, SanPham) VALUES (${nguoidung}, ${sanpham})`;
+
+	return db.insert(sql);
+}
+
 exports.loadSanPhamGiaCao = function() {
 	var sql = `SELECT *,max(GiaDuaRa) as giahientai FROM daugia d, sanpham s where d.SanPham=s.ID GROUP BY s.ID ORDER BY giahientai DESC LIMIT 5`;
 

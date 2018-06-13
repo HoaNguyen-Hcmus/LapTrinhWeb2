@@ -69,4 +69,20 @@ router.get('/top/ganketthuc', (req, res) => {
 	});
 });
 
+router.post('/addLikeList', checkToken.checkTokenUser, (req, res) => {
+	sanPhamRepo.addLikeList(req.body.NguoiDung, req.body.SanPham)
+	.then(rows => {
+		res.statusCode = 200;
+		res.json({
+			mess: "Thêm danh sách yêu thích thành công!"
+		})
+	})
+	.catch(err => {
+		res.statusCode = 500;
+		res.json({
+			err: `Lỗi: ${err}`
+		})
+	})
+})
+
 module.exports = router;

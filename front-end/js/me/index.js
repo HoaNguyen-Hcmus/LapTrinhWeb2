@@ -37,9 +37,9 @@ var loadTop5RaGia = function () {
 				'<span class="glyphicon glyphicon-eye-open"></span>' +
 				'Details' +
 				'</a>' +
-				'<a href="javascript:;" class="btn btn-danger">' +
-				'<span class="glyphicon glyphicon-shopping-cart"></span>' +
-				'Add' +
+				' <a href="javascript:;" data-id="'+item.ID+'" class="btn btn-warning btn-like-list">' +
+				'<span class="glyphicon glyphicon-heart"></span>' +
+				' Yêu thích'+
 				'</a>' +
 				'</p>' +
 				'</div>' +
@@ -80,9 +80,9 @@ var loadTop5Gia = function () {
 				'<span class="glyphicon glyphicon-eye-open"></span>' +
 				'Details' +
 				'</a>' +
-				'<a href="javascript:;" class="btn btn-danger">' +
-				'<span class="glyphicon glyphicon-shopping-cart"></span>' +
-				'Add' +
+				' <a href="javascript:;" data-id="'+item.ID+'" class="btn btn-warning btn-like-list">' +
+				'<span class="glyphicon glyphicon-heart"></span>' +
+				' Yêu thích' +
 				'</a>' +
 				'</p>' +
 				'</div>' +
@@ -123,9 +123,9 @@ var loadTop5GanKetThuc = function () {
 				'<span class="glyphicon glyphicon-eye-open"></span>' +
 				'Details' +
 				'</a>' +
-				'<a href="javascript:;" class="btn btn-danger">' +
-				'<span class="glyphicon glyphicon-shopping-cart"></span>' +
-				'Add' +
+				' <a href="javascript:;" data-id="'+item.ID+'" class="btn btn-warning btn-like-list">' +
+				'<span class="glyphicon glyphicon-heart"></span>' +
+				' Yêu thích' +
 				'</a>' +
 				'</p>' +
 				'</div>' +
@@ -146,4 +146,35 @@ var loadTop5GanKetThuc = function () {
 		});
 	});
 };
+
+$("#content").on('click', '.btn-like-list', function() {
+	var dataPost = {
+		NguoiDung: localStorage.id_token,
+		SanPham: $(this).data("id")
+	}, 
+	jsonPost = JSON.stringify(dataPost);
+
+	console.log(jsonPost);
+	$.ajax({
+		url: 'http://localhost:3000/sanpham/addLikeList',
+		type: 'POST',
+		dataType: 'json',
+		data: jsonPost,
+		headers: {
+			'x-access-token': localStorage.access_token
+		},
+		contentType: 'application/json'
+	})
+	.done(function() {
+		console.log("success");
+	})
+	.fail(function(err) {
+		console.log(err);
+		if(err.status == 403){
+			window.location.href = 'login.html';
+		} else if(err.status == 500) {
+			swal("Lỗi", "Thêm vào danh sách không thành công", "error");
+		}
+	});
+});
 

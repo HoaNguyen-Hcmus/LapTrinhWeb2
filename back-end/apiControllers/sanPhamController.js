@@ -1,5 +1,6 @@
 var express = require('express'),
-	sanPhamRepo = require('../repos/sanPhanRepo');
+	sanPhamRepo = require('../repos/sanPhanRepo'),
+	checkToken = require('../fn/checkToken');
 
 var router = express.Router();
 

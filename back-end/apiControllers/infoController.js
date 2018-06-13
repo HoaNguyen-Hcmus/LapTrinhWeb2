@@ -4,8 +4,8 @@ var router=express.Router();
 var axios=require('axios');
 var md5=require('md5');
 
-router.get('/changeInfo',(req,res)=>{
-	userID=10;
+router.get('/changeInfo/:id_user',(req,res)=>{
+	var userID=req.params["id_user"];
 	infoRepo.selectUser(userID).then(rows=>{
 		res.json(rows);
 	}).catch(err=>{
@@ -16,12 +16,13 @@ router.get('/changeInfo',(req,res)=>{
 });
 
 router.post('/changeInfo',(req,res)=>{
-	var userID=9;
+	var userID=req.body.idUser;
 	var userName=req.body.name;
 	var userAddress=req.body.address;
 	var userMail=req.body.mail;
 	var userPhone=req.body.phone;
 	var userBirth=req.body.birth;
+
 	infoRepo.updateUser(userID,userName,userAddress,userMail,userPhone).then(insertID=>{
 		res.statusCode=201;
 		res.json(req.body);
@@ -34,7 +35,7 @@ router.post('/changeInfo',(req,res)=>{
 });
 
 router.post('/changePass',(req,res)=>{
-	var userID=2;
+	var userID=req.body.idUser;
 	var pass1=md5(req.body.pass1);
 	var pass2=req.body.pass2;
 	var pass3=req.body.pass3;
@@ -65,8 +66,8 @@ router.post('/changePass',(req,res)=>{
 		});
 	});
 
-router.get('/evaluation',(req,res)=>{
-	var userID=10;
+router.get('/evaluation/:id_user',(req,res)=>{
+	var userID=req.params["id_user"];
 	infoRepo.selectEvaluation(userID).then(rows=>{
 		res.json(rows);
 	}).catch(err=>{
@@ -76,8 +77,8 @@ router.get('/evaluation',(req,res)=>{
 	});
 });
 
-router.get('/favorite',(req,res)=>{
-	var userID=10;
+router.get('/favorite/:id_user',(req,res)=>{
+	var userID=req.params["id_user"];
 	infoRepo.selectFavorite(userID).then(rows=>{
 		res.json(rows);
 	}).catch(err=>{
@@ -87,8 +88,8 @@ router.get('/favorite',(req,res)=>{
 	});
 });
 
-router.get('/auction',(req,res)=>{
-	var userID=10;
+router.get('/auction/:id_user',(req,res)=>{
+	var userID=req.params["id_user"];
 	infoRepo.selectAuction(userID).then(rows=>{
 		res.json(rows);
 	}).catch(err=>{
@@ -98,8 +99,8 @@ router.get('/auction',(req,res)=>{
 	});
 });
 
-router.get('/win',(req,res)=>{
-	var userID=10;
+router.get('/win/:id_user',(req,res)=>{
+	var userID=req.params["id_user"];
 	infoRepo.selectWin(userID).then(rows=>{
 		res.json(rows);
 	}).catch(err=>{
@@ -110,8 +111,8 @@ router.get('/win',(req,res)=>{
 });
 
 router.get('/:id',(req,res)=>{
-	if(req.params.id){
-		var id=req.params.id;
+	if(req.params['id']){
+		var id=req.params['id'];
 		if (isNaN(id)) {
 			res.statusCode = 400;
 			res.end();
@@ -130,4 +131,43 @@ router.get('/:id',(req,res)=>{
 	}
 });
 
+router.post('/comment',(req,res)=>{
+	var userID=req.body.idUser;
+	var idSanPham=req.body.id;
+	var idNguoiBan=0;
+	var nhanxet=req.body.comment;
+	var diem=req.body.diem;
+
+	infoRepo.selectNguoiBan(idSanPham).then(rows=>{
+		if(rows.length>0)
+		{
+			idNguoiBan=rows[0].NguoiBan;
+
+			infoRepo.updateDiem(idNguoiBan,diem).then(insertID=>{
+				res.statusCode=201;
+				res.json(req.body);
+				res.json({mess:"Cap nhat diem thanh cong"});
+				//infoRepo.insertComment(userID,idNguoiBan,nhanxet,1);
+			}).catch(err=>{
+				console.log(err);
+				res.statusCode=401;
+				res.end('View erroe log on console');
+			});
+
+			infoRepo.insertComment(userID,idNguoiBan,nhanxet,1).then(insertID=>{
+				res.statusCode=201;
+				res.json(req.body);
+				res.json({mess:"Cap nhat nhan xet thanh cong"});
+			}).catch(err=>{
+				console.log(err);
+				res.statusCode=402;
+				res.end('View erroe log on console');
+			});
+		}else{
+		res.statusCode = 400;
+		res.json('khong lay duoc userID nguoi ban');
+	}
+	})
+
+});
 module.exports=router;

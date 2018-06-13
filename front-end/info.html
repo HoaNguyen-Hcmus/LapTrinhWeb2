@@ -14,14 +14,17 @@
 				<i class="glyphicon glyphicon-home"></i> Về trang trước
 			</a>
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tài khoản<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Thông tin tài khoản</a></li>
-						<li><a id="btn-loguot" href="#"><span class="glyphicon glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
-					</ul>
-				</li>
-			</ul>
+					<li class="dropdown" id="logined">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user"></span><b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Thông tin tài khoản</a></li>
+							<li><a id="btn-loguot"><span class="glyphicon glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
+						</ul>
+					</li>
+					<li id="logouted">
+						<a href="login.html">Đăng nhập / Đăng kí</a>
+					</li>
+				</ul>
 		<div>
 			<br>
 			<ul class="nav nav-tabs" role="tablist">

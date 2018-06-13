@@ -42,18 +42,36 @@ exports.selectFavorite=function(userID)
 
 exports.selectAuction=function(userID)
 {
-	var sql=`select * from daugia dg,sanpham sp where NguoiRaGia=${userID} and dg.SanPham=sp.ID`;
+	var sql=`select * from daugia dg,sanpham sp where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1`;
 	return db.load(sql);
 }
 
 exports.selectWin=function(userID)
 {
-	var sql=`select * from daugia dg,sanpham sp, user u where NguoiRaGia=${userID} and dg.SanPham=sp.ID and CoThangCuoc=1 and sp.NguoiBan= u.ID order by dg.GiaDuaRa desc`;
+	var sql=`select * from daugia dg,sanpham sp, user u where sp.TrangThai=0 and NguoiRaGia=${userID} and dg.SanPham=sp.ID and CoThangCuoc=1 and sp.NguoiBan= u.ID order by dg.GiaDuaRa desc`;
 	return db.load(sql);
 } 
 
 exports.selectSanPham=function(id)
 {
 	var sql=`select * from  sanpham where ID=${id}`;
+	return db.load(sql);
+}
+
+exports.insertComment=function(userIDGui,userIDNhan,nhanXet,trangThai)
+{
+	var sql=`insert into nhanxet(NguoiNhanXet,LoiNhanXet,NguoiDuocNhanXet,TrangThai) values (${userIDGui},N'${nhanXet}',${userIDNhan},${trangThai})`;
+	return db.insert(sql);
+}
+
+exports.updateDiem=function(userID,diem)
+{
+	var sql=`update user set DiemDanhGia=(select DiemDanhGia)+${diem} where ID=${userID}`;
+	return db.insert(sql);
+}
+
+exports.selectNguoiBan=function(idSanPham)
+{
+	var sql=`select * from sanpham where ID=${idSanPham}`;
 	return db.load(sql);
 }

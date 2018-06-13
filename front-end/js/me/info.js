@@ -1,11 +1,9 @@
 $(document).ready(function() {
-
+	var id_user=localStorage.id_token;
 	
-
-	$(function(){
-		//Nhận xét sản phẩm  
-		// Lấy ID gửi từ URL
-		function getParams() {
+	//Nhận xét sản phẩm  
+	// Lấy ID gửi từ URL
+	function getParams() {
 	    var idx = document.URL.indexOf('?');
 	    var params = new Array();
 	    if (idx != -1) {
@@ -17,28 +15,33 @@ $(document).ready(function() {
 	    }
 	    return params;
 		}
-		//Gọi hàm
+
+	$(function(){
+		//Gọi hàm lấy ID từ URL
 		params = getParams();
 		var id=unescape(params["id"]);
-		//idSP: $("#idSP").val('Giày gùng');
-
-		$.ajax({
-			url:'http://localhost:3000/info/'+id,
-			dataType: 'json',
-        	timeout: 10000
-		}).done(function(data){
-			$.each(data,function(idx,item){
-			var data={
-				idSP: $("#idSP").val('dsfd')
-			}	
+		if(id!=null)
+		{
+			$.ajax({
+				url:'http://localhost:3000/info/'+id,
+				dataType: 'json',
+				type: 'GET',
+	        	timeout: 10000
+			}).done(function(data){
+				$.each(data,function(idx,item){
+				var data={
+					idSP: $("#idSP").val(item.Ten)
+				}	
+			});
 		});
-	});
+		}
 
 		//Xuất thông in của người dùng để họ chỉnh sửa thông tin
 		$.ajax({
-			url:'http://localhost:3000/info/changeInfo',
+			url:'http://localhost:3000/info/changeInfo/'+id_user,
 			dataType: 'json',
-        	timeout: 10000
+        	timeout: 10000,
+        	contentType: "application/json"
 		}).done(function(data){
 			$.each(data,function(idx,item){
 			var data={
@@ -52,9 +55,10 @@ $(document).ready(function() {
 
 		// Xuất thông tin đánh giá
 		$.ajax({
-			url:'http://localhost:3000/info/evaluation',
+			url:'http://localhost:3000/info/evaluation/'+id_user,
 			dataType: 'json',
-        	timeout: 10000
+        	timeout: 10000,
+        	contentType:"application/json"
 		}).done(function(data){
 			var i=0;
 			$.each(data,function(idx,item){
@@ -74,9 +78,10 @@ $(document).ready(function() {
 
 		// Xuất thông tin sản phẩm yêu thích
 		$.ajax({
-			url:'http://localhost:3000/info/favorite',
+			url:'http://localhost:3000/info/favorite/'+id_user,
 			dataType: 'json',
-        	timeout: 10000
+        	timeout: 10000,
+        	contentType:"application/json"
 		}).done(function(data){
 			var i=0;
 			$.each(data,function(idx,item){
@@ -92,9 +97,10 @@ $(document).ready(function() {
 
 		//Xuất thông tin sản phẩm tham gia đấu giá
 		$.ajax({
-			url:'http://localhost:3000/info/auction',
+			url:'http://localhost:3000/info/auction/'+id_user,
 			dataType: 'json',
-        	timeout: 10000
+        	timeout: 10000,
+        	contentType:"application/json"
 		}).done(function(data){
 			var i=0;
 			$.each(data,function(idx,item){
@@ -110,9 +116,10 @@ $(document).ready(function() {
 		
 		//Xuất danh sách sản phẩm đã thắng
 		$.ajax({
-			url:'http://localhost:3000/info/win',
+			url:'http://localhost:3000/info/win/'+id_user,
 			dataType: 'json',
-        	timeout: 10000
+        	timeout: 10000,
+        	contentType:"application/json"
 		}).done(function(data){
 			var i=0;
 			$.each(data,function(idx,item){
@@ -122,7 +129,7 @@ $(document).ready(function() {
 					'<td>'+ i + '</td>'+
 					'<td><a href="ChiTietSanPham.html?id='+item.SanPham+'">'+ item.Ten + '</a></td>'+
 					'<td>'+ item.GiaDuaRa + '</td>'+
-					'<td>'+ '<a href="nhanxet.html?id='+item.SanPham+'&name='+item.Ten+'"> Nhận xét và đánh giá sản phẩm </a>'  +'</td>'+
+					'<td>'+ '<a href="nhanxet.html?id='+item.SanPham+'"> Nhận xét và đánh giá sản phẩm </a>'  +'</td>'+
 					// '<td align="center">'+ '<button type="button" class="btn btn-success" >+ 1</button>' +  '<button type="button" class="btn btn-danger" >- 1</button>'+ '</td>'+
 					// '<td>'+ '<textarea class="form-control" rows="3"></textarea>' + '</td>'+
 					'</tr>';
@@ -187,6 +194,7 @@ $(document).ready(function() {
 	    	errorElement:'span',
 	    	errorClass:'help-block'
 	    });
+	});
 
 	    //Valid thay đổi mật khẩu
 
@@ -232,7 +240,33 @@ $(document).ready(function() {
         errorElement: 'span',
         errorClass: 'help-block'
 	    });
-	});
+
+	    // Kiểm tra thông tin trang nhận xét
+	$('#formComment').validate({
+		rules:{
+			textComment:{
+				required:true
+			}
+		},
+		messages:{
+			textComment:{
+				required: 'Bạn chưa nhận xét'
+			}
+		},
+		highlight: function(element) { // hightlight error inputs
+        $(element)
+            .closest('.form-group')
+            .addClass('has-error'); // set error class to the control group
+       	},
+   		success: function(label) {
+            label.closest('.form-group').removeClass('has-error');
+            label.remove();
+   		 },
+
+        errorElement: 'span',
+        errorClass: 'help-block'
+	    });
+
 
 	// Cập nhật thông tin người dùng
 
@@ -243,7 +277,8 @@ $(document).ready(function() {
 			birth: $("#birth").val(),
 			address: $("#address").val(),
 			phone: $("#phone").val(),
-			mail: $("#mail").val()
+			mail: $("#mail").val(),
+			idUser:id_user
 		}
 
 		var isValid=$('#repairRegisterForm').valid();
@@ -278,7 +313,8 @@ $(document).ready(function() {
 		var data={
 			pass1: $("#pass1").val(),
 			pass2: $("#pass2").val(),
-			pass3: $("#pass3").val()
+			pass3: $("#pass3").val(),
+			idUser:id_user
 		}
 		var isValid=$('#passForm').valid();
 		if(isValid)
@@ -309,90 +345,52 @@ $(document).ready(function() {
 	});
 
 	$("#btn-comment").on('click',function(){
+		//Gọi hàm lấy ID từ URL
+		params = getParams();
+		var data={
+			diem:$("#typeEvaluation").val(),
+			comment:$("#textComment").val(),
+			id:unescape(params["id"]),
+			idUser:id_user
+		}
+		var isValid=$('#formComment').valid();
+		if(isValid)
+		{
+			$.ajax({
+				url:'http://localhost:3000/info/comment',
+				dataType:'json',
+				timeout:10000,
+				type:'POST',
+				contentType:'application/json',
+				data:JSON.stringify(data)
+			}).done(function(data){
 
+			}).fail(function(xhr,textStatus,error){
+				console.log(textStatus);
+            	console.log(error);
+           	 	console.log(xhr);
+			});
+			console.log(data);
+		}
 
-	});			
+	});	
 
-	// $("#btn-refresh").on('click',function(){
-	// 	$.ajax({
-	// 		url:'http://localhost:3000/info/evaluation',
-	// 		dataType: 'json',
- //        	timeout: 10000
-	// 	}).done(function(data){
-	// 		$.each(data,function(idx,item){
-	// 			var tr=
-	// 			'<tr>'+
-	// 				'<td>'+ item.NguoiNhanXet + '</td>'+
-	// 				'<td>'+ item.ThoiGian + '</td>'+
-	// 				'<td>'+ item.LoiNhanXet + '</td>'+
-	// 			'</tr>';
-	// 			$('#list-evaluation').append(tr);
-	// 		var data={
-	// 			sorce: $('#sorce-evaluation').val(item.DiemDanhGia)
-	// 		}
-	// 		});
-	// 	});
-	// });
+	$("#btn-loguot").on('click', function () {
+	localStorage.removeItem('access_token');
+	localStorage.removeItem('id_token');
+	localStorage.removeItem('user_token');
+	localStorage.removeItem('banhang_token');
+	window.location = "index.html";
+	});
 
-	// $("#btn-refresh-favorite").on('click',function(){
-	// 	var i=0;
-	// 	$.ajax({
-	// 		url:'http://localhost:3000/info/favorite',
-	// 		dataType: 'json',
- //        	timeout: 10000
-	// 	}).done(function(data){
-	// 		$.each(data,function(idx,item){
-	// 			i++;
-	// 			var tr=
-	// 			'<tr>'+
-	// 				'<td>'+ i + '</td>'+
-	// 				'<td>'+ item.Ten + '</td>'+
-	// 			'</tr>';
-	// 			$('#list-favorite').append(tr);
-	// 		});
-	// 	});
-	// });
+	$( document ).ready(function(){
+		if(localStorage.user_token != undefined) {
+			$("#user").html(localStorage.user_token);
+			$("#logouted").remove();
+		} else {
+			$("#logined").remove();
+		}
+	});
 
-	// $("#btn-refresh-auction").on('click',function(){
-	// 	var i=0;
-	// 	$.ajax({
-	// 		url:'http://localhost:3000/info/auction',
-	// 		dataType: 'json',
- //        	timeout: 10000
-	// 	}).done(function(data){
-	// 		$.each(data,function(idx,item){
-	// 			i++;
-	// 			var tr=
-	// 			'<tr>'+
-	// 				'<td>'+ i + '</td>'+
-	// 				'<td>'+ item.Ten + '</td>'+
-	// 			'</tr>';
-	// 			$('#list-auction').append(tr);
-	// 		});
-	// 	});
-	// });
-
-	// $("#btn-refresh-win").on('click',function(){
-	// 	var i=0;
-	// 	$.ajax({
-	// 		url:'http://localhost:3000/info/win',
-	// 		dataType: 'json',
- //        	timeout: 10000
-	// 	}).done(function(data){
-	// 		$.each(data,function(idx,item){
-	// 			i++;
-	// 			var tr=
-	// 			'<tr>'+
-	// 				'<td>'+ i + '</td>'+
-	// 				'<td>'+ item.Ten + '</td>'+
-	// 				'<td>'+ item.GiaDuaRa + '</td>'+
-	// 				'<td align="center">'+ '<button type="button" class="btn btn-success" >+ 1</button>' +  '<button type="button" class="btn btn-danger" >- 1</button>'+ '</td>'+
-	// 				'<td>'+ '<textarea class="form-control" rows="3"></textarea>' + '</td>'+
-	// 				'<td>'+ '<button type="button" class="btn btn-default"> <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></button>' + '</td>'+
-	// 			'</tr>';
-	// 			$('#list-win').append(tr);
-	// 		});
-	// 	});
-	//});
-
+		
 });

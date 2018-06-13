@@ -15,23 +15,25 @@
 				</a>
 				<br>
 				<br>
-				<form action="http://localhost:3000/info" method="POST">
+				<form action="http://localhost:3000/info/comment" method="POST" id="formComment">
 				  <fieldset>
 
-				    <legend>Nhận xét và đánh giá:<input type="text" id="idSP" name="idSP" readonly="true"></legend>
+				    <legend>Nhận xét và đánh giá: </legend>
+				    <label>Tên sản phẩm: </label>
+				    <input type="text" id="idSP" name="idSP" readonly="true">
 
 				    <div class="form-group">
 						<label for="type-sign-up">Điểm đánh giá</label>
-						<select id="type-evaluation" class="form-control" name="type">
+						<select id="typeEvaluation" class="form-control" name="type">
 							<option value="-1">-1</option>
 							<option value="+1">+1</option>
 						</select>
 					</div>
 
 				    <label>Nhận xét</label>
-				    <textarea class="form-control" rows="3" id="text-comment" name="text-comment"></textarea>
+				    <textarea class="form-control" rows="3" id="textComment" name="textComment"></textarea>
 				    <br>
-				    <button type="button" class="btn btn-success" id="btn-comment"> Xác nhận</button>
+				    <button type="button" class="btn btn-success" id="btn-comment" name="btn-comment"> Xác nhận</button>
 				  </fieldset>
 				</form>
 			</div>

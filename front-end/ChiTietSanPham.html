@@ -25,14 +25,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown" id="logined">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="user"></span><b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Sản phẩm đang đấu giá</a></li>
-                            <li><a href="#">Sản phẩm đã đấu giá thành công</a></li>
-                            <li><a href="#">Thông tin tài khoản</a></li>
-                            <li><a id="btn-loguot"><span class="glyphicon glyphicon glyphicon-log-out"></span> Đăng xuất</a></li>
-                        </ul>
+                    <li id="logined">
+                        <a href="#"><span id="user"></span></a>
                     </li>
                     <li id="logouted">
                         <a href="login.html">Đăng nhập / Đăng kí</a>
@@ -52,8 +46,8 @@
                 <div class="modal-body">
                     <form action="" method="POST" role="form">
                         <div class="form-group">
-                            <label for="">Giá sản phẩm</label>
-                            <input type="text" class="form-control" id="" placeholder="Input field">
+                            <label for="price">Giá sản phẩm</label>
+                            <input type="number" class="form-control" id="price">
                         </div>
                     </form>
                 </div>
@@ -88,24 +82,32 @@
                 <div id="list-group"></div>
                 <hr>
                 <div id="nguoiban">
-                    <li class="btn list-group-item" data-toggle="modal" href='#modal-add-mota'>Thêm mô tả</li>
+                    
+                    <li class="btn list-group-item" data-toggle="modal" href='#modal-mota'>Thêm mô tả</li>
                     <li class="btn list-group-item" data-toggle="modal" href='#modal-show-history'>Lịch sử ra giá</li>
 
-                    <div class="modal fade" id="modal-add-mota">
+
+                    <div class="modal fade" id="modal-mota">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title">Thêm mô tả</h4>
-                                </div>
-                                <div class="modal-body"><h5><b>Nhập mô tả: </b></h5><textarea id="mota-add"></textarea></div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Lưu lại</button>
-                                </div>
+                                <form action="" id="frm" method="POST" role="form">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Thêm mô tả</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <textarea name="add-mota" id="add-mota" cols="30" rows="10"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Thêm</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-
                     <div class="modal fade" id="modal-show-history">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -132,6 +134,7 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/swal.js"></script>
+    <script src="js/jqueryform.js"></script>
     <script src="js/ckeditor5/ckeditor.js"></script>
     <script src="js/me/function.js"></script>
 	<script src="js/me/ChiTietSanPham.js"></script>

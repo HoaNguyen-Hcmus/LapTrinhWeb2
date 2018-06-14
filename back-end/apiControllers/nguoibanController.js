@@ -90,4 +90,35 @@ router.post('/uploadImage', upload.array('photos', 3), (req, res) => {
 	res.end("Đăng hình thành công");
 })
 
+router.post('/dangmota', (req, res) => {
+	nguoibanRepo.dangMoTa(req.body.id, req.body.mota)
+	.then(row => {
+		if(row > 0) {
+			nguoibanRepo.showMoTa(req.body.id)
+			.then(rows => {
+				res.statusCode = 200;
+				res.json({
+					data: rows
+				})
+			})
+			.catch(err => {
+				res.statusCode = 400;
+				res.json({
+					err: `Lỗi truy vấn: ${err}`
+				})
+			})	
+		} else {
+			res.statusCode = 400;
+			res.json({
+				err: "Đăng mô tả sản phẩm không thành công..."
+			})
+		}
+	})
+	.catch(err => {
+		res.statusCode = 400;
+		res.json({
+			err: `Lỗi truy vấn: ${err}`
+		})
+	})	
+});
 module.exports = router;

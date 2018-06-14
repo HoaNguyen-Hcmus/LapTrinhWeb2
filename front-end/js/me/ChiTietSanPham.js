@@ -1,9 +1,13 @@
 $(document).ready(function () {
 	//show ckeditor
 	ClassicEditor
-	.create( document.querySelector('#mota-add'))
-	.then(editor => {})
-	.catch(error => {console.error( error );});
+	.create( document.querySelector( '#add-mota' ) )
+	.then( editor => {
+
+	})
+	.catch( error => {
+		console.error( error );
+	});
 
 	//check login ?show btn login/logout
 	if(localStorage.user_token != undefined) {
@@ -56,6 +60,14 @@ $(document).ready(function () {
 		if(localStorage.id_token != row.ID) {
 			$("#nguoiban").remove();
 		}
+
+		if(nguoigiugia == undefined)
+			nguoigiugia = {
+				GiaDuaRa: "00",
+				id: "",
+				NAME: ""
+			};
+			//nguoigiugia.GiaDuaRa = nguoigiugia.id = nguoigiugia.NAME = "";
 		
 		xhtml += '<li class="list-group-item">Người bán: <a href="profile.html?id='+ row.ID +'">'+ row.Name +'</a><span class="badge">'+ row.DiemDanhGia +' điểm</span></li>';
         xhtml += '<li class="list-group-item">Giá hiện tại: '+ formatCurrent(nguoigiugia.GiaDuaRa) +'</li>';
@@ -70,7 +82,7 @@ $(document).ready(function () {
 
 
         $(mota).each(function(index, value) {
-        	xhtml_mota += '<h4><u><strong>Mô tả 1:</strong> Update: <i>'+ getFullDate(value.ThoiGian) +'</i></u></h4>';
+        	xhtml_mota += '<h4><u><strong>Mô tả '+(index+1)+':</strong> Update: <i>'+ getFullDate(value.ThoiGian) +'</i></u></h4>';
         	xhtml_mota += value.MoTa;
         });
 
@@ -90,7 +102,6 @@ $(document).ready(function () {
 		}, 
 		jsonPost = JSON.stringify(dataPost);
 
-		console.log(jsonPost);
 		$.ajax({
 			url: 'http://localhost:3000/sanpham/addLikeList',
 			type: 'POST',
@@ -102,10 +113,9 @@ $(document).ready(function () {
 			contentType: 'application/json'
 		})
 		.done(function() {
-			console.log("success");
+			swal("Thông báo", "Thêm vào danh sách yêu thích thành công", "success");
 		})
 		.fail(function(err) {
-			console.log(err);
 			if(err.status == 403){
 				window.location.href = 'login.html';
 			} else if(err.status == 500) {
@@ -116,5 +126,41 @@ $(document).ready(function () {
 
 	//add new descript
 
+	$('#frm').submit(function() {
+		$(this).ajaxSubmit({
+			beforeSubmit: function(formData, jqForm, options) {
+				
+			},
+			success: function showResponse(responseText, statusText, xhr, $form) {
+				var dataPost = {
+					id: id,
+					mota: $("#add-mota").val()
+				}, jsonPost = JSON.stringify(dataPost);
+
+				$.ajax({
+					url: 'http://localhost:3000/nguoiban/dangmota',
+					type: 'POST',
+					dataType: 'json',
+					contentType: 'application/json',
+					data: jsonPost,
+				})
+				.done(function(data) {
+					var xhtml_mota = "";
+					//console.log(data);
+					$(data.data).each(function(index, value) {
+			        	xhtml_mota += '<h4><u><strong>Mô tả '+(index+1)+':</strong> Update: <i>'+ getFullDate(value.ThoiGian) +'</i></u></h4>';
+			        	xhtml_mota += value.MoTa;
+			        })
+			        $("#mota").html(xhtml_mota);
+				})
+				.fail(function(err) {
+					//console.log(err);
+				});	
+			}
+		});
+		return false;
+	});
+
+	
 	//kick user from list
 });

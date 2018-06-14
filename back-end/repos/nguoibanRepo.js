@@ -10,6 +10,10 @@ exports.showDanhMuc = function() {
 	return db.load(sql);
 }
 
+exports.showMoTa = function(sp) {
+	var sql = `SELECT * FROM MoTa WHERE SanPham = ${sp}`;
+	return db.load(sql);
+}
 exports.dangBan = function(data) {
 	var sql = `INSERT SanPham(Ten, GiaDauGia, GiaMuaNgay, ThoiHanBan, TrangThai, 
 		NguoiBan, SoLuotRaGia, DanhMuc, BuocGia, TuDongGiaHan)

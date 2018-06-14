@@ -11,7 +11,7 @@ exports.checkLogin = (user, pass) => {
 
 //yeu cau ban
 exports.showYeuCauBan = () => {
-	var sql = `SELECT xb.*, user.NAME FROM xinduocban xb, user WHERE user.ID = xb.NguoiDung`;
+	var sql = `SELECT xb.*, user.NAME FROM xinduocban xb, user WHERE user.ID = xb.NguoiDung ORDER BY ThoiGianXin`;
 
 	return db.load(sql);
 };

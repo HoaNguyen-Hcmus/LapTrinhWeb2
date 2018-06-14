@@ -131,7 +131,6 @@ var loadTop5GanKetThuc = function () {
 				'</div>' +
 				'</div>' +
 				'</div>';
-			console.log(html);
 			$('#Top5GanKetThuc-list').append(html);
 
 			$('#Top5GanKetThuc-list div[style]').fadeIn(1000, function () {

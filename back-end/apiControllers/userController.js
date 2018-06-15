@@ -95,4 +95,20 @@ router.post('/Signup',(req,res)=>{
 	});			
 });
 
+router.post('/xinban', (req, res) => {
+	userRepo.xinban(req.body)
+		.then(insertId => {
+			var poco = {
+				xinBan: insertId
+			}
+			res.statusCode = 201;
+			res.json(poco);
+		})
+		.catch(err => {
+			console.log(err);
+			res.statusCode = 500;
+			res.end();
+		});
+});
+
 module.exports=router;

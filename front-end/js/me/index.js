@@ -177,3 +177,29 @@ $("#content").on('click', '.btn-like-list', function() {
 	});
 });
 
+$("#xinban").on('click', function() {
+	var dataPost = {
+		userID: localStorage.id_token,
+	}, 
+	jsonPost = JSON.stringify(dataPost);
+
+	console.log(jsonPost);
+	$.ajax({
+		url: 'http://localhost:3000/Signup/xinban',
+		type: 'POST',
+		dataType: 'json',
+		data: jsonPost,
+		contentType: 'application/json'
+	})
+	.done(function() {
+		console.log("success");
+	})
+	.fail(function(err) {
+		console.log(err);
+		if(err.status == 403){
+			window.location.href = 'login.html';
+		} else if(err.status == 500) {
+			swal("Lỗi", "Xin được bán không thành công", "error");
+		}
+	});
+});

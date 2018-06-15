@@ -29,3 +29,8 @@ exports.loadAll=function(){
 	var sql='select * from user';
 	return db.load(sql);
 }
+
+exports.xinban=function(poco){
+	var sql=`INSERT INTO xinduocban(NguoiDung,ThoiGianXin,ThoiGianChapNhan,TrangThai) VALUES(${poco.userID},NOW(),null,0)`
+	return db.insert(sql);
+}

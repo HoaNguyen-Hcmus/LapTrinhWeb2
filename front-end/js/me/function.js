@@ -37,16 +37,14 @@ var formatCurrent = function(data) {
 
 var encodeUser = function(data) {
 	data = String(data);
-	var i = 0,
-		result = "", 
-		arr	= data.split('');
-
-	//alert(str.length);
+	var result = "", 
+		arr	= data.split(''),
+		i = 0;
 	$(arr).each(function(index, value) {
-		if(i >= 3) {
-			result = result.concat("", "*");
-		} else {
+		if((arr.length - i) <= 3) {
 			result += data.charAt(i);
+		} else {
+			result = result.concat("", "*");
 		}
 		i++;	
 	});

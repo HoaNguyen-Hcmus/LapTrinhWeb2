@@ -16,6 +16,7 @@ $(document).ready(function () {
 	loadTop5RaGia();
 	loadTop5Gia();
 	loadTop5GanKetThuc();
+	btnXinban();
 });
 
 var loadTop5RaGia = function () {
@@ -45,7 +46,7 @@ var loadTop5RaGia = function () {
 				'</div>' +
 				'</div>' +
 				'</div>';
-			console.log(html);
+			//console.log(html);
 			$('#Top5RaGia-list').append(html);
 
 			$('#Top5RaGia-list div[style]').fadeIn(1000, function () {
@@ -88,7 +89,7 @@ var loadTop5Gia = function () {
 				'</div>' +
 				'</div>' +
 				'</div>';
-			console.log(html);
+			//console.log(html);
 			$('#Top5Gia-list').append(html);
 
 			$('#Top5Gia-list div[style]').fadeIn(1000, function () {
@@ -177,7 +178,7 @@ $("#content").on('click', '.btn-like-list', function() {
 	});
 });
 
-$("#xinban").on('click', function() {
+$("#content").on('click', '.btn-xin-ban', function() {
 	var dataPost = {
 		userID: localStorage.id_token,
 	}, 
@@ -193,6 +194,7 @@ $("#xinban").on('click', function() {
 	})
 	.done(function() {
 		console.log("success");
+		swal("success", "Xin được bán thành công", "success");
 	})
 	.fail(function(err) {
 		console.log(err);
@@ -203,3 +205,10 @@ $("#xinban").on('click', function() {
 		}
 	});
 });
+
+var btnXinban = function () {
+	var id = localStorage.id_token;
+	if(localStorage.id_token != undefined){
+		$(' <button type="button" class="btn btn-success btn-xin-ban">Xin được bán</button>').insertAfter('#DangSP');
+	}
+};

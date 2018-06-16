@@ -30,7 +30,17 @@ exports.loadAll=function(){
 	return db.load(sql);
 }
 
+exports.loadUserXinBan=function(id){
+	var sql=`select * from xinduocban where NguoiDung=${id}`;
+	return db.load(sql);
+}
+
+exports.updateUserXinBan=function(id){
+	var sql=`UPDATE xinduocban SET ThoiGianXin=NOW() WHERE NguoiDung=${id}`;
+	return db.update(sql);
+}
+
 exports.xinban=function(poco){
-	var sql=`INSERT INTO xinduocban(NguoiDung,ThoiGianXin,ThoiGianChapNhan,TrangThai) VALUES(${poco.userID},NOW(),null,0)`
+	var sql=`INSERT INTO xinduocban(NguoiDung,ThoiGianXin,ThoiGianChapNhan,TrangThai) VALUES(${poco.userID},NOW(),null,0)`;
 	return db.insert(sql);
 }

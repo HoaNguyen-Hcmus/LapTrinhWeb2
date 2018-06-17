@@ -1,5 +1,6 @@
 var md5=require('md5');
-var db= require('../fn/mysql');
+var db= require('../fn/mysql'),
+constants=require('../fn/const');
 
 exports.selectUser_ID=function()
 {
@@ -44,3 +45,85 @@ exports.xinban=function(poco){
 	var sql=`INSERT INTO xinduocban(NguoiDung,ThoiGianXin,ThoiGianChapNhan,TrangThai) VALUES(${poco.userID},NOW(),null,0)`;
 	return db.insert(sql);
 }
+//Hòa thực hiện chức năng tìm kiếm 
+//if(datediff(now(),sp.GioDang)<1,'<a  href="ChiTietSanPham?{{ID}}"><h4><span class="label label-success">{{Ten}}</span></h4></a>','<a  href="ChiTietSanPham?{{ID}}"><h4><span class="label label-warning">{{Ten}}</span></h4></a>') as khacbiet
+exports.loadAllSanPhamTheoTimKiem=function(page,search){
+	var offset = (page - 1) * constants.PRODUCTS_PER_PAGE;
+    var sql = `select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+    			from sanpham sp, daugia dg, user u
+    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%'
+    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+    return db.load(sql);
+}
+
+exports.loadSanPhamTheoDanhMuc=function(page,danhmuc,search)
+{
+	var offset=(page-1)*constants.PRODUCTS_PER_PAGE;
+	var sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+    			from sanpham sp, daugia dg, user u
+    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
+    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+	return db.load(sql);
+}
+
+exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
+	var offset=(page-1)*constants.PRODUCTS_PER_PAGE;
+	var sql="";
+	if(sapxep==0 || sapxep=="0" && danhmuc==0 || danhmuc=="0" && search==null || search==""){
+		sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+    			from sanpham sp, daugia dg, user u
+    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia
+    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+	}
+	if(search!=null || search!="" && danhmuc==0 || danhmuc=="0"){
+		sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+    			from sanpham sp, daugia dg, user u
+    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%'
+    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+	}
+	if(danhmuc!=0 || danhmuc!="0" && search==null || search==""){
+		sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+    			from sanpham sp, daugia dg, user u
+    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
+    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+	}
+	if(sapxep!=0 || sapxep!="0" && danhmuc!=0 || danhmuc!="0" && search!=null || search!=""){
+		if(sapxep==1 || sapxep=="1"){
+			sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+    			from sanpham sp, daugia dg, user u
+    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
+    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+    			order by sp.ThoiHanBan desc
+    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+		}else{
+			sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+    			from sanpham sp, daugia dg, user u
+    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
+    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+    			order by dg.GiaDuaRa asc
+    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+		}
+		
+	}
+	return db.load(sql);
+}
+
+exports.selectAllDanhMuc=function(){
+	var sql=`select * from danhmuc`;
+	return db.load(sql);
+}
+
+//-------------------------------------------------------------
+

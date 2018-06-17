@@ -2,7 +2,7 @@ var express = require('express');
 var userRepo = require('../repos/userRepo');
 var router = express.Router();
 var axios = require('axios');
-
+var constants=require('../fn/const.js');
 //Capchar
 // var Recaptcha=require('express-recaptcha');
 
@@ -128,5 +128,57 @@ router.post('/xinban', (req, res) => {
 	})
 
 });
+/// Hòa thực hiện chức năng tìm kiếm --------------------------------------
+router.get('/sanpham', (req, res) => {
+    var page = 0;
+    var danhmuc=0;
+    var txtSearch="";
+    var sapxep=0;
+    if (req.query.page) {
+        page =req.query.page;
+    }
+    if (req.query.danhmuc) {
+        danhmuc = req.query.danhmuc;
+    }
+    if (req.query.txtSearch) {
+        txtSearch = req.query.txtSearch;
+    }
+    if(req.query.sapxep){
+    	sapxep=req.query.sapxep;
+    }
+   
+	    userRepo.loadSanPhamTheoSapXep(page,txtSearch,danhmuc,sapxep).then(rows => {
+	        var hasMore = rows.length > constants.PRODUCTS_PER_PAGE;
+	        if (hasMore) {
+	            rows.pop();
+	        }
+
+	        var data = {
+	            sanpham: rows,
+	            hasMore: hasMore
+	        }
+	        res.json(data);
+	    }).catch(err => {
+	        console.log(err);
+	        res.statusCode = 500;
+	        res.end('View error log on console.');
+	    });
+	
+	
+});
+
+router.get('/danhmuc',(req,res)=>{
+	userRepo.selectAllDanhMuc().then(rows=>{
+		res.json({
+			danhmuc: rows
+		});
+	}).catch(err=>{
+		res.statusCode = 400;
+		res.json({
+		err: err
+		})
+	})
+})
+//-------------------------------------------------------------------------------------
 
 module.exports = router;

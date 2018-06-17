@@ -39,6 +39,7 @@ app.use('/admin', adminCtr);
 app.use('/Signup',userCtrl);
 app.use('/sanpham', sanPhamCtrl);
 app.use('/',userCtrl);
+app.use('/search',userCtrl);
 //app.use(vadication());
 //app.use(recapchar());
 // app.use(bodyparser.json());

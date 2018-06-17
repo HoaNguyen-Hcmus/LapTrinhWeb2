@@ -1,3 +1,73 @@
+var loadDauGia = function(data) {
+	var xhtml = "";
+	$(data).each(function(index, vl) {
+		var t = "";
+		if(index == 0 && localStorage.id_token == vl.NguoiBan) {
+			t += '<button type="button" id="kick-user" data-dismiss="modal" data-user="'+ vl.id +'" class="btn btn-danger">Kick khỏi cuộc đấu giá</button>';
+		}
+		xhtml += '<li class="list-group-item">' + getFullDate(vl.ThoiGianDuaRa) + ' - ' + encodeUser(vl.NAME) + ' => ' + vl.GiaDuaRa + ' ' + t +'</li>';
+	});
+	$("#load-daugia").html(xhtml);
+};
+
+var loadMoTa = function(data) {
+	var xhtml = "";
+	$(data).each(function(index, value) {
+		xhtml += '<h4><u><strong>Mô tả '+(index+1)+':</strong> Update: <i>'+ getFullDate(value.ThoiGian) +'</i></u></h4>';
+		xhtml += value.MoTa;
+	});
+
+	$("#mota").html(xhtml);
+};
+
+var loadData = function(data, nguoigiugia) {
+	var xhtml = "";
+	//check user is VIP?
+	if(localStorage.id_token == undefined || localStorage.id_token != data.ID) {
+		$("#nguoiban").remove();
+	}
+
+	if(nguoigiugia == undefined) {
+		nguoigiugia = {
+			GiaDuaRa: data.GiaDauGia,
+			id: "",
+			NAME: ""
+		};
+	}
+
+	//set giá sàn
+	giasan = nguoigiugia.GiaDuaRa + data.BuocGia;
+
+	$("#price").val(giasan);
+	
+	$("#price").attr({
+		"min": giasan
+	});
+
+
+	if(data.ID == localStorage.id_token || localStorage.id_token == undefined) {
+		$("#ragia").attr({
+			disabled: ''
+		});
+	}
+
+	xhtml += '<li class="list-group-item">Người bán: <a class="profile-user" data-id="'+ data.ID +'" href="#">'+ data.Name +'</a><span class="badge">'+ data.DiemDanhGia +' điểm</span></li>';
+    xhtml += '<li class="list-group-item">Giá hiện tại: '+ formatCurrent(nguoigiugia.GiaDuaRa) +'</li>';
+    xhtml += '<li class="list-group-item">Người đang giữ giá cao nhất: <a class="profile-user" data-id="'+ nguoigiugia.ID +'" href="#">'+ encodeUser(nguoigiugia.NAME) +'</a><span class="badge">'+ nguoigiugia.DiemDanhGia +' điểm</span></li>';
+    xhtml += '<li class="list-group-item">Giá mua ngay: '+ formatCurrent(data.GiaMuaNgay) +'</li>';
+    xhtml += '<li class="list-group-item">Thời điểm đăng: '+ getFullDate(data.GioDang) +'</li>';
+    xhtml += '<li class="list-group-item">Thời điểm kết thúc: '+ getFullDate(data.ThoiHanBan) +'</li>';
+    xhtml += '<li class="list-group-item">';
+    xhtml += '<a class="btn btn-success btn-block btn-ragia" data-toggle="modal" href="#modal-ragia" role="button">Ra giá sản phẩm  <span class="glyphicon glyphicon-shopping-cart"></span></a>';
+    xhtml += '</li>';
+    xhtml += '<li class="list-group-item"><button type="button" class="btn btn-warning btn-block btn-like-list">Thêm vào danh sách yêu thích <span class="glyphicon glyphicon-heart"></span></button></li>';
+    xhtml += '<li class="btn list-group-item" data-toggle="modal" href="#modal-show-history" id="btn-show-history">Lịch sử ra giá</li>';
+
+    $("#list-group").html(xhtml);
+    $('#title-product').html(data.Ten);
+};
+
+
 $(document).ready(function () {
 	//show ckeditor
 	ClassicEditor
@@ -19,7 +89,9 @@ $(document).ready(function () {
 
 	//get query string parameters
 	var url = new URLSearchParams(window.location.search);
-	var id = url.get("id");
+	var id = url.get("id"),
+		nguoiban = "",
+		giasan = 0;
 
 	//check null id
 	if(id == null)
@@ -47,48 +119,14 @@ $(document).ready(function () {
 		dataType: 'json'
 	})
 	.done(function(data) {
-		//console.log(data.nguoigiugia);
-		var row = data.data[0],
-			mota = data.mota,
-			nguoigiugia = data.nguoigiugia[0];
-		var xhtml = "",
-			xhtml_mota = "";
-		if(row == undefined) 
+		var xhtml_mota = "";
+
+		//check product is not null
+		if(data.data == undefined) 
 			window.location.href = "index.html";
-
-		//check user is VIP?
-		if(localStorage.id_token != row.ID) {
-			$("#nguoiban").remove();
-		}
-
-		if(nguoigiugia == undefined)
-			nguoigiugia = {
-				GiaDuaRa: "00",
-				id: "",
-				NAME: ""
-			};
-			//nguoigiugia.GiaDuaRa = nguoigiugia.id = nguoigiugia.NAME = "";
 		
-		xhtml += '<li class="list-group-item">Người bán: <a href="profile.html?id='+ row.ID +'">'+ row.Name +'</a><span class="badge">'+ row.DiemDanhGia +' điểm</span></li>';
-        xhtml += '<li class="list-group-item">Giá hiện tại: '+ formatCurrent(nguoigiugia.GiaDuaRa) +'</li>';
-        xhtml += '<li class="list-group-item">Người đang giữ giá cao nhất: <a href="'+ nguoigiugia.ID +'">'+ encodeUser(nguoigiugia.NAME) +'</a><span class="badge">'+ nguoigiugia.DiemDanhGia +' điểm</span></li>';
-        xhtml += '<li class="list-group-item">Giá mua ngay: '+ formatCurrent(row.GiaMuaNgay) +'</li>';
-        xhtml += '<li class="list-group-item">Thời điểm đăng: '+ getFullDate(row.GioDang) +'</li>';
-        xhtml += '<li class="list-group-item">Thời điểm kết thúc: '+ getFullDate(row.ThoiHanBan) +'</li>';
-        xhtml += '<li class="list-group-item">';
-        xhtml += '<a class="btn btn-success btn-block btn-ragia" data-toggle="modal" href="#modal-ragia" role="button">Ra giá sản phẩm  <span class="glyphicon glyphicon-shopping-cart"></span></a>';
-        xhtml += '</li>';
-        xhtml += '<li class="list-group-item"><button type="button" class="btn btn-warning btn-block btn-like-list">Thêm vào danh sách yêu thích <span class="glyphicon glyphicon-heart"></span></button></li>';
-
-
-        $(mota).each(function(index, value) {
-        	xhtml_mota += '<h4><u><strong>Mô tả '+(index+1)+':</strong> Update: <i>'+ getFullDate(value.ThoiGian) +'</i></u></h4>';
-        	xhtml_mota += value.MoTa;
-        });
-
-        $("#list-group").html(xhtml);
-        $("#mota").html(xhtml_mota);
-        $('#title-product').html(row.Ten);
+		loadData(data.data[0], data.nguoigiugia[0]); //load data dữ liệu sản phẩm
+		loadMoTa(data.mota);
 	})
 	.fail(function(err) {
 		console.log(err);
@@ -145,13 +183,8 @@ $(document).ready(function () {
 					data: jsonPost,
 				})
 				.done(function(data) {
-					var xhtml_mota = "";
-					//console.log(data);
-					$(data.data).each(function(index, value) {
-			        	xhtml_mota += '<h4><u><strong>Mô tả '+(index+1)+':</strong> Update: <i>'+ getFullDate(value.ThoiGian) +'</i></u></h4>';
-			        	xhtml_mota += value.MoTa;
-			        })
-			        $("#mota").html(xhtml_mota);
+					loadMoTa(data.data);
+			        swal('Thêm mô tả thành công');
 				})
 				.fail(function(err) {
 					//console.log(err);
@@ -161,6 +194,120 @@ $(document).ready(function () {
 		return false;
 	});
 
-	
 	//kick user from list
+
+	//load đáu giá
+	$("#list-group").on('click', '#btn-show-history',function() {
+		$.ajax({
+			url: 'http://localhost:3000/sanpham/loaddaugia/'+id,
+			type: 'GET',
+			dataType: 'json',
+		})
+		.done(function(data) {
+			loadDauGia(data.data);
+		})
+		.fail(function(err) {
+			console.log(err);
+		});
+	});
+
+
+	$("#load-daugia").on('click', '#kick-user', function(event) {
+		var dataPost = {
+			user: $(this).data("user"),
+			sanpham: id
+		}, jsonPost = JSON.stringify(dataPost);
+
+		$.ajax({
+			url: 'http://localhost:3000/nguoiban/kickuser',
+			type: 'POST',
+			dataType: 'json',
+			headers: {
+				"x-access-token": localStorage.access_token
+			},
+			data: jsonPost,
+			contentType: 'application/json'
+		})
+		.done(function(data) {
+			swal('Thông báo', 'Kick người mua thành công!', "success");
+			loadDauGia(data.data);
+		})
+		.fail(function(err) {
+			console.log(err);
+		});
+		
+	});
+	
+
+	//đáu giá
+	$("#ragia").on('click', function() {
+		swal({
+			title: "Bạn có chắc?",
+			text: "Bạn có muốn đấu giá sản phẩm với giá " + $("#price").val() + " không?",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+			if (willDelete) {
+				var dataPost = {
+					sanpham: id,
+					nguoiragia: localStorage.id_token,
+					giaduara: $("#price").val()
+				}, jsonPost = JSON.stringify(dataPost);
+				console.log(dataPost);
+				$.ajax({
+					url: 'http://localhost:3000/sanpham/daugia',
+					type: 'POST',
+					dataType: 'json',
+					headers: {
+						"x-access-token": localStorage.access_token
+					},
+					data: jsonPost,
+					contentType: "application/json"
+				})
+				.done(function(data) {
+					console.log(data);
+					loadDauGia(data.daugia);
+					loadData(data.data[0], data.nguoigiugia[0])
+					swal("Bạn đã ra giá thành công!", {
+						icon: "success",
+					});
+					console.log("success");
+				})
+				.fail(function(err) {
+					swal("Bạn đã ra giá thất bại!", {
+						icon: "error",
+					});
+					console.log(err);
+				})
+				.always(function() {
+					console.log("complete");
+				});
+			} else {
+				swal("Bạn đã hủy cuộc ra giá này!");
+			}
+		});
+	});
+
+	$("#list-group").on('click', '.profile-user', function() {
+		$.ajax({
+			url: 'http://localhost:3000/info/changeInfo/' + $(this).data("id"),
+			type: 'GET',
+			dataType: 'json',
+		})
+		.done(function(data) {
+			var profile = "";
+			profile += "Name: " + data[0].NAME;
+			profile += " - Address: " + data[0].ADDRESS;
+			profile += " - Email: " + data[0].EMAIL;
+			profile += " - Phone: " + data[0].PHONE;
+			profile += " - Diem đánh giá: " + data[0].DiemDanhGia;
+
+			swal("Thông tin người dùng:", profile);
+		})
+		.fail(function() {
+			console.log("error");
+		});
+	});
 });

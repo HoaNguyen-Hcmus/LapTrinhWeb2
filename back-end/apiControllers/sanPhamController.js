@@ -1,5 +1,5 @@
 var express = require('express'),
-	sanPhamRepo = require('../repos/sanPhanRepo'),
+	sanPhamRepo = require('../repos/sanPhamRepo'),
 	checkToken = require('../fn/checkToken');
 
 var router = express.Router();
@@ -76,6 +76,77 @@ router.post('/addLikeList', checkToken.checkTokenUser, (req, res) => {
 		res.statusCode = 200;
 		res.json({
 			mess: "Thêm danh sách yêu thích thành công!"
+		})
+	})
+	.catch(err => {
+		res.statusCode = 500;
+		res.json({
+			err: `Lỗi: ${err}`
+		})
+	})
+})
+
+router.get('/loaddaugia/:sp', (req, res) => {
+	sanPhamRepo.loadDauGia(req.params['sp'])
+	.then(rows => {
+		res.statusCode = 200;
+		res.json({
+			data: rows
+		})
+	})
+	.catch(err => {
+		res.statusCode = 500;
+		res.json({
+			err: `Lỗi: ${err}`
+		})
+	})
+})
+
+router.post('/daugia', (req, res) => {
+	sanPhamRepo.dauGia(req.body.sanpham, req.body.nguoiragia, req.body.giaduara)
+	.then(rows1 => {
+		sanPhamRepo.loadDauGia(req.body.sanpham)
+		.then(rows2 => {
+			sanPhamRepo.loadOnce(req.body.sanpham)
+			.then(rows3 => {
+				sanPhamRepo.loadMoTa(req.body.sanpham)
+				.then(rows4 => {
+					sanPhamRepo.loadNguoiGiuGia(req.body.sanpham)
+					.then(rows5 => {
+						res.statusCode = 200;
+						res.json({
+							daugia: rows2,
+							data: rows3,
+							mota: rows4,
+							nguoigiugia: rows5
+						})
+					})
+					.catch(err => {
+						res.statusCode = 500;
+						res.json({
+							err: `Lỗi: ${err}`
+						})
+					})			
+				})
+				.catch(err => {
+					res.statusCode = 500;
+					res.json({
+						err: `Lỗi: ${err}`
+					})
+				})
+			})
+			.catch(err => {
+				res.statusCode = 500;
+				res.json({
+					err: `Lỗi: ${err}`
+				})
+			})
+		})
+		.catch(err => {
+			res.statusCode = 500;
+			res.json({
+				err: `Lỗi: ${err}`
+			})
 		})
 	})
 	.catch(err => {

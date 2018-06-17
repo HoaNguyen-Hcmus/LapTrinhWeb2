@@ -6,7 +6,7 @@ exports.loadAll = function() {
 }
 
 exports.loadOnce = function(id) {
-	var sql = `SELECT user.DiemDanhGia, user.ID, sp.Ten, user.Name, sp.GiaMuaNgay, sp.GioDang, sp.ThoiHanBan FROM sanpham sp, user WHERE user.ID = sp.NguoiBan AND sp.ID = ${id}`;
+	var sql = `SELECT user.DiemDanhGia, user.ID, sp.Ten, user.Name, sp.GiaDauGia, sp.GiaMuaNgay, sp.GioDang, sp.ThoiHanBan, sp.BuocGia FROM sanpham sp, user WHERE user.ID = sp.NguoiBan AND sp.ID = ${id}`;
 	return db.load(sql);
 }
 
@@ -22,7 +22,7 @@ exports.loadNguoiGiuGia = function(sp) {
 			WHERE dg.NguoiRaGia = u.ID AND dg.SanPham = ${sp} AND dg.GiaDuaRa = (
 			SELECT Max(GiaDuaRa)
 			FROM daugia
-			WHERE SanPham = ${sp}
+			WHERE dg.TrangThaiKick = 0 AND SanPham = ${sp}
 	)`;
 
 	return db.load(sql);
@@ -50,4 +50,19 @@ exports.loadSanPhamGanKetThuc = function() {
 	var sql = `SELECT * FROM sanpham WHERE ThoiHanBan >= NOW() ORDER BY ThoiHanBan ASC LIMIT 5`;
 
 	return db.load(sql);
+}
+
+exports.loadDauGia = function(sp) {
+	var sql = `SELECT sanpham.NguoiBan, user.NAME, daugia.ThoiGianDuaRa, daugia.GiaDuaRa, user.id
+				FROM daugia, user, sanpham
+				WHERE user.ID = daugia.NguoiRaGia AND sanpham.ID = daugia.SanPham 
+					AND daugia.SanPham = ${sp} AND daugia.TrangThaiKick = 0`;
+
+	return db.load(sql);
+}
+
+exports.dauGia = function(sanpham, nguoiragia, giaduara) {
+	var sql = `INSERT INTO daugia(SanPham, NguoiRaGia, GiaDuaRa, TrangThaiKick, CoThangCuoc, ThoiGianDuaRa) VALUES (${sanpham},${nguoiragia},${giaduara}, 0, 0, NOW())`;
+
+	return db.insert(sql);
 }

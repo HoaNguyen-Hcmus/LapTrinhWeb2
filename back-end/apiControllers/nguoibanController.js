@@ -1,6 +1,7 @@
 var express = require('express'),
 	multer = require('multer'),
 	nguoibanRepo = require('../repos/nguoibanRepo'),
+	sanphamRepo = require('../repos/sanphamRepo'),
 	checkToken = require('../fn/checkToken'),
 	fs = require('fs'),
 	checkToken = require('../fn/checkToken'),
@@ -121,4 +122,28 @@ router.post('/dangmota', (req, res) => {
 		})
 	})	
 });
+
+router.post('/kickuser', (req, res) => {
+	nguoibanRepo.kickuser(req.body.sanpham, req.body.user)
+	.then(() => {
+		sanphamRepo.loadDauGia(req.body.sanpham)
+		.then(rows => {
+			sanphamRepo.loadNguoiGiuGia(req.body.sanpham)
+			.then(rows2 => {
+				res.statusCode = 200;
+				res.json({
+					data: rows,
+					sanpham: rows2
+				})
+			})
+		})
+	})
+	.catch(err => {
+		res.statusCode = 400;
+		res.json({
+			err: `Lỗi truy vấn: ${err}`
+		})
+	})
+});
+
 module.exports = router;

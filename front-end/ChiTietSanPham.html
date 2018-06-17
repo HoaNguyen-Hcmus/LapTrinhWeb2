@@ -36,6 +36,21 @@
         </div>
     </nav>
 
+    <div class="modal fade" id="modal-show-history">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Lịch sử ra giá</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group" id="load-daugia">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="modal fade" id="modal-ragia">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -47,13 +62,13 @@
                     <form action="" method="POST" role="form">
                         <div class="form-group">
                             <label for="price">Giá sản phẩm</label>
-                            <input type="number" class="form-control" id="price">
+                            <input type="number" step="1000" class="form-control" id="price">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="ragia">Đấu giá</button>
                 </div>
             </div>
         </div>
@@ -84,9 +99,6 @@
                 <div id="nguoiban">
                     
                     <li class="btn list-group-item" data-toggle="modal" href='#modal-mota'>Thêm mô tả</li>
-                    <li class="btn list-group-item" data-toggle="modal" href='#modal-show-history'>Lịch sử ra giá</li>
-
-
                     <div class="modal fade" id="modal-mota">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -105,24 +117,6 @@
                                         <button type="submit" class="btn btn-primary">Thêm</button>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="modal-show-history">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title">Lịch sử ra giá</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <ul class="list-group">
-                                        <li class="list-group-item">1/6/2017 10:43 - ****a => 6,000,000 <button type="button" class="btn btn-danger btn-sm">Kick người dùng</button></li>
-                                        <li class="list-group-item">1/6/2017 9:43 - ****b => 5,900,000<button type="button" class="btn btn-danger btn-sm">Kick người dùng</button></li>
-                                        <li class="list-group-item">1/6/2017 8:43 - ****c => 5,800,000<button type="button" class="btn btn-danger btn-sm">Kick người dùng</button></li>
-                                        <li class="list-group-item">1/6/2017 7:43 - ****d => 5,700,000<button type="button" class="btn btn-danger btn-sm">Kick người dùng</button></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>

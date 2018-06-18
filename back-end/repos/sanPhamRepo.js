@@ -6,7 +6,7 @@ exports.loadAll = function() {
 }
 
 exports.loadOnce = function(id) {
-	var sql = `SELECT user.DiemDanhGia, user.ID, sp.Ten, user.Name, sp.GiaDauGia, sp.GiaMuaNgay, sp.GioDang, sp.ThoiHanBan, sp.BuocGia FROM sanpham sp, user WHERE user.ID = sp.NguoiBan AND sp.ID = ${id}`;
+	var sql = `SELECT user.DiemDanhGia, user.ID, sp.Ten, user.Name, sp.GiaDauGia, sp.GiaMuaNgay, sp.GioDang, sp.ThoiHanBan, sp.BuocGia, TIMESTAMPDIFF(SECOND, NOW(), sp.ThoiHanBan) AS 'ConLai' FROM sanpham sp, user WHERE user.ID = sp.NguoiBan AND sp.ID = ${id}`;
 	return db.load(sql);
 }
 

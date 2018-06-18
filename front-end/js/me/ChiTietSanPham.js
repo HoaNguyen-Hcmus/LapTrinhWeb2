@@ -43,9 +43,9 @@ var loadData = function(data, nguoigiugia) {
 	$("#price").attr({
 		"min": giasan
 	});
+	//console.log(data);
 
-
-	if(data.ID == localStorage.id_token || localStorage.id_token == undefined) {
+	if(data.ID == localStorage.id_token || localStorage.id_token == undefined || data.ConLai < 0) {
 		$("#ragia").attr({
 			disabled: ''
 		});

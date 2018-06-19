@@ -3,6 +3,8 @@ var userRepo = require('../repos/userRepo');
 var router = express.Router();
 var axios = require('axios');
 var constants=require('../fn/const.js');
+var checkToken = require('../fn/checkToken');
+
 //Capchar
 // var Recaptcha=require('express-recaptcha');
 
@@ -92,14 +94,13 @@ router.post('/Signup', (req, res) => {
 		});
 });
 
-router.post('/xinban', (req, res) => {
+router.post('/xinban', checkToken.checkTokenUser, (req, res) => {
 	userRepo.loadUserXinBan(req.body.userID).then(rows => {
-		console.log(rows.length);
 		if (rows.length == 0) {
 			userRepo.xinban(req.body)
 				.then(insertId => {
 					var poco = {
-						xinBan: insertId
+						xinBan: 1
 					}
 					res.statusCode = 201;
 					res.json(poco);
@@ -114,7 +115,7 @@ router.post('/xinban', (req, res) => {
 			userRepo.updateUserXinBan(req.body.userID)
 			.then(insertId => {
 				var poco = {
-					xinBan: insertId
+					xinBan: 2
 				}
 				res.statusCode = 201;
 				res.json(poco);
@@ -126,8 +127,8 @@ router.post('/xinban', (req, res) => {
 			});
 		}
 	})
-
 });
+
 /// Hòa thực hiện chức năng tìm kiếm --------------------------------------
 router.get('/sanpham', (req, res) => {
     var page = 0;

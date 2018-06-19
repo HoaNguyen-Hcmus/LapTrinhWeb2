@@ -185,7 +185,7 @@ var loadTop5RaGia = function () {
 		timeout: 10000
 	}).done(function (data) {
 		$.each(data, function (idx, item) {
-			var html = '<div class="col-sm-4 col-md-4" style="display: none>' +
+			var html = '<div class="col-sm-2 col-md-2" style="display: none>' +
 				'<div class="thumbnail">' +
 				'<img src="http://localhost:3000/' + item.SanPham + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '" class="img-responsive" alt="Cinque Terre">' +
 				'<li class="list-group-item">Giá hiện tại: '+ formatCurrent(item.giahientai) +'</li>'+
@@ -230,7 +230,7 @@ var loadTop5Gia = function () {
 		timeout: 10000
 	}).done(function (data) {
 		$.each(data, function (idx, item) {
-			var html = '<div class="col-sm-4 col-md-4" style="display: none>' +
+			var html = '<div class="col-sm-2 col-md-2" style="display: none>' +
 				'<div class="thumbnail">' +
 				'<img src="http://localhost:3000/' + item.SanPham + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '" class="img-responsive" alt="Cinque Terre">' +
 				'<li class="list-group-item">Giá hiện tại: '+ formatCurrent(item.giahientai) +'</li>'+
@@ -275,7 +275,7 @@ var loadTop5GanKetThuc = function () {
 		timeout: 10000
 	}).done(function (data) {
 		$.each(data, function (idx, item) {
-			var html = '<div class="col-sm-4 col-md-4" style="display: none>' +
+			var html = '<div class="col-sm-2 col-md-2" style="display: none>' +
 				'<div class="thumbnail">' +
 				'<img src="http://localhost:3000/' + item.SanPham + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '" class="img-responsive" alt="Cinque Terre">' +
 				'<li class="list-group-item">Giá hiện tại: '+ formatCurrent(item.giahientai) +'</li>'+
@@ -328,8 +328,13 @@ $("#content").on('click', '.btn-like-list', function() {
 		},
 		contentType: 'application/json'
 	})
-	.done(function() {
-		console.log("success");
+	.done(function(data) {
+		console.log(data);
+		if(data.affrow>0){
+			swal("success", "Thêm vào danh sách thành công", "success");
+		}
+		else
+			swal("Lỗi", "Sản Phẩm đã có trong danh sách yêu thích", "error");
 	})
 	.fail(function(err) {
 		console.log(err);
@@ -352,12 +357,19 @@ $("#content").on('click', '.btn-xin-ban', function() {
 		url: 'http://localhost:3000/Signup/xinban',
 		type: 'POST',
 		dataType: 'json',
+		headers: {
+			"x-access-token": localStorage.access_token
+		},
 		data: jsonPost,
 		contentType: 'application/json'
 	})
-	.done(function() {
-		console.log("success");
-		swal("success", "Xin được bán thành công", "success");
+	.done(function(data) {
+		if(data.xinBan==1){
+			swal("success", "Xin được bán thành công", "success");
+		}
+		if(data.xinBan==2){
+			swal("success", "Xin gia hạn bán thành công", "success");
+		}
 	})
 	.fail(function(err) {
 		console.log(err);

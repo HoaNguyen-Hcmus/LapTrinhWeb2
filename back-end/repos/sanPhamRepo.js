@@ -34,6 +34,11 @@ exports.loadSanPhamNhieuLuotRaGia = function() {
 	return db.load(sql);
 }
 
+exports.loadsanPhamYeuThichChoUser=function(userid,sanpham){
+	var sql=`select * from danhsachyeuthich where NguoiDung=${userid} AND SanPham=${sanpham}`;
+	return db.load(sql);
+}
+
 exports.addLikeList = function(nguoidung, sanpham) {
 	var sql = `INSERT DanhSachYeuThich (NguoiDung, SanPham) VALUES (${nguoidung}, ${sanpham})`;
 

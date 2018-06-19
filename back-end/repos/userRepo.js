@@ -37,7 +37,7 @@ exports.loadUserXinBan=function(id){
 }
 
 exports.updateUserXinBan=function(id){
-	var sql=`UPDATE xinduocban SET ThoiGianXin=NOW() WHERE NguoiDung=${id}`;
+	var sql=`UPDATE xinduocban SET ThoiGianXin=NOW(), ThoiGianChapNhan=NULL, TrangThai=0 WHERE NguoiDung=${id}`;
 	return db.update(sql);
 }
 

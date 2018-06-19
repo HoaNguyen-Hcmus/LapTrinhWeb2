@@ -187,15 +187,17 @@ var loadTop5RaGia = function () {
 		$.each(data, function (idx, item) {
 			var html = '<div class="col-sm-4 col-md-4" style="display: none>' +
 				'<div class="thumbnail">' +
-				'<img src="http://localhost:3000/' + item.ID + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '">' +
+				'<img src="http://localhost:3000/' + item.SanPham + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '" class="img-responsive" alt="Cinque Terre">' +
+				'<li class="list-group-item">Giá hiện tại: '+ formatCurrent(item.giahientai) +'</li>'+
+				'<li class="list-group-item">Thời điểm kết thúc: '+getFullDate(item.ThoiHanBan)+'</li>'+
 				'<div class="caption">' +
 				'<h4>' + item.Ten + '</h4>' +
 				'<p>' +
-				'<a href="ChiTietSanPham.html?id='+item.ID+'" class="btn btn-primary">' +
+				'<a href="ChiTietSanPham.html?id='+item.SanPham+'" class="btn btn-primary">' +
 				'<span class="glyphicon glyphicon-eye-open"></span>' +
 				'Details' +
 				'</a>' +
-				' <a href="javascript:;" data-id="'+item.ID+'" class="btn btn-warning btn-like-list">' +
+				' <a href="javascript:;" data-id="'+item.SanPham+'" class="btn btn-warning btn-like-list">' +
 				'<span class="glyphicon glyphicon-heart"></span>' +
 				' Yêu thích'+
 				'</a>' +
@@ -230,15 +232,17 @@ var loadTop5Gia = function () {
 		$.each(data, function (idx, item) {
 			var html = '<div class="col-sm-4 col-md-4" style="display: none>' +
 				'<div class="thumbnail">' +
-				'<img src="http://localhost:3000/' + item.ID + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '">' +
+				'<img src="http://localhost:3000/' + item.SanPham + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '" class="img-responsive" alt="Cinque Terre">' +
+				'<li class="list-group-item">Giá hiện tại: '+ formatCurrent(item.giahientai) +'</li>'+
+				'<li class="list-group-item">Thời điểm kết thúc: '+getFullDate(item.ThoiHanBan)+'</li>'+
 				'<div class="caption">' +
 				'<h4>' + item.Ten + '</h4>' +
 				'<p>' +
-				'<a href="ChiTietSanPham.html?id='+item.ID+'" class="btn btn-primary" class="btn btn-primary">' +
+				'<a href="ChiTietSanPham.html?id='+item.SanPham+'" class="btn btn-primary" class="btn btn-primary">' +
 				'<span class="glyphicon glyphicon-eye-open"></span>' +
 				'Details' +
 				'</a>' +
-				' <a href="javascript:;" data-id="'+item.ID+'" class="btn btn-warning btn-like-list">' +
+				' <a href="javascript:;" data-id="'+item.SanPham+'" class="btn btn-warning btn-like-list">' +
 				'<span class="glyphicon glyphicon-heart"></span>' +
 				' Yêu thích' +
 				'</a>' +
@@ -273,15 +277,17 @@ var loadTop5GanKetThuc = function () {
 		$.each(data, function (idx, item) {
 			var html = '<div class="col-sm-4 col-md-4" style="display: none>' +
 				'<div class="thumbnail">' +
-				'<img src="http://localhost:3000/' + item.ID + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '" class="img-responsive" alt="Cinque Terre">' +
+				'<img src="http://localhost:3000/' + item.SanPham + '/image1.png" alt="' + item.Ten + '" title="' + item.Ten + '" class="img-responsive" alt="Cinque Terre">' +
+				'<li class="list-group-item">Giá hiện tại: '+ formatCurrent(item.giahientai) +'</li>'+
+				'<li class="list-group-item">Thời điểm kết thúc: '+getFullDate(item.ThoiHanBan)+'</li>'+
 				'<div class="caption">' +
 				'<h4>' + item.Ten + '</h4>' +
 				'<p>' +
-				'<a href="ChiTietSanPham.html?id='+item.ID+'" class="btn btn-primary" class="btn btn-primary">' +
+				'<a href="ChiTietSanPham.html?id='+item.SanPham+'" class="btn btn-primary" class="btn btn-primary">' +
 				'<span class="glyphicon glyphicon-eye-open"></span>' +
 				'Details' +
 				'</a>' +
-				' <a href="javascript:;" data-id="'+item.ID+'" class="btn btn-warning btn-like-list">' +
+				' <a href="javascript:;" data-id="'+item.SanPham+'" class="btn btn-warning btn-like-list">' +
 				'<span class="glyphicon glyphicon-heart"></span>' +
 				' Yêu thích' +
 				'</a>' +

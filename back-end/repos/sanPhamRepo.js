@@ -29,7 +29,7 @@ exports.loadNguoiGiuGia = function(sp) {
 }
 
 exports.loadSanPhamNhieuLuotRaGia = function() {
-	var sql = `SELECT *, COUNT(*) as luotragia FROM sanpham p, daugia g where p.ID = g.SanPham AND ThoiHanBan >= NOW() GROUP BY p.ID ORDER BY luotragia DESC LIMIT 5`;
+	var sql = `SELECT *, COUNT(*) as luotragia,max(g.GiaDuaRa) as giahientai FROM sanpham p, daugia g where p.ID = g.SanPham AND ThoiHanBan >= NOW() GROUP BY p.ID ORDER BY luotragia DESC LIMIT 5`;
 
 	return db.load(sql);
 }
@@ -47,7 +47,7 @@ exports.loadSanPhamGiaCao = function() {
 }
 
 exports.loadSanPhamGanKetThuc = function() {
-	var sql = `SELECT * FROM sanpham WHERE ThoiHanBan >= NOW() ORDER BY ThoiHanBan ASC LIMIT 5`;
+	var sql = `SELECT *,max(GiaDuaRa) as giahientai FROM daugia d, sanpham s WHERE d.SanPham=s.ID AND ThoiHanBan >= NOW() GROUP BY s.ID ORDER BY ThoiHanBan ASC LIMIT 5`;
 
 	return db.load(sql);
 }

@@ -42,13 +42,13 @@ exports.selectFavorite=function(userID)
 
 exports.selectAuction=function(userID)
 {
-	var sql=`select * from daugia dg,sanpham sp where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1`;
+	var sql=`select DISTINCT sp.Ten, sp.ID from daugia dg,sanpham sp where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1`;
 	return db.load(sql);
 }
 
 exports.selectWin=function(userID)
 {
-	var sql=`select * from daugia dg,sanpham sp, user u where sp.TrangThai=0 and NguoiRaGia=${userID} and dg.SanPham=sp.ID and CoThangCuoc=1 and sp.NguoiBan= u.ID order by dg.GiaDuaRa desc`;
+	var sql=`select * from daugia dg,sanpham sp, user u where timediff(sp.ThoiHanBan,now())<=0 and NguoiRaGia=${userID} and dg.SanPham=sp.ID and CoThangCuoc=1 and sp.NguoiBan= u.ID order by dg.GiaDuaRa desc`;
 	return db.load(sql);
 } 
 

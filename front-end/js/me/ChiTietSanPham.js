@@ -51,9 +51,9 @@ var loadData = function(data, nguoigiugia) {
 		});
 	}
 
-	xhtml += '<li class="list-group-item">Người bán: <a class="profile-user" data-id="'+ data.ID +'" href="#">'+ data.Name +'</a><span class="badge">'+ data.DiemDanhGia +' điểm</span></li>';
+	xhtml += '<li class="list-group-item">Người bán: <a class="profile-user" data-toggle="modal" href="#modal-profile" data-id="'+ data.ID +'">'+ data.Name +'</a><span class="badge">'+ data.DiemDanhGia +' điểm</span></li>';
     xhtml += '<li class="list-group-item">Giá hiện tại: '+ formatCurrent(nguoigiugia.GiaDuaRa) +'</li>';
-    xhtml += '<li class="list-group-item">Người đang giữ giá cao nhất: <a class="profile-user" data-id="'+ nguoigiugia.ID +'" href="#">'+ encodeUser(nguoigiugia.NAME) +'</a><span class="badge">'+ nguoigiugia.DiemDanhGia +' điểm</span></li>';
+    xhtml += '<li class="list-group-item">Người đang giữ giá cao nhất: <a class="profile-user" data-toggle="modal" href="#modal-profile" data-id="'+ nguoigiugia.ID +'">'+ encodeUser(nguoigiugia.NAME) +'</a><span class="badge">'+ nguoigiugia.DiemDanhGia +' điểm</span></li>';
     xhtml += '<li class="list-group-item">Giá mua ngay: '+ formatCurrent(data.GiaMuaNgay) +'</li>';
     xhtml += '<li class="list-group-item">Thời điểm đăng: '+ getFullDate(data.GioDang) +'</li>';
     xhtml += '<li class="list-group-item">Thời điểm kết thúc: '+ getFullDate(data.ThoiHanBan) +'</li>';
@@ -67,6 +67,24 @@ var loadData = function(data, nguoigiugia) {
     $('#title-product').html(data.Ten);
 };
 
+var loadProfile = function(data) {
+	console.log(data);
+	$("#nhanxet-name").html("<strong>Họ tên: </strong>" + data.data[0].NAME);
+	$("#nhanxet-score").html("<strong>Điểm đánh giá: </strong>" + data.data[0].DiemDanhGia);
+
+	var xhtml = "";
+
+	$(data.nhanxet).each(function(index, value) {
+		xhtml += "<tr>"	;
+		xhtml += "<td>"+(index+1)+"</td>";
+		xhtml += "<td>"+value.NAME+"</td>";
+		xhtml += "<td>"+value.LoiNhanXet+"</td>";
+		xhtml += "<td>"+getFullDate(value.ThoiGian)+"</td>";
+		xhtml += "</tr>";
+	});
+
+	$("#table-nhanxet").html(xhtml);
+}
 
 $(document).ready(function () {
 	//show ckeditor
@@ -292,19 +310,12 @@ $(document).ready(function () {
 
 	$("#list-group").on('click', '.profile-user', function() {
 		$.ajax({
-			url: 'http://localhost:3000/info/changeInfo/' + $(this).data("id"),
+			url: 'http://localhost:3000/sanpham/getProfile/' + $(this).data("id"),
 			type: 'GET',
 			dataType: 'json',
 		})
 		.done(function(data) {
-			var profile = "";
-			profile += "Name: " + data[0].NAME;
-			profile += " - Address: " + data[0].ADDRESS;
-			profile += " - Email: " + data[0].EMAIL;
-			profile += " - Phone: " + data[0].PHONE;
-			profile += " - Diem đánh giá: " + data[0].DiemDanhGia;
-
-			swal("Thông tin người dùng:", profile);
+			loadProfile(data);
 		})
 		.fail(function() {
 			console.log("error");

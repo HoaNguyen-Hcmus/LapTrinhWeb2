@@ -98,7 +98,7 @@ var htmlSearch=`<!DOCTYPE html>
 		{{#each this}}
 		<div class="col-sm-4 col-md-4" style="display: none">
 			<div class="thumbnail">
-				<img src="http://localhost:3000/'+{{ID}}+'/image1.png" class="img-responsive" alt="Image">
+				<img src="http://localhost:3000/{{ID}}/image1.png" class="img-responsive" alt="Image">
 				<div class="caption">
 					<a href="ChiTietSanPham?{{ID}}"><h4><span class="label label-success">{{Ten}}</span><span class="badge">{{moi}}</span></h4></a>
 					<h5>Giá hiện tại: {{giahientai}}</h5>
@@ -352,7 +352,7 @@ $("#content").on('click', '.btn-like-list', function() {
 	});
 });
 
-$("#content").on('click', '.btn-xin-ban', function() {
+$("#content2").on('click', '.btn-xin-ban', function() {
 	var dataPost = {
 		userID: localStorage.id_token,
 	}, 

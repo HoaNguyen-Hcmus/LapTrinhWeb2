@@ -43,7 +43,7 @@ exports.selectFavorite=function(userID)
 
 exports.selectAuction=function(userID)
 {
-	var sql=`select sp.ID,sp.Ten from daugia dg,sanpham sp where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1`;
+	var sql=`select DISTINCT sp.ID,sp.Ten from daugia dg,sanpham sp where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1`;
 	return db.load(sql);
 }
 
@@ -61,7 +61,7 @@ exports.selectSanPham=function(id)
 
 exports.insertComment=function(userIDGui,userIDNhan,nhanXet,trangThai,SanPham,LoaiNX)
 {
-	var sql=`insert into nhanxet(NguoiNhanXet,LoiNhanXet,NguoiDuocNhanXet,TrangThai,SanPham,LoaiNX) values (${userIDGui},N'${nhanXet}',${userIDNhan},${trangThai},${SanPham},${LoaiNX})`;
+	var sql=`insert into nhanxet(NguoiNhanXet,LoiNhanXet,NguoiDuocNhanXet,TrangThai,SanPham,LoaiNX) values (${userIDGui},'${nhanXet}',${userIDNhan},${trangThai},${SanPham},${LoaiNX})`;
 	return db.insert(sql);
 }
 

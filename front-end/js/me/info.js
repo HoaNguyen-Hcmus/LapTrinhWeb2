@@ -108,7 +108,7 @@ $(document).ready(function() {
 				var tr=
 				'<tr>'+
 					'<td>'+ i + '</td>'+
-					'<td><a href="ChiTietSanPham.html?id='+item.SanPham+'">'+ item.Ten + '</a></td>'+
+					'<td><a href="ChiTietSanPham.html?id='+item.ID+'">'+ item.Ten + '</a></td>'+
 				'</tr>';
 				$('#list-auction').append(tr);
 			});
@@ -340,6 +340,7 @@ $(document).ready(function() {
 				}
 				else
 				{
+					localStorage.user_token = $("#name").val();
 					swal('Cập nhật thông tin thành công');
 				}
 			}).fail(function(xhr,textStatus,error){
@@ -347,7 +348,6 @@ $(document).ready(function() {
 				console.log(error);
 				console.log(xhr);
 			});
-			console.log(data);
 		}
 	});
 
@@ -415,7 +415,6 @@ $(document).ready(function() {
             	console.log(error);
            	 	console.log(xhr);
 			});
-			console.log(data);
 		// }
 
 	});	

@@ -135,7 +135,7 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
 }
 
 exports.selectAllDanhMuc=function(){
-	var sql=`select * from danhmuc`;
+	var sql=`select * from danhmuc where trangthai = 1`;
 	return db.load(sql);
 }
 

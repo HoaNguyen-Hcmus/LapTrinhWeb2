@@ -73,50 +73,64 @@ exports.loadSanPhamTheoDanhMuc=function(page,danhmuc,search)
 exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
 	var offset=(page-1)*constants.PRODUCTS_PER_PAGE;
 	var sql="";
-	if(sapxep==0 || sapxep=="0" && danhmuc==0 || danhmuc=="0" && search==null || search==""){
-		sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
-    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
-    			from sanpham sp, daugia dg, user u
-    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia
-    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
-    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
-	}
-	if(search!=null || search!="" && danhmuc==0 || danhmuc=="0"){
-		sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
-    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
-    			from sanpham sp, daugia dg, user u
-    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%'
-    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
-    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
-	}
-	if(danhmuc!=0 || danhmuc!="0" && search==null || search==""){
-		sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
-    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
-    			from sanpham sp, daugia dg, user u
-    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
-    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
-    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
-	}
-	if(sapxep!=0 || sapxep!="0" && danhmuc!=0 || danhmuc!="0" && search!=null || search!=""){
-		if(sapxep==1 || sapxep=="1"){
-			sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
-    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
-    			from sanpham sp, daugia dg, user u
-    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
-    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
-    			order by sp.ThoiHanBan desc
-    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
-		}else{
-			sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
-    			,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
-    			from sanpham sp, daugia dg, user u
-    			where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
-    			GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
-    			order by dg.GiaDuaRa asc
-    			limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
-		}
-		
-	}
+    if(danhmuc!=0)
+    {
+        if(sapxep==1){
+            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+                 from sanpham sp, daugia dg, user u
+                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
+                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+                 order by sp.ThoiHanBan desc
+                 limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+        }
+        if(sapxep==2){
+            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+                 from sanpham sp, daugia dg, user u
+                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
+                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+                 order by dg.GiaDuaRa asc
+                 limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+        }
+        if(sapxep==0){
+            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+                 from sanpham sp, daugia dg, user u
+                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
+                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+                 limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+        }
+    }
+    else{
+        if(sapxep==1){
+            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+                 from sanpham sp, daugia dg, user u
+                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%'
+                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+                 order by sp.ThoiHanBan desc
+                 limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+        }
+        if(sapxep==2){
+            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+                 from sanpham sp, daugia dg, user u
+                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%'
+                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+                 order by dg.GiaDuaRa asc
+                 limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+        }
+        if(sapxep==0){
+            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
+                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
+                 from sanpham sp, daugia dg, user u
+                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%'
+                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+                 limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
+        }
+    }
+	
 	return db.load(sql);
 }
 
@@ -126,4 +140,3 @@ exports.selectAllDanhMuc=function(){
 }
 
 //-------------------------------------------------------------
-

@@ -29,7 +29,8 @@ exports.updatePass=function(userID,pass)
 
 exports.selectEvaluation=function(userID)
 {
-	var sql=`select * from  nhanxet nx,user u where nx.NguoiDuocNhanXet=${userID} and nx.NguoiDuocNhanXet=u.ID`;
+	//var sql=`select * from  nhanxet nx,user u where nx.NguoiDuocNhanXet=${userID} and nx.NguoiDuocNhanXet=u.ID`;
+	var sql=`select nx.LoiNhanXet,nx.ThoiGian,u.NAME from  nhanxet nx,user u where nx.NguoiDuocNhanXet=${userID} and nx.NguoiNhanXet=u.ID`;
 	return db.load(sql);
 }
 
@@ -42,7 +43,7 @@ exports.selectFavorite=function(userID)
 
 exports.selectAuction=function(userID)
 {
-	var sql=`select DISTINCT sp.Ten, sp.ID from daugia dg,sanpham sp where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1`;
+	var sql=`select sp.ID,sp.Ten from daugia dg,sanpham sp where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1`;
 	return db.load(sql);
 }
 
@@ -58,9 +59,9 @@ exports.selectSanPham=function(id)
 	return db.load(sql);
 }
 
-exports.insertComment=function(userIDGui,userIDNhan,nhanXet,trangThai)
+exports.insertComment=function(userIDGui,userIDNhan,nhanXet,trangThai,SanPham,LoaiNX)
 {
-	var sql=`insert into nhanxet(NguoiNhanXet,LoiNhanXet,NguoiDuocNhanXet,TrangThai) values (${userIDGui},N'${nhanXet}',${userIDNhan},${trangThai})`;
+	var sql=`insert into nhanxet(NguoiNhanXet,LoiNhanXet,NguoiDuocNhanXet,TrangThai,SanPham,LoaiNX) values (${userIDGui},N'${nhanXet}',${userIDNhan},${trangThai},${SanPham},${LoaiNX})`;
 	return db.insert(sql);
 }
 
@@ -73,5 +74,23 @@ exports.updateDiem=function(userID,diem)
 exports.selectNguoiBan=function(idSanPham)
 {
 	var sql=`select * from sanpham where ID=${idSanPham}`;
+	return db.load(sql);
+}
+
+exports.selectSanPhamUserConHan=function(userID)
+{
+	var sql=`select *, timediff(ThoiHanBan,now()) as ThoiGianConLai from sanpham where NguoiBan=${userID} and timediff(ThoiHanBan,now())>0`;
+	return db.load(sql);
+}
+exports.selectSanPhamDaBan=function(userID)
+{
+	var sql=`select * from daugia dg,sanpham sp where dg.SanPham=sp.ID and sp.NguoiBan=${userID} and timediff(sp.ThoiHanBan,now())<0 and dg.CoThangCuoc=1`;
+	return db.load(sql);
+
+}
+
+exports.selectNguoiMua=function(idSanPham)
+{
+	var sql=`select dg.NguoiRaGia from daugia dg where dg.SanPham=${idSanPham} and dg.CoThangCuoc=1 `;
 	return db.load(sql);
 }

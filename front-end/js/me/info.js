@@ -65,7 +65,7 @@ $(document).ready(function() {
 				var tr=
 				'<tr>'+
 					'<td>'+ i++ + '</td>'+
-					'<td>'+ item.NguoiNhanXet + '</td>'+
+					'<td>'+ item.NAME + '</td>'+
 					'<td>'+ item.ThoiGian + '</td>'+
 					'<td>'+ item.LoiNhanXet + '</td>'+
 				'</tr>';
@@ -113,7 +113,7 @@ $(document).ready(function() {
 				$('#list-auction').append(tr);
 			});
 		});
-		
+
 		//Xuất danh sách sản phẩm đã thắng
 		$.ajax({
 			url:'http://localhost:3000/info/win/'+id_user,
@@ -123,20 +123,63 @@ $(document).ready(function() {
 		}).done(function(data){
 			var i=0;
 			$.each(data,function(idx,item){
-				i++
+				i++;
 				var tr=
 				'<tr>'+
 					'<td>'+ i + '</td>'+
 					'<td><a href="ChiTietSanPham.html?id='+item.SanPham+'">'+ item.Ten + '</a></td>'+
 					'<td>'+ item.GiaDuaRa + '</td>'+
-					'<td>'+ '<a href="nhanxet.html?id='+item.SanPham+'"> Nhận xét và đánh giá sản phẩm </a>'  +'</td>'+
-					// '<td align="center">'+ '<button type="button" class="btn btn-success" >+ 1</button>' +  '<button type="button" class="btn btn-danger" >- 1</button>'+ '</td>'+
-					// '<td>'+ '<textarea class="form-control" rows="3"></textarea>' + '</td>'+
+					// '<td'+ modalNhanXetNguoiBan +'</td>'
+					'<td>'+ '<a href="nhanxet.html?id='+item.SanPham+'&loai=1"> Nhận xét và đánh giá sản phẩm </a>'  +'</td>'+
 					'</tr>';
 
 				$('#list-win').append(tr);
 			});
 		});
+		//Xuất danh sách sản phẩm đang đăng và còn hạn
+
+		$.ajax({
+			url:'http://localhost:3000/info/PostedRemain/'+id_user,
+			dataType:'json',
+			timeout:10000,
+			contentType:"application/json"
+		}).done(function(data){
+			var i=0;
+			$.each(data,function(idx,item){
+				i++;
+				var tr=
+				'<tr>'+
+					'<td>'+ i + '</td>'+
+					'<td><a href="ChiTietSanPham.html?id='+item.ID+'">'+ item.Ten + '</a></td>'+
+					'<td>'+ item.ThoiGianConLai + ' phút</td>'+
+					'</tr>';
+
+				$('#list-PostedRemain').append(tr);
+			});
+		});
+
+		//Xuất danh sách sản phẩm đã được bán và nhận xét người mua
+		$.ajax({
+			url:'http://localhost:3000/info/sold/'+id_user,
+			dataType: 'json',
+        	timeout: 10000,
+        	contentType:"application/json"
+		}).done(function(data){
+			var i=0;
+			$.each(data,function(idx,item){
+				i++;
+				var tr=
+				'<tr>'+
+					'<td>'+ i + '</td>'+
+					'<td><a href="ChiTietSanPham.html?id='+item.SanPham+'">'+ item.Ten + '</a></td>'+
+					// '<td>'+ item.GiaDuaRa + '</td>'+
+					'<td>'+ '<a href="nhanxet.html?id='+item.SanPham+'&loai=2"> Nhận xét và đánh giá người mua</a>'  +'</td>'+
+					'</tr>';
+
+				$('#list-Sold').append(tr);
+			});
+		});
+
 
 		// Valid trang thay đổi thông tin người dùng
 	    $('#repairRegisterForm').validate({
@@ -241,6 +284,8 @@ $(document).ready(function() {
         errorClass: 'help-block'
 	    });
 
+
+
 	    // Kiểm tra thông tin trang nhận xét
 	$('#formComment').validate({
 		rules:{
@@ -266,8 +311,6 @@ $(document).ready(function() {
         errorElement: 'span',
         errorClass: 'help-block'
 	    });
-
-
 	// Cập nhật thông tin người dùng
 
 	$("#btn-update").on('click', function() {
@@ -351,11 +394,12 @@ $(document).ready(function() {
 			diem:$("#typeEvaluation").val(),
 			comment:$("#textComment").val(),
 			id:unescape(params["id"]),
+			loai:unescape(params["loai"]),
 			idUser:id_user
 		}
-		var isValid=$('#formComment').valid();
-		if(isValid)
-		{
+		// var isValid=$('#formComment').valid();
+		// if(isValid)
+		// {
 			$.ajax({
 				url:'http://localhost:3000/info/comment',
 				dataType:'json',
@@ -364,14 +408,15 @@ $(document).ready(function() {
 				contentType:'application/json',
 				data:JSON.stringify(data)
 			}).done(function(data){
-
+				swal("Nhận xét thành công");
 			}).fail(function(xhr,textStatus,error){
+				swal("Nhận xét thất bại");
 				console.log(textStatus);
             	console.log(error);
            	 	console.log(xhr);
 			});
 			console.log(data);
-		}
+		// }
 
 	});	
 

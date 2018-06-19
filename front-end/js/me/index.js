@@ -23,7 +23,7 @@ $(document).ready(function () {
 		dataType:'json',
 		type:'GET'
 	}).done(function(data){
-		var html='<option value="0">Lựa chọn danh mục</option>';
+		html='<option value="0">Lựa chọn danh mục</option>';
 		$(data.danhmuc).each(function(index,val){
 			html+='<option value="'+val.ID+'">'+val.Ten+'</option>';
 		});
@@ -33,6 +33,8 @@ $(document).ready(function () {
 	});
 	///
 });
+
+
 
 // Hòa thực hiện chức năng tìm kiếm ------------------------------------------------------------------------
 	var CUR_PAGE = 1;
@@ -140,11 +142,15 @@ var htmlSearch=`<!DOCTYPE html>
 	$('#btnMore').on('click', function() {
 	     loadSanPham();
 	});
-
+var layDanhMuc=0;
 var loadSanPham = function() {
     $('.loader').show();
+    if(($("#danhmuc").val())!=0)
+    {
+    	layDanhMuc=$("#danhmuc").val();
+    }
     var data={
-    	danhmuc:$("#danhmuc").val(),
+    	danhmuc:layDanhMuc,
     	txtSearch:$("#txtSearch").val(),
     	sapxep: $("#sapxep").val()
     }

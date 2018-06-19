@@ -134,40 +134,103 @@ router.get('/:id',(req,res)=>{
 router.post('/comment',(req,res)=>{
 	var userID=req.body.idUser;
 	var idSanPham=req.body.id;
+	var loai=req.body.loai;
 	var idNguoiBan=0;
+	var idNguoiMua=0;
 	var nhanxet=req.body.comment;
 	var diem=req.body.diem;
-
-	infoRepo.selectNguoiBan(idSanPham).then(rows=>{
-		if(rows.length>0)
-		{
-			idNguoiBan=rows[0].NguoiBan;
-
-			infoRepo.updateDiem(idNguoiBan,diem).then(insertID=>{
-				res.statusCode=201;
-				res.json(req.body);
-				res.json({mess:"Cap nhat diem thanh cong"});
-				//infoRepo.insertComment(userID,idNguoiBan,nhanxet,1);
-			}).catch(err=>{
-				console.log(err);
-				res.statusCode=401;
-				res.end('View erroe log on console');
+	if(loai==1)
+	{
+		infoRepo.selectNguoiBan(idSanPham).then(rows=>{
+			if(rows.length>0)
+			{
+				idNguoiBan=rows[0].NguoiBan;
+				infoRepo.insertComment(userID,idNguoiBan,nhanxet,1,idSanPham,1).then(insertID=>{
+					infoRepo.updateDiem(idNguoiBan,diem).then(changeRow=>{
+						res.statusCode=201;
+						res.json({
+							data: req.body,
+							mess:"Cap nhat diem thanh cong"
+						})
+					}).catch(err=>{
+						console.log(err);
+						res.statusCode=401;
+						res.end('View erroe log on console');
+					});
+				}).catch(err=>{
+					console.log(err);
+					res.statusCode=402;
+					res.end('View erroe log on console');
+				});
+			}
+			else
+			{
+				res.statusCode = 400;
+				res.json('khong lay duoc userID nguoi ban');
+			}
+		}).catch(err=>{
+					console.log(err);
+					res.statusCode=402;
+					res.end('View erroe log on console');
 			});
-
-			infoRepo.insertComment(userID,idNguoiBan,nhanxet,1).then(insertID=>{
-				res.statusCode=201;
-				res.json(req.body);
-				res.json({mess:"Cap nhat nhan xet thanh cong"});
-			}).catch(err=>{
-				console.log(err);
-				res.statusCode=402;
-				res.end('View erroe log on console');
-			});
-		}else{
-		res.statusCode = 400;
-		res.json('khong lay duoc userID nguoi ban');
 	}
-	})
+	if(loai==2)
+	{
+		infoRepo.selectNguoiMua(idSanPham).then(rows=>{
+			if(rows.length>0)
+			{
+				idNguoiMua=rows[0].NguoiRaGia;
+				infoRepo.insertComment(userID,idNguoiMua,nhanxet,1,idSanPham,2).then(insertID=>{
+					infoRepo.updateDiem(idNguoiMua,diem).then(changeRow=>{
+						res.statusCode=201;
+						res.json({
+							data: req.body,
+							mess:"Cap nhat diem thanh cong"
+						})
+					}).catch(err=>{
+						console.log(err);
+						res.statusCode=401;
+						res.end('View erroe log on console');
+					});
+				}).catch(err=>{
+					console.log(err);
+					res.statusCode=402;
+					res.end('View erroe log on console');
+				});
+			}
+			else
+			{
+				res.statusCode = 400;
+				res.json('khong lay duoc userID nguoi ban');
+			}
+		}).catch(err=>{
+					console.log(err);
+					res.statusCode=402;
+					res.end('View erroe log on console');
+			});
+	}
 
+});
+
+router.get('/PostedRemain/:id_user',(req,res)=>{
+	var userID=req.params["id_user"];
+	infoRepo.selectSanPhamUserConHan(userID).then(rows=>{
+		res.json(rows);
+	}).catch(err=>{
+		console.log(err);
+        res.statusCode = 500;
+        res.end('View error log on console.');
+	});
+});
+
+router.get('/sold/:id_user',(req,res)=>{
+	var userID=req.params["id_user"];
+	infoRepo.selectSanPhamDaBan(userID).then(rows=>{
+		res.json(rows);
+	}).catch(err=>{
+		console.log(err);
+        res.statusCode = 500;
+        res.end('View error log on console.');
+    });
 });
 module.exports=router;

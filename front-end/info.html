@@ -36,6 +36,8 @@
 				<li role="presentation"><a href="#listFavorite" aria-controls="listFavorite" role="tab" data-toggle="tab">Danh sách sản phẩm yêu thích </a></li>
 				<li role="presentation"><a href="#auction" aria-controls="auction" role="tab" data-toggle="tab">Sản phẩm đang đấu giá </a></li>
 				<li role="presentation"><a href="#win" aria-controls="win" role="tab" data-toggle="tab">Sản phẩm đã thắng </a></li>
+				<li role="presentation"><a href="#listPostedRemain" aria-controls="listPostedRemain" role="tab" data-toggle="tab">Đã đăng và còn hạn</a></li>
+				<li role="presentation"><a href="#listSold" aria-controls="listSold" role="tab" data-toggle="tab">Sản phẩm đã có người mua</a></li>
 			</ul>
 		</div>
 
@@ -171,6 +173,45 @@
 							</tr>
 						</thead>
 						<tbody id="list-win"></tbody>
+					</table>
+				</div>
+			</div>
+
+			<div role="tabpane2" class="tab-pane" id="listPostedRemain">
+				<h3>Danh sách sản phẩm đang đăng và còn hạn</h3>
+				<div>
+					<!-- <button type="button" class="btn btn-info" id="btn-refresh-win">Refresh</button> -->
+					</br></br>
+			  		<table class="table table-hover" border="1" style="width:100%" align="center">
+			  			<thead>
+							<tr>
+								<th>STT</th>
+								<th>Sản phẩm</th>
+								<th>Thời gian còn lại</th>
+							</form>
+							</tr>
+						</thead>
+						<tbody id="list-PostedRemain"></tbody>
+					</table>
+				</div>
+			</div>
+
+			<div role="tabpane2" class="tab-pane" id="listSold">
+				<h3>Danh sách sản phẩm đã có người mua</h3>
+				<div>
+					<!-- <button type="button" class="btn btn-info" id="btn-refresh-win">Refresh</button> -->
+					</br></br>
+			  		<table class="table table-hover" border="1" style="width:100%" align="center">
+			  			<thead>
+							<tr>
+								<th>STT</th>
+								<th>Sản phẩm</th>
+								<!-- <th>Giá sản phẩm</th> -->
+								<th>&nbsp</th>
+							</form>
+							</tr>
+						</thead>
+						<tbody id="list-Sold"></tbody>
 					</table>
 				</div>
 			</div>

@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/Signup', (req, res) => {
-	var secret = '6LdIoVoUAAAAAF7rtLgBGq_KTuARALa6wh83pr7r';
+	var secret = '6LdIoVoUAAAAAI3sKMfFrrJ0abGsl5kC8_CIdsob';
 	var captcha_response = req.body.captcha_response;
 
 	var url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${captcha_response}`;
@@ -181,5 +181,4 @@ router.get('/danhmuc',(req,res)=>{
 	})
 })
 //-------------------------------------------------------------------------------------
-
-module.exports = router;
+module.exports=router;

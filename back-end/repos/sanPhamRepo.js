@@ -71,3 +71,33 @@ exports.dauGia = function(sanpham, nguoiragia, giaduara) {
 
 	return db.insert(sql);
 }
+
+exports.checkThoiGianBan = function(sanpham) {
+	var sql = `SELECT TIMESTAMPDIFF(MINUTE, Now(), ThoiHanBan) AS 'ConLai' FROM sanpham WHERE ID = ${sanpham}`;
+
+	return db.load(sql);
+}
+
+exports.giaHanThoiGianBan = function(sanpham) {
+	var sql = `UPDATE SanPham SET ThoiHanBan = ADDTIME(ThoiHanBan, '0:5:0') WHERE ID = ${sanpham}`;
+
+	return db.update(sql);
+}
+
+exports.updateTrangThaiDauGia = function(sanpham) {
+	var sql = `UPDATE daugia SET cothangcuoc = 0 WHERE sanpham = ${sanpham}`;
+
+	return db.update(sql);
+}
+
+exports.loadNguoiDung = function(user) {
+	var sql = `SELECT * FROM User WHERE ID = ${user}`;
+
+	return db.load(sql);
+}
+
+exports.loadNhanXet = function(user) {
+	var sql = `SELECT NhanXet.*, user.NAME FROM NhanXet, user WHERE NguoiNhanXet = user.ID AND NguoiDuocNhanXet = ${user}`;
+
+	return db.load(sql);
+}

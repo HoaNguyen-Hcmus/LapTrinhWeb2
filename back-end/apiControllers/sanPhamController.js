@@ -118,28 +118,49 @@ router.post('/daugia', (req, res) => {
 	.then(updateRow => {
 		sanPhamRepo.dauGia(req.body.sanpham, req.body.nguoiragia, req.body.giaduara)
 		.then(rows1 => {
-			sanPhamRepo.loadDauGia(req.body.sanpham)
-			.then(rows2 => {
-				sanPhamRepo.loadOnce(req.body.sanpham)
-				.then(rows3 => {
-					sanPhamRepo.loadMoTa(req.body.sanpham)
-					.then(rows4 => {
-						sanPhamRepo.loadNguoiGiuGia(req.body.sanpham)
-						.then(rows5 => {
-							res.statusCode = 200;
-							res.json({
-								daugia: rows2,
-								data: rows3,
-								mota: rows4,
-								nguoigiugia: rows5
+
+			sanPhamRepo.checkThoiGianBan(req.body.sanpham)
+			.then(rows => {
+				if(rows.ConLai < 5) {
+					sanPhamRepo.giaHanThoiGianBan(req.body.sanpham)
+					.then(check => {
+					})
+					.catch(err => {
+						console.log(err);
+					})
+				} else {
+					console.log("Lớn hơn 5 phút");
+				}
+
+				sanPhamRepo.loadDauGia(req.body.sanpham)
+				.then(rows2 => {
+					sanPhamRepo.loadOnce(req.body.sanpham)
+					.then(rows3 => {
+						sanPhamRepo.loadMoTa(req.body.sanpham)
+						.then(rows4 => {
+							sanPhamRepo.loadNguoiGiuGia(req.body.sanpham)
+							.then(rows5 => {
+								res.statusCode = 200;
+								res.json({
+									daugia: rows2,
+									data: rows3,
+									mota: rows4,
+									nguoigiugia: rows5
+								})
 							})
+							.catch(err => {
+								res.statusCode = 500;
+								res.json({
+									err: `Lỗi: ${err}`
+								})
+							})			
 						})
 						.catch(err => {
 							res.statusCode = 500;
 							res.json({
 								err: `Lỗi: ${err}`
 							})
-						})			
+						})
 					})
 					.catch(err => {
 						res.statusCode = 500;
@@ -154,13 +175,11 @@ router.post('/daugia', (req, res) => {
 						err: `Lỗi: ${err}`
 					})
 				})
+
 			})
 			.catch(err => {
-				res.statusCode = 500;
-				res.json({
-					err: `Lỗi: ${err}`
-				})
-			})
+				console.log(err);
+			});
 		})
 		.catch(err => {
 			res.statusCode = 500;
@@ -172,7 +191,7 @@ router.post('/daugia', (req, res) => {
 });
 
 router.get('/getProfile/:id', (req, res) => {
-	sanPhamRepo.loadNguoiDUng(req.params['id'])
+	sanPhamRepo.loadNguoiDung(req.params['id'])
 	.then(rows1 => {
 		sanPhamRepo.loadNhanXet(req.params['id'])
 		.then(rows2 => {

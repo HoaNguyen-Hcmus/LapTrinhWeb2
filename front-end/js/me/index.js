@@ -316,7 +316,7 @@ var loadTop5GanKetThuc = function () {
 	});
 };
 
-$("#content").on('click', '.btn-like-list', function() {
+$("#content2").on('click', '.btn-like-list', function() {
 	var dataPost = {
 		NguoiDung: localStorage.id_token,
 		SanPham: $(this).data("id")

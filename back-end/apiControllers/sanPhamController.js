@@ -121,7 +121,7 @@ router.post('/daugia', (req, res) => {
 
 			sanPhamRepo.checkThoiGianBan(req.body.sanpham)
 			.then(rows => {
-				if(rows.ConLai < 5) {
+				if(rows[0].ConLai < 5 && rows[0].ConLai > 0) {
 					sanPhamRepo.giaHanThoiGianBan(req.body.sanpham)
 					.then(check => {
 					})

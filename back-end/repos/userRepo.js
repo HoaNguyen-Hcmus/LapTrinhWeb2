@@ -76,7 +76,7 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
     if(danhmuc!=0)
     {
         if(sapxep==1){
-            sql=`select ID,Ten,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
                 (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 
@@ -85,7 +85,7 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==2){
-            sql=`select ID,Ten,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
                 (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 
@@ -94,7 +94,7 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==0){
-            sql=`select ID,Ten,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
                 (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 
@@ -104,7 +104,7 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
     }
     else{
         if(sapxep==1){
-            sql=`select ID,Ten,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
                 (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 
@@ -113,7 +113,7 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==2){
-            sql=`select ID,Ten,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
                 (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 
@@ -122,7 +122,7 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==0){
-            sql=`select ID,Ten,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
                 (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 

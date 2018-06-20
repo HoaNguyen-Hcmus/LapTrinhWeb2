@@ -5,7 +5,11 @@ var loadDauGia = function(data) {
 		if(index == 0 && localStorage.id_token == vl.NguoiBan) {
 			t += '<button type="button" id="kick-user" data-dismiss="modal" data-user="'+ vl.id +'" class="btn btn-danger">Kick khỏi cuộc đấu giá</button>';
 		}
-		xhtml += '<li class="list-group-item">' + getFullDate(vl.ThoiGianDuaRa) + ' - ' + encodeUser(vl.NAME) + ' => ' + vl.GiaDuaRa + ' ' + t +'</li>';
+		if(localStorage.id_token == vl.NguoiBan) {
+			xhtml += '<li class="list-group-item">' + getFullDate(vl.ThoiGianDuaRa) + ' - <a class="profile-user" data-toggle="modal" href="#modal-profile" data-id="'+ vl.id +'">' + encodeUser(vl.NAME) + '</a> => ' + vl.GiaDuaRa + ' ' + t +'</li>';
+		} else {
+			xhtml += '<li class="list-group-item">' + getFullDate(vl.ThoiGianDuaRa) + ' - ' + encodeUser(vl.NAME) + ' => ' + vl.GiaDuaRa + ' ' + t +'</li>';
+		}
 	});
 	$("#load-daugia").html(xhtml);
 };
@@ -21,6 +25,8 @@ var loadMoTa = function(data) {
 };
 
 var loadData = function(data, nguoigiugia) {
+	id_nguoiban = data.NguoiBan;
+	//console.log(data);
 	var xhtml = "";
 	//check user is VIP?
 	if(localStorage.id_token == undefined || localStorage.id_token != data.ID) {
@@ -87,6 +93,7 @@ var loadProfile = function(data) {
 }
 
 $(document).ready(function () {
+	var id_nguoiban = 0;
 	//show ckeditor
 	ClassicEditor
 	.create( document.querySelector( '#add-mota' ) )
@@ -319,6 +326,20 @@ $(document).ready(function () {
 		})
 		.fail(function() {
 			console.log("error");
+		});
+	});
+
+	$("#load-daugia").on('click', '.profile-user', function() {
+		$.ajax({
+			url: 'http://localhost:3000/sanpham/getProfile/' + $(this).data("id"),
+			type: 'GET',
+			dataType: 'json',
+		})
+		.done(function(data) {
+			loadProfile(data);
+		})
+		.fail(function(err) {
+			console.log(err);
 		});
 	});
 });

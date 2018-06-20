@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 20, 2018 lúc 10:08 AM
+-- Thời gian đã tạo: Th6 20, 2018 lúc 08:23 PM
 -- Phiên bản máy phục vụ: 10.1.31-MariaDB
 -- Phiên bản PHP: 7.2.4
 
@@ -21,7 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `qlbanhang`
 --
-
 
 -- --------------------------------------------------------
 
@@ -76,21 +75,9 @@ CREATE TABLE `danhmuc` (
 --
 
 INSERT INTO `danhmuc` (`ID`, `Ten`, `TrangThai`, `NgayThem`, `NgaySuaDoi`) VALUES
-(1, 'Điện thoại', 1, '2018-05-25 14:38:18', '2018-06-13 17:54:23'),
-(2, 'Máy tính', 1, '2018-05-25 14:38:18', '2018-05-26 10:50:51'),
-(3, 'Test', 0, '2018-05-26 10:20:36', '2018-05-26 10:48:29'),
-(4, '123456', 0, '2018-05-26 10:20:45', '2018-06-13 17:54:31'),
-(5, '', 0, '2018-05-26 10:21:27', '2018-05-26 10:52:09'),
-(6, '', 0, '2018-05-26 10:21:50', NULL),
-(7, 'Phim ảnh', 0, '2018-05-26 10:22:01', NULL),
-(8, '', 0, '2018-05-26 10:23:35', NULL),
-(9, 'Hình ảnh', 0, '2018-05-26 15:40:03', NULL),
-(10, 'Test', 0, '2018-05-26 15:40:19', NULL),
-(11, 'jsajdnas', 0, '2018-06-13 13:09:27', NULL),
-(12, '132121', 0, '2018-06-13 17:54:44', NULL),
-(13, 'Phim ảnh', 0, '2018-06-13 17:55:09', NULL),
-(14, 'Máy ảnh', 1, '2018-06-13 17:59:00', NULL),
-(15, 'Tủ lạnh', 1, '2018-06-19 00:51:17', NULL);
+(1, 'Điện thoại', 1, '2018-06-21 00:26:40', NULL),
+(2, 'Máy tính xách tay', 1, '2018-06-21 00:26:51', NULL),
+(3, 'Ti vi', 1, '2018-06-21 00:27:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -103,15 +90,6 @@ CREATE TABLE `danhsachyeuthich` (
   `NguoiDung` int(11) NOT NULL,
   `SanPham` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `danhsachyeuthich`
---
-
-INSERT INTO `danhsachyeuthich` (`ID`, `NguoiDung`, `SanPham`) VALUES
-(10, 1, 7),
-(12, 5, 6),
-(11, 5, 9);
 
 -- --------------------------------------------------------
 
@@ -129,53 +107,6 @@ CREATE TABLE `daugia` (
   `CoThangCuoc` tinyint(1) NOT NULL DEFAULT '0',
   `ThoiGianDuaRa` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `daugia`
---
-
-INSERT INTO `daugia` (`ID`, `SanPham`, `NguoiRaGia`, `GiaDuaRa`, `GiaDauTuDong`, `TrangThaiKick`, `CoThangCuoc`, `ThoiGianDuaRa`) VALUES
-(1, 7, 1, '7000000', '0', 1, 0, '2018-06-15 12:19:25'),
-(2, 7, 2, '7200000', '0', 0, 0, '2018-06-15 12:19:25'),
-(3, 7, 1, '7000000', '0', 1, 0, '2018-06-15 12:20:26'),
-(4, 7, 2, '7200000', '0', 0, 0, '2018-06-15 12:20:26'),
-(5, 7, 1, '7400000', '0', 1, 0, '2018-06-15 12:20:54'),
-(6, 7, 2, '7600000', '0', 0, 0, '2018-06-15 12:20:54'),
-(7, 7, 2, '7700000', '0', 0, 0, '2018-06-18 00:25:46'),
-(8, 7, 2, '7800000', '0', 0, 0, '2018-06-18 00:29:40'),
-(9, 7, 2, '7800000', '0', 0, 0, '2018-06-18 00:30:15'),
-(10, 7, 2, '7900000', '0', 0, 0, '2018-06-18 00:30:34'),
-(11, 7, 2, '7900000', '0', 0, 0, '2018-06-18 00:30:47'),
-(12, 7, 2, '8000000', '0', 0, 0, '2018-06-18 00:36:10'),
-(13, 7, 2, '8000000', '0', 0, 0, '2018-06-18 00:36:54'),
-(14, 7, 2, '8100000', '0', 0, 0, '2018-06-18 00:37:08'),
-(15, 7, 2, '8200000', '0', 0, 0, '2018-06-18 00:38:25'),
-(16, 7, 2, '8300000', '0', 0, 0, '2018-06-18 00:39:25'),
-(17, 7, 2, '8400000', '0', 0, 0, '2018-06-18 00:39:30'),
-(18, 7, 2, '8500000', '0', 0, 0, '2018-06-18 00:39:35'),
-(19, 6, 2, '17000000', '0', 0, 0, '2018-06-18 12:37:39'),
-(20, 8, 6, '6191000', '0', 0, 0, '2018-06-19 00:57:14'),
-(21, 9, 5, '34840000', '0', 0, 0, '2018-06-19 01:01:54'),
-(22, 9, 1, '36919000', '0', 0, 0, '2018-06-19 07:54:43'),
-(23, 9, 1, '36969000', '0', 0, 0, '2018-06-19 14:18:02'),
-(24, 9, 1, '37100000', '0', 0, 0, '2018-06-19 14:18:24'),
-(25, 9, 1, '37150000', '0', 0, 0, '2018-06-19 14:19:25'),
-(26, 9, 1, '37200000', '0', 0, 0, '2018-06-19 14:20:46'),
-(27, 9, 1, '37250000', '0', 0, 0, '2018-06-19 14:35:21'),
-(28, 8, 1, '6291000', '0', 0, 0, '2018-06-19 14:35:42'),
-(29, 8, 1, '6391000', '0', 0, 1, '2018-06-19 14:36:02'),
-(30, 9, 1, '37300000', '0', 0, 0, '2018-06-20 12:47:38'),
-(31, 9, 1, '37350000', '0', 0, 0, '2018-06-20 12:47:52'),
-(32, 9, 1, '37400000', '0', 0, 0, '2018-06-20 12:49:52'),
-(33, 9, 1, '37450000', '0', 0, 0, '2018-06-20 12:51:32'),
-(34, 9, 1, '37500000', '0', 0, 0, '2018-06-20 12:53:46'),
-(35, 9, 1, '37550000', '0', 0, 0, '2018-06-20 12:53:49'),
-(36, 9, 1, '37600000', '0', 0, 0, '2018-06-20 12:55:26'),
-(37, 9, 1, '37650000', '0', 0, 0, '2018-06-20 12:56:09'),
-(38, 9, 1, '37700000', '0', 0, 0, '2018-06-20 12:57:15'),
-(39, 9, 1, '37750000', '0', 0, 0, '2018-06-20 12:57:58'),
-(40, 9, 1, '37800000', '0', 0, 0, '2018-06-20 12:59:13'),
-(41, 9, 1, '37850000', '0', 0, 0, '2018-06-20 12:59:48');
 
 -- --------------------------------------------------------
 
@@ -198,12 +129,9 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`ID`, `USERNAME`, `PASSWORD`, `LAST_LOGIN`, `WRONG_PASS`, `USER_ID`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '2018-05-17 13:54:00', 0, 101),
-(2, 'huynvp', 'e10adc3949ba59abbe56e057f20f883e', '2018-05-19 20:58:33', 0, 1),
-(3, 'huy', 'e10adc3949ba59abbe56e057f20f883e', '2018-05-19 20:58:42', 0, 2),
-(4, 'nvhoa', 'e10adc3949ba59abbe56e057f20f883e', '2018-06-11 22:25:38', 0, 2),
-(5, 'testNhom1', 'e10adc3949ba59abbe56e057f20f883e', '2018-06-19 00:31:40', 0, 5),
-(6, 'testNhom2', 'e10adc3949ba59abbe56e057f20f883e', '2018-06-19 00:31:54', 0, 6),
-(7, 'test1', 'e10adc3949ba59abbe56e057f20f883e', '2018-06-19 22:53:02', 0, 7);
+(2, 'nqhuy', 'e10adc3949ba59abbe56e057f20f883e', '2018-06-21 00:24:50', 0, 1),
+(3, 'nxhieu', 'e10adc3949ba59abbe56e057f20f883e', '2018-06-21 00:25:39', 0, 2),
+(4, 'nvhoa', 'e10adc3949ba59abbe56e057f20f883e', '2018-06-21 00:25:57', 0, 3);
 
 -- --------------------------------------------------------
 
@@ -223,30 +151,26 @@ CREATE TABLE `mota` (
 --
 
 INSERT INTO `mota` (`ID`, `SanPham`, `MoTa`, `ThoiGian`) VALUES
-(1, 6, '<h3>Màn hình sắc nét</h3><p>Với màn hình LCD&nbsp;3.0 inches hiển thị hình ảnh rõ nét trên&nbsp;<a href=\"https://www.nguyenkim.com/may-anh-mirrorless/\">máy ảnh</a>, việc thao tác, điều chỉnh trở nên dễ dàng hơn rất nhiều và được thực hiện một cách nhanh chóng.</p><h3>Kết nối không giới hạn</h3><p><a href=\"https://www.nguyenkim.com/may-anh-canon-eos-m10-kit-15-45mm-den.html\">Máy ảnh Canon EOS M10</a>&nbsp;trang bị khả năng kết nối phong phú như không dây Wi-fi, USB và cổng HDMI, giờ đây việc chia sẻ hình ảnh với các thiết bị hiện đại khác trở nên dễ dàng hơn bao giờ hết.</p>', '2018-06-13 22:41:00'),
-(2, 7, '<h3>Màn hình sắc nét</h3><p>Với màn hình LCD&nbsp;3.0 inches hiển thị hình ảnh rõ nét trên&nbsp;</p><p><a href=\"https://www.nguyenkim.com/may-anh-mirrorless/\">máy ảnh</a></p><p>, việc thao tác, điều chỉnh trở nên dễ dàng hơn rất nhiều và được thực hiện một cách nhanh chóng.</p>', '2018-06-13 22:44:11'),
-(3, 7, '<p>Thêm mô <strong>tả</strong></p>', '2018-06-14 18:25:08'),
-(4, 7, '<p>Mô tả <strong>thứ 3</strong></p>', '2018-06-14 20:04:18'),
-(5, 7, '<p>Mô tả thứ 4</p>', '2018-06-14 20:05:06'),
-(6, 7, '<p>Mô tả thứ 5</p>', '2018-06-14 20:05:40'),
-(7, 7, '<p>Mô tả thứ 5</p>', '2018-06-14 20:05:42'),
-(8, 7, '<p>Mô tả 7</p>', '2018-06-14 20:06:18'),
-(9, 7, '<p>adasd</p>', '2018-06-14 20:06:38'),
-(10, 7, '<p>đá</p>', '2018-06-14 20:07:09'),
-(11, 7, '<p>đá</p>', '2018-06-14 20:07:28'),
-(12, 7, '<p>ád</p>', '2018-06-14 20:07:58'),
-(13, 7, '<p>mô tả</p>', '2018-06-14 20:08:39'),
-(14, 7, '<p>mô tả 13</p>', '2018-06-14 20:08:49'),
-(15, 7, '<p>data 14</p>', '2018-06-14 20:10:26'),
-(16, 7, '<p>data 15</p>', '2018-06-14 20:10:50'),
-(17, 7, '<p>123456789</p>', '2018-06-16 09:05:17'),
-(18, 7, '<p>123</p>', '2018-06-16 09:10:07'),
-(19, 7, '<p>&nbsp;</p>', '2018-06-16 11:00:41'),
-(20, 7, '<p>Load mô tả test</p>', '2018-06-16 22:54:50'),
-(21, 8, '<p>Đặc điểm nổi bật</p><ul><li>Công nghệ Inverter và Econavi tiết kiệm điện năng vượt trội, giúp tủ lạnh hoạt động ổn định và êm ái.</li><li>Công nghệ làm lạnh Panorama làm lạnh đa chiều và đồng đều ngăn đông, giúp làm đông nhanh chóng và tiết kiệm điện năng.</li><li>Bộ khử mùi phân tử bạc Nano Ag+ tiêu diệt vi khuẩn, khử mùi hôi hiệu quả, bảo vệ sức khỏe cho người sử dụng.</li><li>Hộc rau quả giữ ấm giúp rau quả được bảo quản lâu hơn và giữ được vị ngon trọn vẹn.</li></ul>', '2018-06-19 00:54:07'),
-(22, 8, '<ul><li>Dung tích tổng:188 lít</li><li>Số người sử dụng:3 - 5 người</li><li>Dung tích ngăn đá:53 lít</li><li>Dung tích ngăn lạnh:135 lít</li><li>Công nghệ Inverter:<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/tu-lanh-inverter-la-gi-585937\">Tủ lạnh Inverter</a></li><li>Chế độ tiết kiệm điện khác:<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/cong-nghe-econavi-tren-tu-lanh-panasonic-720959\">Econavi</a></li><li>Công nghệ làm lạnh:<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/cong-nghe-lam-lanh-tren-tu-lanh-panasonic-585689#panorama\">Panorama</a></li><li>Công nghệ kháng khuẩn, khử mùi:<a href=\"https://www.dienmayxanh.com/kinh-nghiem-hay/danh-bay-mui-tu-lanh-voi-cong-nghe-ag-clean-cua-pa-993561\">Công nghệ kháng khuẩn Ag Clean với tinh thể bạc Ag+</a></li><li>Công nghệ bảo quản thực phẩm:Ngăn rau quả giữ ẩm</li><li>Kiểu tủ:Ngăn đá trên</li><li>Số cửa:2 cửa</li><li>Chất liệu cửa tủ lạnh:Kim loại phủ sơn tĩnh điện</li><li>Chất liệu khay ngăn:Kính chịu lực</li><li>Kích thước - Khối lượng:Cao 136 cm - Rộng 52 cm - Sâu 57 cm - Nặng 36 kg</li><li>Đèn chiếu sáng:Đèn LED</li><li>Chất liệu dàn lạnh:Nhôm</li><li>Nơi sản xuất:Việt Nam</li><li>Năm ra mắt:2017</li></ul>', '2018-06-19 00:55:35'),
-(23, 9, '<h2><strong>iPhone X được&nbsp;Apple&nbsp;ra mắt ngày 12/9 vừa rồi đánh dấu chặng đường 10 năm lần đầu tiên iPhone ra đời. Sau một thời gian, </strong><a href=\"https://www.thegioididong.com/dtdd/iphone-x-64gb\"><strong>giá iPhone X</strong></a><strong> cũng được công bố. iPhone X mang trên mình thiết kế hoàn toàn mới với màn hình Super Retina viền cực mỏng và trang bị nhiều công nghệ hiện đại như nhận diện khuôn mặt Face ID, sạc pin nhanh và sạc không dây cùng khả năng chống nước bụi cao cấp.</strong></h2>', '2018-06-19 01:01:30'),
-(24, 10, '<p>Mô tả <strong>sản phẩm</strong></p>', '2018-06-20 09:03:57');
+(1, 1, '<h2><a href=\"https://www.thegioididong.com/dtdd/samsung-galaxy-s9-plus-128gb-vang-dong\">Samsung Galaxy S9 Plus 128GB Hoàng Kim</a>, siêu phẩm smartphone hàng đầu trong thế giới Android đã ra mắt với màn hình vô cực, camera chuyên nghiệp như máy ảnh và hàng loạt những tính năng cao cấp đầy hấp dẫn.</h2><h3><strong>Thiết kế hoàn thiện hơn</strong></h3><p>Không có một sự lột xác về thiết kế,&nbsp;<a href=\"https://www.thegioididong.com/dtdd/samsung-galaxy-s9-plus-128gb-vang-dong\">Samsung Galaxy S9 Plus</a>&nbsp;năm nay chỉ cải tiến một vài điểm thiết kế đã quá hoàn hảo từ thế hệ Galaxy S8 trước đây. Vẫn là khung kim loại kết hợp 2 mặt kính cường lực được bo cong các cạnh đầy \"quyến rũ\" và hiện đại.</p><p>\"Màn hình vô cực\" trên Samsung S9 Plus được làm mỏng hơn ở các cạnh viền cho trải nghiệm sử dụng ấn tượng hơn, kích thước máy thu gọn lại giúp cầm nắm sử dụng thuận tiện.</p><h3>Màn hình siêu nét</h3><p>Đặc trưng là màn hình lớn nên chiếc Samsung Galaxy S9 Plus sẽ sở hữu màn hình có kích thước 6.2 inch với độ phân giải&nbsp;<a href=\"https://www.thegioididong.com/tin-tuc/do-phan-giai-man-hinh-qhd-hd-fullhd-2k-4k-la-gi--592178#2k\">2K+ (1440 x 2960 Pixels)</a>&nbsp;cho chất lượng hiển thị siêu sắc nét.</p><p>Máy vẫn sẽ trung thành với tấm nền&nbsp;<a href=\"https://www.thegioididong.com/hoi-dap/man-hinh-super-amoled-la-gi-905770\">Super AMOLED</a>&nbsp;và được bảo vệ bởi tấm kính cường lực&nbsp;Corning Gorilla Glass 5 cao cấp.</p><p>&nbsp;</p><p>&nbsp;</p>', '2018-06-21 00:31:41'),
+(2, 2, '<h3><strong>Nokia 9</strong></h3><p>Nokia 9 is a rumored smartphone and the following mentioned specs are based on leaks, rumors and latest reports.</p><p>Nokia 9&nbsp;comes with Android 8.0&nbsp;(Oreo) OS, 5.5&nbsp;inches&nbsp; AMOLED&nbsp;LCD and&nbsp;1440 x 2560 pixels resolution. It has Tempered Blue, Polished Blue, Steel, Polished Copper colors,&nbsp;Single SIM (Nano-SIM) or Hybrid Dual SIM (Nano-SIM, dual stand-by) Slot supports 2G, 3G and 4G LTE network.</p><p>The smartphone has Dual 13MP rear camera having&nbsp;Geo-tagging, touch focus, face detection, HDR&nbsp;and panorama features and Dual 5MP + 5MP&nbsp;front camera for selfie experience.</p><p>Nokia 9 has&nbsp;Octa-core (4x2.45 GHz Kryo &amp; 4x1.9 GHz Kryo) processor,&nbsp;Qualcomm MSM8998 Snapdragon 835 chipset and Adreno 540&nbsp;GPU.</p><p>It has 4GB&nbsp;RAM and 64/128 GB internal Storage, microSD, up to 256 GB (uses SIM 2 slot)&nbsp;. It brings Bluetooth 5.0, A2DP, LE&nbsp;+ v3.1, Type-C reversible connector USB and 3.5 mm Audio jack.</p><p>It has Li-lon, 3250 mAh Non-removable&nbsp;battery with fast charging.</p><p>The smartphone has Fingerprint, accelerometer, gyro, proximity, compass, heart rate&nbsp;Sensors.</p>', '2018-06-21 00:34:33'),
+(3, 3, '<p>A mid-range pride</p><p><strong>Display and Configuration</strong></p><p>The Sony Xperia R1 flaunts a 5.2-inch LED touchscreen display, which exhibits an HD resolution of 720 x 1,280 pixel. The capacitive touchscreen display responds well to multi-touch. At the heart, the smartphone features an octa-core Cortex A53 processor, which is capable of clocking a speed of 1.4GHz. It is further aided by a 2GB RAM and an inbuilt Adreno 505 graphics unit to provide seamless performance during multi-tasking.</p><p><strong>Camera and Storage</strong></p><p>The Sony Xperia R1 is equipped with a good quality 13MP primary camera that is further enhanced with the help of Hybrid autofocus, LED flash, ISO control, High Dynamic Range mode which can together process images of 4128 x 3096 pixels and shoots 30fps videos. At the front-end of the device stacked is the 8MP selfie camera, which aids good selfies and useful to make video calls. The smartphone is equipped with an internal storage memory of 16GB, which can be further expanded up to a massive 256GB capacity with the help of an external microSD card.</p><p><strong>Battery and Connectivity</strong></p><p>The Sony Xperia R1 is fuelled by a Li-Ion battery, which has a capacity of 2,620mAh to render some good amount of backup for hours to keep you engaged with your entertainment device. In the connectivity and networking department, the smartphone offers dual SIM slots, 4G voice over LTE support, Wi-Fi 802.11, b/g/n with hotspot feature, a GPS, Bluetooth v4.2, and a type-C USB port. The sensors onboard include a Light sensor, a Proximity sensor and an Accelerometer.</p>', '2018-06-21 00:37:26'),
+(4, 4, '<h3><strong>Camera trước tăng lên 7 MP</strong></h3><p>Một sự cải thiện đáng kể so với iPhone 6s trước đó, những tấm ảnh chụp selfie của bạn càng thêm độ chi tiết và sắc nét, bộ nhớ lớn 32 GB cũng giúp bạn thoải mái chụp và lưu trữ ảnh mà không lo hết dung lượng để lưu.</p><p>Cùng với đó là tính năng chụp Retina Flash giúp bạn chụp ảnh tốt hơn ở điều kiện thiếu sáng.</p><p>Ngoài ra, camera phía sau đã được thiết kế gọn gàng với đường bo mềm mại hơn, hạn chế tối đa trầy xước cho ống kính.</p><h3><strong>Chuẩn chống nước mới</strong></h3><p>Cuối cùng thì&nbsp;<a href=\"https://www.thegioididong.com/dtdd-apple-iphone\">iPhone</a>&nbsp;7 cũng được trang bị chuẩn chống nước cao cấp, mang tới sự an tâm lớn cho người dùng khi vô tình để máy dính nước mưa hay làm đổ nước.</p>', '2018-06-21 00:41:32'),
+(5, 5, '<h3><a href=\"https://didongthongminh.vn/tin-moi-nhat/iphone-4s-trang-chua-kich-hoat-cuc-hut-khach-voi-gia-3590000d-n969\">iPhone 4S Chưa Kích Hoạt cực Hút khách</a></h3><p>Iphone 4S chưa kích hoạt, trôi bảo hành mới 100% có điểm gì khác với iphone 4S thông thường? cùng Di Động Thông Minh đi tìm hiểu chi tiết nhé! Sau&nbsp;cơn bão iphone 5C,5, 5s lock với mức giá rẻ hấp dẫn đã càn quét thị trường di động, thì một cơn bão mới nữa mang tên táo khuyết lại bắt đầu hình thành và thu hút không ít người dùng dù chỉ mới cập bến didongthongmih mang tên iphone…</p>', '2018-06-21 00:44:54'),
+(6, 6, '<p><strong>Bundle </strong>: W5651107RTHW10-3567-Grey-Win10</p><p><strong>Color Option </strong>: Grey</p><p><strong>Speed </strong>: 3M Cache, up to 3.10 GHz</p><p><strong>Optical Drive </strong>: DVD RW</p><p><strong>OS </strong>: Windows 10 Home 64bit + McAfee® MultiDevice 15 month subscription</p><p><strong>Bluetooth </strong>: 802.11ac + Bluetooth 4.1, Dual Band 2.4&amp;5 GHz</p><p><strong>Webcam </strong>: Integrated Widescreen HD 720P Webcam with Dual digital microphone array</p><p><strong>Batterry </strong>: 40 WHr, 4-Cell Battery (removable)</p><p><strong>Warranty </strong>: 1Yr Premium Support: Onsite Service - Retail</p><p><strong>Carrying Case </strong>: Dell Essential Backpack 15</p>', '2018-06-21 00:48:49'),
+(7, 7, '<h3>Mô tả chi tiết</h3><p><strong>ASUS ZENBOOK 3 MÁY TÍNH XÁCH TAY HÀNG ĐẦU THẾ GIỚI VỚI HIỆU NĂNG KHÔNG ĐỐI THỦ.</strong></p><p>Nếu nói rằng ZenBook 3 chỉ là thế hệ mới nhất của ZenBook thì đó sẽ là đánh giá quá thấp về sản phẩm này — đây thật sự là thế hệ ZenBook được sáng tạo cho kỷ nguyên mới của điện toán di động. Mỗi linh kiện chính xác và chi tiết gia công tinh xảo đều đã được thiết kế và chế tác lại hoàn toàn, để ZenBook 3 là chiếc máy tính ZenBook tinh tế nhất từ trước đến nay. Chiếc máy nhẹ hơn, mỏng hơn, bền hơn, mạnh mẽ vượt trội với Intel® Core™ i7 processor — cùng thiết kế vô cùng đẹp mắt. Nói một cách đơn giản, đây là chiếc máy tính xách tay tuyệt vời nhất trên thế giới. Hãy cùng làm quen với ZenBook 3.</p>', '2018-06-21 00:50:32'),
+(8, 8, '<p>Asus ra mắt ZenBook 3 Deluxe UX490UA , 14″ nhưng viền siêu mỏng nên kích thướt bằng 13″</p><p>ZenBook 3 Deluxe (UX490UA) vẫn có thiết kế mỏng nhỏ nhẹ giống như <a href=\"http://maytinhxachtaymy.us/danh-muc/laptop/asus/zenbook/\">ZenBook</a> 3 nhưng màn hình tăng lên thành 14″ thay vì 12,5″, độ phân giải là Full-HD và được phủ kính Corning Gorilla Glass 5. Nhờ viền mỏng nên kích thước của sản phẩm chỉ tương đương một chiếc máy tính 13″ mà thôi. Cấu hình của ZenBook 3 Deluxe bao gồm CPU Core i7-7500U, RAM 16GB, SSD tối đa 1TB, 3 cổng USB-C trong đó có 2 cổng hỗ trợ Thunderbolt 3. Máy vẫn duy trì cảm biến vân tay nằm ngay trackpad giống như người anh em nhỏ hơn. Tất cả được gói gọn trong thân hình bằng nhôm mỏng chỉ 12,9mm và nhẹ 1,09kg, rất ấn tượng. Giá bán của máy là 1699$, có hai màu xanh dương-vàng hoặc xám, bắt đầu bán ra trong tháng 5 năm nay.</p>', '2018-06-21 00:54:26'),
+(9, 9, '<h2>Descripción del producto</h2><ul><li>CPU : INTEL I7 – 3,3GHZ TURBO</li><li>MEM. RAM. : 4GB</li><li>DISCO DURO: 128GB SSD</li><li>PANTALLA : 13,3″ 1440X900</li><li>TACTIL : NO</li><li>UNIDAD OPTICA: NO</li><li>BLUETOOTH: SI</li><li>OTROS : USB 3,0</li><li>GARANTÍA 1 AÑO</li></ul>', '2018-06-21 01:00:40'),
+(10, 10, '<p>Spesifikasi Acer E5-475 :</p><ul><li>Operating Sistem : Windows 10 Home</li><li>Prosesor : Intel Core i3-6006U (3MB cache, 2.0GHz)</li><li>HDD 1TB</li><li>RAM 4GB DDR4</li><li>Intel HD Graphics 520</li><li>ODD</li><li>Bluetooth 4.0</li><li>Wifi</li><li>Webcam</li><li>Display 14” HD</li></ul>', '2018-06-21 01:03:25'),
+(11, 11, '<h2>Lenovo ThinkPad X1 Carbon Brief Description</h2><p>Lenovo ThinkPad X1 Carbon is a stylish and powerful Everyday Laptop and is powered by Intel Core i7 processor clocked at a speed of 2.1 Ghz and a 8 DDR3 RAM,thereby making it possible to store ample amount of data.All the above features ensure that you breeze through all your tasks throughout the day.The connectivity options available on the device are WiFi,Bluetooth,2xUSB 3.0 Ports,HDMI,Digital Media Reader.It supports an optical Drive, comes with Adaptive Keyboard.It is backed up by a Li-Ion 6 Cell battery that keeps the device running for upto 9 hours or a considerable amount of time.It is loaded with Stereo Speakers and Dolby Home Theater v4 for a great audio experience.</p>', '2018-06-21 01:05:05'),
+(12, 12, '<h3>Mẫu thiết kế đẹp, sang trọng</h3><p><a href=\"http://mayvitinhcu.net/laptop\"><strong>Laptop</strong></a><strong> HP Pavilion 14 AL115TU</strong> được thiết kế theo phong cách đơn giản nhưng hiện đại, cụ thể là các góc cạnh được bo tròn nhẹ, logo được thiết kế nổi trên mặt lưng nắp máy, mang đến vẻ đẹp dịu dàng nhưng không kém phần sang trọng và năng động. Bản lề của chiếc <a href=\"http://mayvitinhcu.net/laptop/laptop-hp/\"><strong>laptop HP</strong></a><strong> Pavilion 14</strong> AL115TU được đúc kết một cách chắc chắn, tinh tế và cứng cáp, giúp người dùng hoàn toàn an tâm về độ bền của nó.</p>', '2018-06-21 01:06:49'),
+(13, 13, '<p>Máy được trang bị cấu hình:</p><ul><li>CPU: Intel Core i7 \"Sandy Bridge\" with vPro technology 2640M 2.8Ghz 4x2.8ghz Turbo Boost 3.5. Ghz-(Cache 3MB - Bus 1333Mhz.)</li><li>Chipset: Intel QM67 Express Chipsets</li><li>Memory: 4GB DDR3 (Bus 1333MHz) (Hổ trợ nâng cấp ram giá rẻ)</li><li>SSD: 128GB (Hàng zin theo máy, truy xuất dữ liệu cực nhanh)</li><li>Optical Drive: DVD-SuperMulti Drive</li><li>VGA: Intel HD Graphics 3000.Display: 14” chống chói Anti-glare LED backlit High Definition HD+ (1600x900) &amp; Ambient light sensor.</li><li>Network: Integrated Intel® 802.11 a/g/n . Lan Integrated 1GBit TX Ethernet + Active Management Technology (AMT) 7.0</li><li>Battery: 6 cell High Capacity sử dụng rất lâu.Weight: 1.99kg.</li><li>Thông tin thêm: Microphone, Speak, Bluetooth, VGA, Display port, USB 3.0, VGA port, eSata.</li><li>Đánh Giá Ngoại Hình: Laptop nhập khẩu từ USA, còn mới 97-98%</li><li>OS: Windows 7 bản quyền setup chuẩn UEFI + Và các ứng dụng theo yêu cầu.</li><li><strong>Bảo hành: Đối với khách hàng EndUsers bảo hành 06 tháng (Bao test đổi-trả không cần lý do trong 03 ngày đầu tiên)</strong></li></ul>', '2018-06-21 01:10:10'),
+(14, 14, '<p>MSI GV72 7RD 874XVN (GeForce® GTX 1050, 4GB GDDR5) - CPU : Kaby lake - Intel Core i7 7700HQ(2.8Ghz, 6MB Cache, Up to 3.8Ghz), Chipset : Intel HM175 - Bàn phím : Keyboard by SteelSeries, single backlight KB - OS : PC DOS - RAM : 8GB DDR4(2 khe, nâng cấp tối đa lên 32GB) - Màn hình : 17.3\" Full HD (1920*1080), Anti-Glare - VGA : nVidia Geforce GTX 1050 4GB DDR5 - HDD : 1TB SATA 7200rpm - Wireless + Bluetooth : Intel 3168 Sandy Peak 1 (1x1)+ Bluetooth v4.0 - Pin : 6-cell - Cân nặng : 2.3Kg</p>', '2018-06-21 01:11:48'),
+(15, 15, '<p><strong>Descoperiti detaliile cu 4K HDR</strong>Interval dinamic ridicat 4KPentru cea mai buna calitate a imaginii, acest televizor combina stralucirea claritatii 4K cu luminozitatea, culoarea si detaliile intervalului dinamic ridicat (HDR). Zonele care erau anterior ascunse de umbre intunecate si lumina soarelui sunt acum pline de claritate si de detaliu.</p>', '2018-06-21 01:13:32'),
+(16, 16, '<h2>Téléviseur&nbsp;Plasma&nbsp;32 Pouces -1366 x 768 px</h2><ul><li>Smart TV :O*</li><li>Curved :-1*</li><li>Désolution:&nbsp;1366 x 768 px</li><li>Définition :HD TV</li></ul><h2>Prix <strong>&nbsp;conseillé (en algerie)</strong>:49200 DA **</h2><p>*&nbsp; O pour Oui, X pour Non</p>', '2018-06-21 01:14:43'),
+(17, 17, '<h4>Description:</h4><p>Nokia 1280 versatile was propelled in Walk 2010. The telephone accompanies a 1.36-inch show with a determination of 68 pixels by 98 pixels at a PPI of 87 pixels for each inch.</p><p>that can’t be extended. To the extent the cameras are concerned, the Nokia 1280 packs a No essential camera on the back</p><p>It gauges 107.20 x 45.10 x 15.30 (tallness x width x thickness) and weigh 81.90 grams.</p><p>The Nokia 1280 is a solitary SIM (GSM) versatile that acknowledges a Consistent SIM. Availability choices incorporate FM.</p>', '2018-06-21 01:17:08'),
+(18, 18, '<h2><strong>Philips E103 là chiếc điện thoại có mức giá rẻ nhất của hãng Philips có dung lượng pin lớn cho bạn thời gian sử dụng được kéo dài.</strong></h2><h3><strong>Năng lượng dài hơn với pin của Philips E103</strong></h3><p>Dù không thuộc dòng sản phẩm có dung lượng pin khủng, nhưng với dung lượng 1050 mAh <a href=\"https://www.thegioididong.com/dtdd/philips-e103\">Philips E103</a>vẫn dư sức cho bạn thời gian sử dụng kéo dài từ 3 đến 6 ngày (tuỳ vào nhu cầu sử dụng của mỗi người).</p>', '2018-06-21 01:18:35'),
+(19, 19, '<p>Chính hãng, nguyên seal, mới 100%</p><p>Miễn phí giao hàng toàn quốc</p><p>Thiết kế: Nguyên khối</p><p>Màn hình: IPS LCD 5.5\" HD (2.5D,Gorilla Glass 4)</p><p>Camera Trước/Sau: 16MP / 13MP</p><p>RAM: 3GB; ROM: 32GB</p><p>Dung lượng pin: 3.075mAh</p><p>Số SIM: 2 SIM</p>', '2018-06-21 01:20:06'),
+(20, 20, '<h2>ĐẶC ĐIỂM</h2><p>Cảm biến</p><p>Gia tốc, ánh sáng, con quay hồi chuyển, la bàn số, vân tay</p><p>Tin nhắn</p><p>SMS (threaded view), MMS, Email, Push Email, IM</p><p>Trình duyệt</p><p>HTML5</p><p>Java</p><p>Không</p><p>- Fast battery charging (Quick Charge 3.0)- XviD/MP4/H.264/WMV player- MP3/eAAC+/WMA/WAV/FLAC player- Document editor- Photo/video editor</p>', '2018-06-21 01:21:51');
 
 -- --------------------------------------------------------
 
@@ -264,13 +188,6 @@ CREATE TABLE `nhanxet` (
   `SanPham` int(11) NOT NULL,
   `LoaiNX` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `nhanxet`
---
-
-INSERT INTO `nhanxet` (`ID`, `NguoiNhanXet`, `LoiNhanXet`, `NguoiDuocNhanXet`, `ThoiGian`, `TrangThai`, `SanPham`, `LoaiNX`) VALUES
-(9, 1, '123 nhận xét người bán', 5, '2018-06-20 00:07:14', 1, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -298,11 +215,26 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`ID`, `Ten`, `GiaDauGia`, `GiaMuaNgay`, `GioDang`, `ThoiHanBan`, `TrangThai`, `NguoiBan`, `SoLuotRaGia`, `DanhMuc`, `BuocGia`, `TuDongGiaHan`) VALUES
-(6, 'MÁY ẢNH CHUYÊN NGHIỆP CANON EOS M10 KIT 15-45MM', '6990000', '10500000', '2018-06-13 22:41:00', '2018-06-25 00:00:00', 1, 1, 0, 14, '100000', 1),
-(7, 'MÁY ẢNH CHUYÊN NGHIỆP CANON EOS M10 KIT 15-45MM', '6990000', '10800000', '2018-06-13 22:44:11', '2018-06-13 00:00:00', 1, 1, 0, 14, '100000', 1),
-(8, 'Tủ lạnh Panasonic 188 lít NR-BA228PKV1', '6090000', '9090000', '2018-06-19 00:54:07', '2018-06-20 08:32:00', 1, 5, 0, 15, '100000', 1),
-(9, 'Điện thoại iPhone X 256GB Gray', '34790000', '36790000', '2018-06-19 01:01:30', '2018-06-20 13:08:00', 1, 6, 0, 1, '50000', 1),
-(10, 'Sản phẩm 1', '2000000', '1000', '2018-06-20 09:03:57', '2018-06-20 09:20:00', 1, 2, 0, 1, '200000', 1);
+(1, 'Samsung Galaxy S9', '22000000', '25000000', '2018-06-21 00:31:41', '2018-06-21 16:00:00', 1, 1, 0, 1, '100000', 1),
+(2, ' Nokia 9', '12000000', '15000000', '2018-06-21 00:34:33', '2018-06-21 17:00:00', 1, 1, 0, 1, '100000', 1),
+(3, 'Sany Xperia ', '15000000', '18000000', '2018-06-21 00:37:26', '2018-06-21 17:15:00', 1, 1, 0, 1, '100000', 1),
+(4, 'Iphone 7', '19000000', '21000000', '2018-06-21 00:41:32', '2018-06-21 17:20:00', 1, 1, 0, 1, '100000', 1),
+(5, 'Iphone 4s', '2290000', '3290000', '2018-06-21 00:44:54', '2018-06-21 17:25:00', 1, 1, 0, 1, '100000', 1),
+(6, 'Dell 3567', '1390000', '1690000', '2018-06-21 00:48:49', '2018-06-21 17:26:00', 1, 1, 0, 2, '100000', 1),
+(7, 'ASUS ZENBOOK 3', '35690000', '38690000', '2018-06-21 00:50:32', '2018-06-21 17:30:00', 1, 1, 0, 2, '100000', 1),
+(8, 'ASUS ZENBOOK 3 DELUX', '34690000', '36690000', '2018-06-21 00:54:26', '2018-06-21 17:30:00', 1, 1, 0, 2, '100000', 1),
+(9, 'Macbook Air', '20000000', '30000000', '2018-06-21 01:00:40', '2018-06-21 19:50:00', 1, 3, 0, 2, '100000', 1),
+(10, 'Laptop acer', '20000000', '25000000', '2018-06-21 01:03:25', '2018-06-21 19:52:00', 1, 3, 0, 2, '100000', 1),
+(11, 'Laptop lenovo', '11000000', '15000000', '2018-06-21 01:05:05', '2018-06-21 19:54:00', 1, 3, 0, 2, '100000', 1),
+(12, 'Laptop hp', '6000000', '8000000', '2018-06-21 01:06:49', '2018-06-21 19:55:00', 1, 3, 0, 2, '100000', 1),
+(13, 'Laptop Toshiba', '6800000', '8000000', '2018-06-21 01:10:10', '2018-06-21 19:57:00', 1, 3, 0, 2, '100000', 1),
+(14, 'Laptop MSI', '23000000', '25000000', '2018-06-21 01:11:48', '2018-06-21 20:50:00', 1, 3, 0, 2, '100000', 1),
+(15, 'Ti vi Sony', '13000000', '15000000', '2018-06-21 01:13:32', '2018-06-21 20:51:00', 1, 3, 0, 3, '100000', 1),
+(16, 'Ti vi Sámung', '14000000', '16000000', '2018-06-21 01:14:43', '2018-06-21 20:51:00', 1, 3, 0, 3, '100000', 1),
+(17, 'Nokia 1280', '200000', '400000', '2018-06-21 01:17:08', '2018-06-21 20:51:00', 1, 3, 0, 1, '50000', 1),
+(18, 'Điện thoại Philip', '250000', '300000', '2018-06-21 01:18:35', '2018-06-21 20:53:00', 1, 3, 0, 1, '50000', 1),
+(19, 'Điện thoại Oppo', '5000000', '6000000', '2018-06-21 01:20:06', '2018-06-21 20:55:00', 1, 3, 0, 1, '50000', 1),
+(20, 'Điện thoại HTC', '17000000', '20000000', '2018-06-21 01:21:50', '2018-06-21 20:57:00', 1, 3, 0, 1, '100000', 1);
 
 -- --------------------------------------------------------
 
@@ -326,13 +258,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`ID`, `NAME`, `ADDRESS`, `EMAIL`, `PHONE`, `DiemDanhGia`, `TYPE`, `STATUS`) VALUES
-(1, 'Nguyễn Quang Huy', '145 HB Quận 11', 'huynvp@gmail.com', '0966033066', 0, 1, 1),
-(2, 'Nguyễn Văn Hòa', 'djsahd', 'hjhh', '54545', 0, 0, 0),
-(3, 'Nguyễn Xuân Hiếu', '455', '54', '545', 0, 0, 1),
-(4, 'Nguyễn Văn Hòa', 'ew', 'cotinhtoan@gmail.com', '0906150150', 0, 1, 1),
-(5, 'Nhóm 1  ABC', '123 Hồng Bàng, Phường 1 Quận 11', 'nhom1@gmail.com', '0123456789', 9, 1, 1),
-(6, 'Nhóm 2  ABC', '123 Hồng Bàng, Phường 1 Quận 11', 'nhom1@gmail.com', '0123456789', 0, 1, 1),
-(7, 'test', '123 hn', '213132@xn--1ca9g.com', '0123456789', 0, 1, 1);
+(1, 'Nguyễn Quang Huy', '123 HB P1 Q11', 'huynvp@gmail.com', '0963852741', 0, 1, 1),
+(2, 'Nguyễn Xuân Hiếu', '123 HB P1 Q11', 'nxhieu@gmail.com', '0963852741', 0, 1, 1),
+(3, 'Nguyễn Văn Hòa', '123 HB P1 Q11', 'nvhoa@gmail.com', '0963852741', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -353,10 +281,8 @@ CREATE TABLE `xinduocban` (
 --
 
 INSERT INTO `xinduocban` (`ID`, `NguoiDung`, `ThoiGianXin`, `ThoiGianChapNhan`, `TrangThai`) VALUES
-(1, 1, '2018-06-20 00:14:45', '2018-06-20 00:14:52', 1),
-(4, 2, '2018-06-20 09:01:36', '2018-06-20 09:02:04', 1),
-(5, 5, '2018-06-19 22:24:17', '2018-06-19 22:24:38', 1),
-(6, 6, '2018-06-19 00:57:59', '2018-06-19 00:58:06', 1);
+(1, 1, '2018-06-21 00:27:48', '2018-06-21 00:27:54', 1),
+(2, 3, '2018-06-21 00:57:55', '2018-06-21 00:58:02', 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -461,55 +387,55 @@ ALTER TABLE `caplaimatkhau`
 -- AUTO_INCREMENT cho bảng `danhmuc`
 --
 ALTER TABLE `danhmuc`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `danhsachyeuthich`
 --
 ALTER TABLE `danhsachyeuthich`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `daugia`
 --
 ALTER TABLE `daugia`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `login`
 --
 ALTER TABLE `login`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `mota`
 --
 ALTER TABLE `mota`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `nhanxet`
 --
 ALTER TABLE `nhanxet`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `xinduocban`
 --
 ALTER TABLE `xinduocban`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

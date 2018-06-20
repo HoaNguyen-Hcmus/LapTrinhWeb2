@@ -31,7 +31,7 @@ var upload = multer({
 });
 
 
-router.get('/danhmuc', checkToken.checkTokenUser, (req, res) => {
+router.get('/danhmuc', (req, res) => {
 	nguoibanRepo.showDanhMuc()
 	.then(rows => {
 		res.statusCode = 200;

@@ -23,10 +23,15 @@ $(document).ready(function () {
 		dataType:'json',
 		type:'GET'
 	}).done(function(data){
+		var xhtml = "";
 		html='<option value="0">Lựa chọn danh mục</option>';
 		$(data.danhmuc).each(function(index,val){
 			html+='<option value="'+val.ID+'">'+val.Ten+'</option>';
+			xhtml+= '<li class="list-group-item"> ' + val.Ten + '</li>';
 		});
+
+
+		$('#list-danhmuc').html(xhtml);
 		$('#danhmuc').html(html);
 	}).fail(function(){
 		console.log('error');
@@ -323,7 +328,6 @@ $("#content2").on('click', '.btn-like-list', function() {
 	}, 
 	jsonPost = JSON.stringify(dataPost);
 
-	console.log(jsonPost);
 	$.ajax({
 		url: 'http://localhost:3000/sanpham/addLikeList',
 		type: 'POST',
@@ -335,15 +339,9 @@ $("#content2").on('click', '.btn-like-list', function() {
 		contentType: 'application/json'
 	})
 	.done(function(data) {
-		console.log(data);
-		if(data.affrow>0){
-			swal("success", "Thêm vào danh sách thành công", "success");
-		}
-		else
-			swal("Lỗi", "Sản Phẩm đã có trong danh sách yêu thích", "error");
+		swal("success", "Thêm vào danh sách thành công", "success");
 	})
 	.fail(function(err) {
-		console.log(err);
 		if(err.status == 403){
 			window.location.href = 'login.html';
 		} else if(err.status == 500) {

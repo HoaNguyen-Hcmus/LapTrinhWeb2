@@ -100,7 +100,7 @@ var htmlSearch=`<!DOCTYPE html>
 			<div class="thumbnail">
 				<img src="http://localhost:3000/{{ID}}/image1.png" class="img-responsive" alt="Image">
 				<div class="caption">
-					<a href="ChiTietSanPham?{{ID}}"><h4><span class="label label-success">{{Ten}}</span><span class="badge">{{moi}}</span></h4></a>
+					<a href="ChiTietSanPham.html?id={{ID}}"><h4><span class="label label-success">{{Ten}}</span><span class="badge">{{moi}}</span></h4></a>
 					<h5>Giá hiện tại: {{giahientai}}</h5>
 					<h5>Giá mua ngay: {{GiaMuaNgay}}</h5>
 					<h5>Thời gian còn lại : {{hanban}} phút</h5>

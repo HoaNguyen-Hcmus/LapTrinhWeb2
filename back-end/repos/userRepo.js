@@ -76,57 +76,57 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
     if(danhmuc!=0)
     {
         if(sapxep==1){
-            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
-                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
-                 from sanpham sp, daugia dg, user u
-                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
-                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+            sql=`select ID,Ten,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+                (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
+                from sanpham sp 
+                where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%' and  DanhMuc=${danhmuc}
                  order by sp.ThoiHanBan desc
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==2){
-            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
-                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
-                 from sanpham sp, daugia dg, user u
-                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
-                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
-                 order by dg.GiaDuaRa asc
+            sql=`select ID,Ten,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+                (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
+                from sanpham sp 
+                where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%' and  DanhMuc=${danhmuc}
+                 order by (SELECT max(GiaDuaRa) from daugia where SanPham=sp.ID) asc
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==0){
-            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
-                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
-                 from sanpham sp, daugia dg, user u
-                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%' and  DanhMuc=${danhmuc}
-                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+            sql=`select ID,Ten,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+                (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
+                from sanpham sp 
+                where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%' and  DanhMuc=${danhmuc}
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
     }
     else{
         if(sapxep==1){
-            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
-                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
-                 from sanpham sp, daugia dg, user u
-                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%'
-                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+            sql=`select ID,Ten,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+                (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
+                from sanpham sp 
+                where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%'
                  order by sp.ThoiHanBan desc
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==2){
-            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
-                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
-                 from sanpham sp, daugia dg, user u
-                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%'
-                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
-                 order by dg.GiaDuaRa asc
+            sql=`select ID,Ten,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+                (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
+                from sanpham sp 
+                where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%'
+                 order by (SELECT max(GiaDuaRa) from daugia where SanPham=sp.ID) asc
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==0){
-            sql=`select sp.Ten, sp.ID, sp.GiaMuaNgay, timediff(sp.ThoiHanBan,now()) as hanban, max(dg.GiaDuaRa) as giahientai, sp.SoLuotRaGia, u.NAME,datediff(now(),sp.GioDang) as moidang
-                 ,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi
-                 from sanpham sp, daugia dg, user u
-                 where sp.ID=dg.SanPham and u.ID=dg.NguoiRaGia and Ten like '%${search}%'
-                 GROUP BY sp.Ten, sp.ID, sp.GiaMuaNgay,sp.SoLuotRaGia,u.NAME,dg.GiaDuaRa
+            sql=`select ID,Ten,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+                (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
+                from sanpham sp 
+                where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%'
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
     }

@@ -29,8 +29,7 @@ exports.updatePass=function(userID,pass)
 
 exports.selectEvaluation=function(userID)
 {
-	//var sql=`select * from  nhanxet nx,user u where nx.NguoiDuocNhanXet=${userID} and nx.NguoiDuocNhanXet=u.ID`;
-	var sql=`select nx.LoiNhanXet,nx.ThoiGian,u.NAME from  nhanxet nx,user u where nx.NguoiDuocNhanXet=${userID} and nx.NguoiNhanXet=u.ID`;
+	var sql=`select (select NAME from user where ID=nx.NguoiNhanXet) as NAME, nx.LoiNhanXet,nx.ThoiGian,u.DiemDanhGia from  nhanxet nx,user u where nx.NguoiDuocNhanXet=${userID} and nx.NguoiDuocNhanXet=u.ID`;
 	return db.load(sql);
 }
 
@@ -43,7 +42,7 @@ exports.selectFavorite=function(userID)
 
 exports.selectAuction=function(userID)
 {
-	var sql=`select DISTINCT sp.ID,sp.Ten from daugia dg,sanpham sp where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1`;
+	var sql=`select DISTINCT sp.ID,sp.Ten from daugia dg,sanpham sp where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1 and timediff(ThoiHanBan,now())>0`;
 	return db.load(sql);
 }
 

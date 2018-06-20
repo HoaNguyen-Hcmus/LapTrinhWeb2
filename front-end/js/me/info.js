@@ -410,7 +410,7 @@ $(document).ready(function() {
 			}).done(function(data){
 				swal("Nhận xét thành công");
 			}).fail(function(xhr,textStatus,error){
-				swal("Nhận xét thất bại");
+				swal("Bạn đã nhận xét người bán này rồi");
 				console.log(textStatus);
             	console.log(error);
            	 	console.log(xhr);

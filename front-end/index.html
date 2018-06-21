@@ -76,7 +76,7 @@
 							
 						</ul>
 					</li>
-					
+
 					<li class="dropdown" id="logined">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<span id="user"></span>
@@ -105,8 +105,8 @@
 		<a class="btn btn-primary" href="DangBanSanPham.html" id="DangSP" role="button">Đăng bán sản phẩm</a>
 		<hr>
 		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 align=center class="panel-title">Top 5 sản phẩm có nhiều lượt ra giá nhất</h3>
+			<div class="panel-heading" id="Top5RaGia">
+				<h3 align=center class="panel-title" id ="Top5RaGia-title">Top 5 sản phẩm có nhiều lượt ra giá nhất</h3>
 			</div>
 			<div class="panel-body">
 				<div class="row" id="Top5RaGia-list">
@@ -116,12 +116,15 @@
 				<div class="row">
 					<br>
 					<div class="col-sm-12 col-md-12">
+						<button id="btnMore" name="btnMore" type="button" class="btn btn-large btn-block btn-success">
+							<h4>Load more...</h4>
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="panel panel-success">
+		<div class="panel panel-success" id="Top5Gia">
 			<div class="panel-heading">
 				<h3 align=center class="panel-title">Top 5 sản phẩm có giá cao nhất</h3>
 			</div>
@@ -138,7 +141,7 @@
 			</div>
 		</div>
 
-		<div class="panel panel-info">
+		<div class="panel panel-info" id="Top5GanKetThuc">
 			<div class="panel-heading">
 				<h3 align=center class="panel-title">Top 5 sản phẩm gần kết thúc</h3>
 			</div>

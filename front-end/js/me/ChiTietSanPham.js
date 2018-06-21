@@ -74,7 +74,7 @@ var loadData = function(data, nguoigiugia) {
 };
 
 var loadProfile = function(data) {
-	console.log(data);
+	//console.log(data);
 	$("#nhanxet-name").html("<strong>Họ tên: </strong>" + data.data[0].NAME);
 	$("#nhanxet-score").html("<strong>Điểm đánh giá: </strong>" + data.data[0].DiemDanhGia);
 
@@ -179,6 +179,7 @@ $(document).ready(function () {
 			swal("Thông báo", "Thêm vào danh sách yêu thích thành công", "success");
 		})
 		.fail(function(err) {
+			console.log(err);
 			if(err.status == 403){
 				window.location.href = 'login.html';
 			} else if(err.status == 500) {
@@ -280,7 +281,7 @@ $(document).ready(function () {
 					nguoiragia: localStorage.id_token,
 					giaduara: $("#price").val()
 				}, jsonPost = JSON.stringify(dataPost);
-				console.log(dataPost);
+				//console.log(dataPost);
 				$.ajax({
 					url: 'http://localhost:3000/sanpham/daugia',
 					type: 'POST',
@@ -292,22 +293,19 @@ $(document).ready(function () {
 					contentType: "application/json"
 				})
 				.done(function(data) {
-					console.log(data);
+					//console.log(data);
 					loadDauGia(data.daugia);
 					loadData(data.data[0], data.nguoigiugia[0])
 					swal("Bạn đã ra giá thành công!", {
 						icon: "success",
 					});
-					console.log("success");
+					//console.log("success");
 				})
 				.fail(function(err) {
 					swal("Bạn đã ra giá thất bại!", {
 						icon: "error",
 					});
 					console.log(err);
-				})
-				.always(function() {
-					console.log("complete");
 				});
 			} else {
 				swal("Bạn đã hủy cuộc ra giá này!");

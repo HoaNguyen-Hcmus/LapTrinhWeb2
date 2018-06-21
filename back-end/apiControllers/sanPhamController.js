@@ -71,29 +71,18 @@ router.get('/top/ganketthuc', (req, res) => {
 });
 
 router.post('/addLikeList', checkToken.checkTokenUser, (req, res) => {
-	sanPhamRepo.loadsanPhamYeuThichChoUser(req.body.NguoiDung,req.body.SanPham).then(rows => {
-		if (rows.length == 0) {
-			sanPhamRepo.addLikeList(req.body.NguoiDung, req.body.SanPham)
-				.then(insertID => {
-					res.statusCode = 200;
-					res.json({
-						affrow: insertID
-					})
-				})
-				.catch(err => {
-					res.statusCode = 500;
-					res.json({
-						err: `Lỗi: ${err}`
-					})
-				})
-		}
-		else{
-			var poco = {
-				affrow: 0
-			}
-			res.statusCode = 201;
-			res.json(poco);
-		}
+	sanPhamRepo.addLikeList(req.body.NguoiDung, req.body.SanPham)
+	.then(insertID => {
+		res.statusCode = 200;
+		res.json({
+			affrow: insertID
+		})
+	})
+	.catch(err => {
+		res.statusCode = 500;
+		res.json({
+			err: `Lỗi: ${err}`
+		})
 	})
 });
 

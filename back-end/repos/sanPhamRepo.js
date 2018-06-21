@@ -67,7 +67,7 @@ exports.loadDauGia = function(sp) {
 }
 
 exports.dauGia = function(sanpham, nguoiragia, giaduara) {
-	var sql = `INSERT INTO daugia(SanPham, NguoiRaGia, GiaDuaRa, TrangThaiKick, CoThangCuoc, ThoiGianDuaRa) VALUES (${sanpham},${nguoiragia},${giaduara}, 0, 0, NOW())`;
+	var sql = `INSERT INTO daugia(SanPham, NguoiRaGia, GiaDuaRa, TrangThaiKick, CoThangCuoc, ThoiGianDuaRa) VALUES (${sanpham},${nguoiragia},${giaduara}, 0, 1, NOW())`;
 
 	return db.insert(sql);
 }

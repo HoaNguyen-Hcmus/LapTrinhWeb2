@@ -327,6 +327,7 @@ $("#content2").on('click', '.btn-like-list', function() {
 		SanPham: $(this).data("id")
 	}, 
 	jsonPost = JSON.stringify(dataPost);
+	//console.log(jsonPost);
 
 	$.ajax({
 		url: 'http://localhost:3000/sanpham/addLikeList',
@@ -356,7 +357,7 @@ $("#content2").on('click', '.btn-xin-ban', function() {
 	}, 
 	jsonPost = JSON.stringify(dataPost);
 
-	console.log(jsonPost);
+	//console.log(jsonPost);
 	$.ajax({
 		url: 'http://localhost:3000/Signup/xinban',
 		type: 'POST',

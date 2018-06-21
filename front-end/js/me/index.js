@@ -17,21 +17,16 @@ $(document).ready(function () {
 	loadTop5Gia();
 	loadTop5GanKetThuc();
 	btnXinban();
-	//Hòa nguyễn thực hiện load danh mục
+		//Hòa nguyễn thực hiện load danh mục
 	$.ajax({
 		url: 'http://localhost:3000/search/danhmuc',
 		dataType:'json',
 		type:'GET'
 	}).done(function(data){
-		var xhtml = "";
 		html='<option value="0">Lựa chọn danh mục</option>';
 		$(data.danhmuc).each(function(index,val){
 			html+='<option value="'+val.ID+'">'+val.Ten+'</option>';
-			xhtml+= '<li class="list-group-item"> ' + val.Ten + '</li>';
 		});
-
-
-		$('#list-danhmuc').html(xhtml);
 		$('#danhmuc').html(html);
 	}).fail(function(){
 		console.log('error');

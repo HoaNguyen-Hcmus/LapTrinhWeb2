@@ -76,8 +76,8 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
     if(danhmuc!=0)
     {
         if(sapxep==1){
-            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
-                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,(select count(SanPham) from daugia where SanPham=sp.ID)as SoLuotRaGia,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 
                 where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%' and  DanhMuc=${danhmuc}
@@ -85,8 +85,8 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==2){
-            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
-                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,(select count(SanPham) from daugia where SanPham=sp.ID)as SoLuotRaGia,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 
                 where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%' and  DanhMuc=${danhmuc}
@@ -94,8 +94,8 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==0){
-            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
-                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,(select count(SanPham) from daugia where SanPham=sp.ID)as SoLuotRaGia,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 
                 where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%' and  DanhMuc=${danhmuc}
@@ -104,8 +104,8 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
     }
     else{
         if(sapxep==1){
-            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
-                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,(select count(SanPham) from daugia where SanPham=sp.ID)as SoLuotRaGia,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 
                 where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%'
@@ -113,8 +113,8 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==2){
-            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
-                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,(select count(SanPham) from daugia where SanPham=sp.ID)as SoLuotRaGia,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 
                 where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%'
@@ -122,8 +122,8 @@ exports.loadSanPhamTheoSapXep=function(page,search,danhmuc,sapxep){
                  limit ${constants.PRODUCTS_PER_PAGE + 1} offset ${offset}`;
         }
         if(sapxep==0){
-            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,
-                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,SoLuotRaGia,
+            sql=`select ID,Ten,if(datediff(now(),sp.GioDang)<=1,"New","Old") as moi,(select count(SanPham) from daugia where SanPham=sp.ID)as SoLuotRaGia,
+                (select max(GiaDuaRa) from daugia where SanPham=sp.ID)as giahientai,GiaMuaNgay,timediff(sp.ThoiHanBan,now()) as hanban,
                 (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where sanpham=1)) as NAME
                 from sanpham sp 
                 where timediff(ThoiHanBan,now())>0  and Ten like '%${search}%'
@@ -140,3 +140,10 @@ exports.selectAllDanhMuc=function(){
 }
 
 //-------------------------------------------------------------
+
+//---Hòa kiểm tra email 
+exports.selectMail=function(mail){
+    var sql=`select * from user where EMAIL like '${mail}'`;
+    return db.load(sql);
+}
+//----

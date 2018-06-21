@@ -11,9 +11,6 @@ $(document).ready(function() {
 	    		name:{
 	    			required: true
 	    		},
-	    		birth:{
-	    			required: true
-	    		},
 	    		address:{
 	    			required: true
 	    		},
@@ -40,9 +37,6 @@ $(document).ready(function() {
 	    	messages:{
 	    		name:{
 	    			required: 'Bạn chưa nhập tên'
-	    		},
-	    		birth:{
-	    			required: 'Bạn chưa cung cấp ngày sinh'
 	    		},
 	    		address:{
 	    			required: 'Bạn chưa cung cấp thông tin địa chỉ'
@@ -86,7 +80,6 @@ $(document).ready(function() {
 		//swal('Người dùng đăng kí');
 		var data = {
 			name: $("#name-sign-up").val(),
-			birth: $("#birth-sign-up").val(),
 			address: $("#address-sign-up").val(),
 			phone: $("#phone-sign-up").val(),
 			mail: $("#mail-sign-up").val(),
@@ -110,14 +103,10 @@ $(document).ready(function() {
 				contentType: 'application/json',
 				data: JSON.stringify(data)
 			}).done(function(data){
-				if(data.success){
-					swal("Đăng kí thành công");
-				}else{
-					grecaptcha.reset();
-					swal("Đăng kí thành công");
-				}
-				//alert('Added');	
+				console.log(data);
+				swal("Đăng kí thành công");	
 			}).fail(function(xhr,textStatus,error){
+				swal("Đăng kí thất bại, tài khoản hoặc mail của bạn đã tồn tại");	
 				console.log(textStatus);
 				console.log(error);
 				console.log(xhr);
@@ -127,7 +116,6 @@ $(document).ready(function() {
 			//ajax event
 		}
 	});
-
 	$("#btn-log-in").on('click', function() {
 		//swal('Người dùng đăng nhập');
 		//ajax event

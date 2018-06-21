@@ -36,19 +36,34 @@ exports.selectEvaluation=function(userID)
 
 exports.selectFavorite=function(userID)
 {
-	var sql=`select * from sanpham sp,danhsachyeuthich dsyt where dsyt.NguoiDung=${userID} and dsyt.SanPham=sp.ID `;
+	var sql=`select *,timediff(sp.ThoiHanBan,now())as hanban,(select count(SanPham) from daugia where SanPham=sp.ID)as SoLuotRaGia,
+				(select max(GiaDuaRa) from daugia where SanPham=sp.ID)as GiaHienTai,
+				(select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where SanPham=sp.ID)) as NAME
+				 from sanpham sp,danhsachyeuthich dsyt 
+				 where dsyt.NguoiDung=${userID} and dsyt.SanPham=sp.ID `;
 	return db.load(sql);
 }
 
 exports.selectAuction=function(userID)
 {
-	var sql=`select DISTINCT sp.ID,sp.Ten from daugia dg,sanpham sp where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1 and timediff(ThoiHanBan,now())>0`;
+	// var sql=`select DISTINCT sp.ID,sp.Ten 
+	// 		from daugia dg,sanpham sp
+	// 		 where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1 and timediff(ThoiHanBan,now())>0`;
+	var sql=`select *,timediff(sp.ThoiHanBan,now())as hanban,(select count(SanPham) from daugia where SanPham=sp.ID)as SoLuotRaGia,
+				(select max(GiaDuaRa) from daugia where SanPham=sp.ID)as GiaHienTai,
+				(select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where SanPham=sp.ID)) as NAME,
+				if((select NAME from user where ID=dg.NguoiRaGia)like (select NAME from user u,daugia where u.ID=NguoiRaGia and SanPham=sp.ID and GiaDuaRa=(select max(GiaDuaRa) from daugia where SanPham=sp.ID)) ,'Giữ giá','Không giữ giá') as CoDungDau
+				from daugia dg,sanpham sp
+			 where NguoiRaGia=${userID} and dg.SanPham=sp.ID and sp.TrangThai=1 and timediff(ThoiHanBan,now())>0`;
 	return db.load(sql);
 }
 
 exports.selectWin=function(userID)
 {
-	var sql=`select * from daugia dg,sanpham sp, user u where timediff(sp.ThoiHanBan,now())<=0 and NguoiRaGia=${userID} and dg.SanPham=sp.ID and CoThangCuoc=1 and sp.NguoiBan= u.ID order by dg.GiaDuaRa desc`;
+	var sql=`select * 
+			from daugia dg,sanpham sp, user u
+			 where timediff(sp.ThoiHanBan,now())<=0 and NguoiRaGia=${userID} 
+			 	and dg.SanPham=sp.ID and CoThangCuoc=1 and sp.NguoiBan= u.ID order by dg.GiaDuaRa desc`;
 	return db.load(sql);
 } 
 

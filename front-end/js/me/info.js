@@ -76,6 +76,81 @@ $(document).ready(function() {
 			});
 		});
 
+// <div class="modal fade" id="modal-xemnhanh">
+// 	                        <div class="modal-dialog">
+// 	                            <div class="modal-content">
+// 	                                    <div class="modal-header">
+// 	                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+// 	                                        <h4 class="modal-title">`+item.Ten+`</h4>
+// 	                                    </div>
+// 	                                    <div class="modal-body">
+// 	                                        <div class="form-group">
+// 	                                            <img src="http://localhost:3000/`+item.SanPham+`/image1.png" class="img-responsive" alt="Image">
+// 	                                            <a href="ChiTietSanPham.html?id=`+item.SanPham+`"><h4><span class="label label-success">`+item.Ten+`</span></h4></a>
+// 												<h5>Giá hiện tại: `+item.GiaHienTai+`</h5>
+// 												<h5>Giá mua ngay: `+item.GiaMuaNgay+`</h5>
+// 												<h5>Thời gian còn lại : `+item.hanban+` phút</h5>
+// 												<h5>Số lượt ra giá : `+item.SoLuotRaGia+`</h5>
+// 												<p style="height: 36px;">Người đang giữ giá: `+item.NAME+`</p>
+// 												<p>
+// 													<a href="ChiTietSanPham.html?id=`+item.SanPham+`" class="btn btn-primary" class="btn btn-primary">
+// 													<span class="glyphicon glyphicon-eye-open"></span>
+// 													Details 
+// 													</a> 
+// 													<a href="javascript:;" data-id="`+item.ID+`" class="btn btn-warning btn-like-list">
+// 													<span class="glyphicon glyphicon-heart"></span>
+// 													 Yêu thích
+// 													</a>
+// 												</p>
+// 	                                        </div>
+// 	                                    </div>
+// 	                                    <div class="modal-footer">
+// 	                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+// 	                                    </div>
+// 	                            </div>
+// 	                        </div>
+// 	                    </div>
+
+
+
+var modalXemNhanhFavorite=function(Ten,SanPham,GiaHienTai,GiaMuaNgay,HanBan,SoLuotRaGia,Name)
+{
+	var temp=`<div class="modal fade" id="modal-xemnhanh">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">`+Ten+`</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <img src="http://localhost:3000/`+SanPham+`/image1.png" class="img-responsive" alt="Image">
+                            <a href="ChiTietSanPham.html?id=`+SanPham+`"><h4><span class="label label-success">`+Ten+`</span></h4></a>
+							<h5>Giá hiện tại: `+GiaHienTai+`</h5>
+							<h5>Giá mua ngay: `+GiaMuaNgay+`</h5>
+							<h5>Thời gian còn lại : `+HanBan+` phút</h5>
+							<h5>Số lượt ra giá : `+SoLuotRaGia+`</h5>
+							<p style="height: 36px;">Người đang giữ giá: `+Name+`</p>
+							<p>
+								<a href="ChiTietSanPham.html?id=`+SanPham+`" class="btn btn-primary" class="btn btn-primary">
+								<span class="glyphicon glyphicon-eye-open"></span>
+								Details 
+								</a> 
+								<a href="javascript:;" data-id="`+SanPham+`" class="btn btn-warning btn-like-list">
+								<span class="glyphicon glyphicon-heart"></span>
+								 Yêu thích
+								</a>
+							</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+            </div>
+        </div>
+    </div>`
+    return temp;
+};
 		// Xuất thông tin sản phẩm yêu thích
 		$.ajax({
 			url:'http://localhost:3000/info/favorite/'+id_user,
@@ -90,11 +165,53 @@ $(document).ready(function() {
 				'<tr>'+
 					'<td>'+ i + '</td>'+
 					'<td><a href="ChiTietSanPham.html?id='+item.SanPham+'">'+ item.Ten + '</a></td>'+
+					'<td>'+
+						`<div>
+	                    	<li class="btn btn-success" data-toggle="modal" href='`+ modalXemNhanhFavorite(item.Ten,item.SanPham,item.GiaHienTai,item.GiaMuaNgay,item.hanban,item.SoLuotRaGia,item.NAME)+`'>`+item.Ten+`</li>
+	               		</div>`
+                	+'</td>'+
 				'</tr>';
 				$('#list-favorite').append(tr);
 			});
 		});
-
+var modalXemNhanhDauGia=function(Ten,SanPham,GiaHienTai,GiaMuaNgay,HanBan,SoLuotRaGia,Name,CoDungDau)
+{
+	var temp=`<div class="modal fade" id="modal-xemnhanh">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">`+Ten+`</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <img src="http://localhost:3000/`+SanPham+`/image1.png" class="img-responsive" alt="Image">
+                            <a href="ChiTietSanPham.html?id=`+SanPham+`"><h4><span class="label label-success">`+Ten+`</span><span class="badge">`+CoDungDau+`</span></h4></a>
+							<h5>Giá hiện tại: `+GiaHienTai+`</h5>
+							<h5>Giá mua ngay: `+GiaMuaNgay+`</h5>
+							<h5>Thời gian còn lại : `+HanBan+` phút</h5>
+							<h5>Số lượt ra giá : `+SoLuotRaGia+`</h5>
+							<p style="height: 36px;">Người đang giữ giá: `+Name+`</p>
+							<p>
+								<a href="ChiTietSanPham.html?id=`+SanPham+`" class="btn btn-primary" class="btn btn-primary">
+								<span class="glyphicon glyphicon-eye-open"></span>
+								Details 
+								</a> 
+								<a href="javascript:;" data-id="`+SanPham+`" class="btn btn-warning btn-like-list">
+								<span class="glyphicon glyphicon-heart"></span>
+								 Yêu thích
+								</a>
+							</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+            </div>
+        </div>
+    </div>`
+    return temp;
+};
 		//Xuất thông tin sản phẩm tham gia đấu giá
 		$.ajax({
 			url:'http://localhost:3000/info/auction/'+id_user,
@@ -108,12 +225,51 @@ $(document).ready(function() {
 				var tr=
 				'<tr>'+
 					'<td>'+ i + '</td>'+
-					'<td><a href="ChiTietSanPham.html?id='+item.ID+'">'+ item.Ten + '</a></td>'+
+					'<td><a href="ChiTietSanPham.html?id='+item.ID+'">'+ item.Ten + '   </a><span class="badge"> '+item.CoDungDau+' </span></td>'+
+					'<td>'+
+						`<div>
+	                    	<li class="btn btn-success" data-toggle="modal" href='`+ modalXemNhanhDauGia(item.Ten,item.SanPham,item.GiaHienTai,item.GiaMuaNgay,item.hanban,item.SoLuotRaGia,item.NAME,item.CoDungDau)+`'>`+item.Ten+`</li>
+	               		</div>`
+                	+'</td>'+
 				'</tr>';
 				$('#list-auction').append(tr);
 			});
 		});
-
+var modalXemNhanhDaThang=function(Ten,SanPham,GiaDaThang,Name)
+{
+	var temp=`<div class="modal fade" id="modal-xemnhanh">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">`+Ten+`</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <img src="http://localhost:3000/`+SanPham+`/image1.png" class="img-responsive" alt="Image">
+                            <a href="ChiTietSanPham.html?id=`+SanPham+`"><h4><span class="label label-success">`+Ten+`</span></h4></a>
+							<h5>Người bán: `+Name+`</h5>
+							<p style="height: 36px;">Giá đấu giá: `+GiaDaThang+`</p>
+							<p>
+								<a href="ChiTietSanPham.html?id=`+SanPham+`" class="btn btn-primary" class="btn btn-primary">
+								<span class="glyphicon glyphicon-eye-open"></span>
+								Details 
+								</a> 
+								<a href="javascript:;" data-id="`+SanPham+`" class="btn btn-warning btn-like-list">
+								<span class="glyphicon glyphicon-heart"></span>
+								 Yêu thích
+								</a>
+							</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+            </div>
+        </div>
+    </div>`
+    return temp;
+};
 		//Xuất danh sách sản phẩm đã thắng
 		$.ajax({
 			url:'http://localhost:3000/info/win/'+id_user,
@@ -131,6 +287,11 @@ $(document).ready(function() {
 					'<td>'+ item.GiaDuaRa + '</td>'+
 					// '<td'+ modalNhanXetNguoiBan +'</td>'
 					'<td>'+ '<a href="nhanxet.html?id='+item.SanPham+'&loai=1"> Nhận xét và đánh giá sản phẩm </a>'  +'</td>'+
+					'<td>'+
+						`<div>
+	                    	<li class="btn btn-success" data-toggle="modal" href='`+ modalXemNhanhDaThang(item.Ten,item.SanPham,item.GiaDuaRa,item.NAME)+`'>`+item.Ten+`</li>
+	               		</div>`
+                	+'</td>'+
 					'</tr>';
 
 				$('#list-win').append(tr);

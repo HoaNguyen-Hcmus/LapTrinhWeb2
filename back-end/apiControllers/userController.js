@@ -5,26 +5,23 @@ var axios = require('axios');
 var constants=require('../fn/const.js');
 var checkToken = require('../fn/checkToken');
 
-//Capchar
-// var Recaptcha=require('express-recaptcha');
-
-// var recaptcha=new Recaptcha('6LfmFVoUAAAAAJMZ1xUKr7VwZNM2ATGiRlC-8BtD','6LfmFVoUAAAAAO221CXMnOdhP_rCazwUWaHJYhqg');
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded());
-
-// app.use(express.static(pub));
-// app.set('views', __dirname + '/views');
-// app.set('view engine', 'jade');
-
-// app.post('/Signup', function(req, res){
-//     recaptcha.verify(req, function(error, data){
-//         if(!error)
-//             //success code
-//         else
-//             //error code
-//     });
-// });
-// end capchar
+// Hòa chức năng recapcha
+// var bodyParser = require('body-parser');
+// var pub = __dirname + '/public';
+// router = express();
+// var Recaptcha = require('express-recaptcha').Recaptcha;
+ 
+// var recaptcha = new Recaptcha('6LdIoVoUAAAAAI3sKMfFrrJ0abGsl5kC8_CIdsob', '6LdIoVoUAAAAAF7rtLgBGq_KTuARALa6wh83pr7r');
+ 
+// //- required by express-recaptcha in order to get data from body or query.
+// router.use(bodyParser.json());
+// router.use(bodyParser.urlencoded());
+ 
+// router.use(express.static(pub));
+// router.set('views', __dirname + '/views');
+// router.set('view engine', 'jade');
+ 
+//------------
 
 router.get('/', (req, res) => {
 	userRepo.loadAll().then(rows => {
@@ -36,63 +33,63 @@ router.get('/', (req, res) => {
 	});
 });
 
-router.post('/Signup', (req, res) => {
-	var secret = '6LdIoVoUAAAAAI3sKMfFrrJ0abGsl5kC8_CIdsob';
-	var captcha_response = req.body.captcha_response;
-
-	var url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${captcha_response}`;
-
-	var userID = 1;
-	axios.post(url, {
-	}, {
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
-			}
-		})
-		.then(function (response) {
-
-			res.json(response.data);
-			if (response.data) {
-
-				userRepo.selectUser_ID().then(rows => {
-					if (rows.length > 0) {
-						userID = rows[0].maxID;
-					}
-				}).catch(err => {
-					console.log(err);
-					res.statusCode = 500;
-					res.json('error');
-				});
-				var userName = req.body.user;
-				userRepo.checkUser(userName).then(rows => {
-					if (rows.length > 0) {
-						res.statusCode = 500;
-						res.json('error');
-					} else {
-						userRepo.add(req.body).then(insertID => {
-							res.statusCode = 201;
-
-							res.json(req.body);
-
-							res.json({ mess: "Them thanh cong" });
-
-						})
-							.catch(err => {
-								console.log(err);
-								res.statusCode = 500;
-								res.end();
-							});
-						userRepo.addLogin(req.body, userID + 1);
-					}
-				});
-
-			}
-
-		})
-		.catch(function (error) {
-			res.end('fail');
+// Hòa chức năng đăng kí
+// router.post('/Signup',recaptcha.middleware.verify,function(req,res){
+	router.post('/Signup',(req,res)=>{
+    // if(!req.recaptcha.error)
+    // {
+    	var userID = 1;
+	 	userRepo.selectUser_ID().then(rows => {
+	 		if (rows.length > 0) {
+	 			userID = rows[0].maxID;
+	 		}
+	 	});
+	 	userRepo.checkUser(req.body.user).then(rows=>{
+	 		if(rows.length==0){
+		 		userRepo.selectMail(req.body.mail).then(rows=>{
+		 			if(rows.length==0){
+		 				userRepo.add(req.body).then(insertID=>{
+		 					userRepo.addLogin(req.body, userID + 1).then(insertID=>{
+		 						res.json({
+		 							data: req.body,
+		 							mess: 'Dang ki thanh cong'
+		 						})
+		 					})
+		 				})
+		 			}
+		 			else
+				 	{
+				 		console.log(err);
+						res.statusCode=402;
+						res.end('Mail da ton tai');
+				 	}
+		 		}).catch(err=>{
+				console.log(err);
+				res.statusCode=402;
+				res.end('Mail da ton tai');
+			});
+		 	}
+		 	else
+		 	{
+		 		console.log(err);
+				res.statusCode=402;
+				res.end('Ten dang nhap da ton tai');
+		 	}
+	 	}).catch(err=>{
+			console.log(err);
+			res.statusCode=401;
+			res.end('View error log on console');
 		});
+	// }    
+ //    else
+ //    {
+ //       console.log(err);
+	// 	res.statusCode=402;
+	// 	res.end('Chua chon capchar');
+ //    }
 });
+
+//----------------------------------
 
 router.post('/xinban', checkToken.checkTokenUser, (req, res) => {
 	userRepo.loadUserXinBan(req.body.userID).then(rows => {
